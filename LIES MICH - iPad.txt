@@ -199,3 +199,23 @@ Bereich 5 "Schiene" bei jedem Fenster:
 - Materialliste: Profile (Stangen bzw. abgelängte Längen) und Zubehör.
   Darunter der Zuschnittplan: welche Stücke aus welcher 6-m-Stange, mit Rest.
 - Aufmaßblatt: Zeile "Schiene".
+
+Plissee (Leha)
+--------------
+Eigener Reiter "Plissee" je Auftrag:
+- "+ Plissee" legt ein Plissee an (übernimmt Bereich, Typ, Montage, Stoff,
+  und Bedienung vom vorigen). Duplizieren / Löschen je Karte.
+- Je Plissee: Bereich, Raum/Fenster, Stück, Typ (VS2, VS1, F1, Dachfenster,
+  Sonderform), Montage (Glasleiste Spannschuh/geklebt, Klemmträger, Flügel
+  geschraubt, Wand, Decke, Nische, Dachfenster), "Gemessen als"
+  (Glasleistenmaß, Flügelaußenmaß, Lichtmaß, Fertigmaß), Breite, Höhe,
+  Glasleistentiefe, Stoff, Profilfarbe, Bedienung + Seite, Notiz.
+- Bestellmaß: Standard "Leha zieht ab" (Bestellmaß = gemessen). Wer selbst
+  abzieht: "Eigene Abzüge …" je Montageart eintragen (gilt für alle Aufträge
+  und Geräte). Beim Fertigmaß wird nie abgezogen.
+- Hinweise, wenn Maße, Stoff, Glasleistentiefe (Spannschuh) oder
+  Bedienseite (Schnurzug) fehlen.
+- "Bestellung an Leha drucken": Bestellliste im Querformat mit
+  Kommission, Maßen, Bestellmaß, Stoff, Profil und Bedienung.
+- Plissees stehen auch auf dem Aufmaßblatt und in der Materialliste und
+  kommen über den Abgleich auf alle Geräte.

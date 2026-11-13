@@ -22,7 +22,7 @@
   --paper:#f3f5f8; --surface:#ffffff; --ink:#1b2331; --muted:#5d6879; --line:#d6dce6;
   --indigo:#2d4a8c; --indigo-soft:#e5ebf7; --thread:#b93a32; --ok:#2f7a4f; --warn:#a15c06; --warn-soft:#fbf0dd;
   --c1:#2d5fa8; --c1s:#e6eefa; --c2:#c26a12; --c2s:#fdf0e1; --c3:#2f7d55; --c3s:#e5f4ec; --c4:#7a4aa6; --c4s:#f1e9f9; --c5:#c99a1a; --c5s:#fbf5df;
-  --s1:#7a4aa6; --s1s:#f4eefa; --s2:#c2560f; --s2s:#fde8d6; --s3:#2d5fa8; --s3s:#dfe9f9; --s4:#2f7d55; --s4s:#e5f4ec; --s5:#b8890f; --s5s:#fbf5df; --s6:#0f7f86; --s6s:#ddf3f4; --s7:#6b5a3a; --s7s:#f3eee4; --rowon:#f9c9a0; --oksoft:#e5f4ec;
+  --s1:#7a4aa6; --s1s:#f4eefa; --s2:#c2560f; --s2s:#fde8d6; --s3:#2d5fa8; --s3s:#dfe9f9; --s4:#2f7d55; --s4s:#e5f4ec; --s5:#b8890f; --s5s:#fbf5df; --s6:#0f7f86; --s6s:#ddf3f4; --s7:#6b5a3a; --s7s:#f3eee4; --s8:#8a3f8f; --s8s:#f6ebf6; --rowon:#f9c9a0; --oksoft:#e5f4ec;
   --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -31,12 +31,12 @@
   --paper:#11151c; --surface:#192030; --ink:#e3e7ee; --muted:#9aa5b8; --line:#2c3547;
   --indigo:#93abe9; --indigo-soft:#222d47; --thread:#e57a70; --ok:#6cc792; --warn:#e7ad55; --warn-soft:#352a17;
   --c1:#8fb3ee; --c1s:#1c2a44; --c2:#f0a85c; --c2s:#3a2814; --c3:#7cd2a2; --c3s:#16352a; --c4:#c7a0ee; --c4s:#2f2240; --c5:#ebc75a; --c5s:#3a3112;
-  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --s7:#d9c39a; --s7s:#2c261b; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}}
+  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --s7:#d9c39a; --s7s:#2c261b; --s8:#e0a6e4; --s8s:#2e1c2f; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#11151c; --surface:#192030; --ink:#e3e7ee; --muted:#9aa5b8; --line:#2c3547;
   --indigo:#93abe9; --indigo-soft:#222d47; --thread:#e57a70; --ok:#6cc792; --warn:#e7ad55; --warn-soft:#352a17;
   --c1:#8fb3ee; --c1s:#1c2a44; --c2:#f0a85c; --c2s:#3a2814; --c3:#7cd2a2; --c3s:#16352a; --c4:#c7a0ee; --c4s:#2f2240; --c5:#ebc75a; --c5s:#3a3112;
-  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --s7:#d9c39a; --s7s:#2c261b; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}
+  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --s7:#d9c39a; --s7s:#2c261b; --s8:#e0a6e4; --s8s:#2e1c2f; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -280,6 +280,19 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .sheet-head .meta b{color:var(--ink)}
 .sec-aufmass{--sec:var(--s6);--secs:var(--s6s)}
 .sec-schiene{--sec:var(--s7);--secs:var(--s7s)}
+.sec-pl{--sec:var(--s8);--secs:var(--s8s)}
+.plinfo{margin-top:8px;font-weight:700}.plinfo span{font-weight:400;color:var(--muted)}
+.plbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.plabz{display:grid;grid-template-columns:minmax(0,1fr) 90px 90px;gap:6px 10px;align-items:center;font-size:.9rem;max-width:520px}
+.plorder{background:var(--surface);border:1px solid var(--ink);border-radius:6px;padding:14px 16px;overflow-x:auto}
+.plorder .ph{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:3px solid var(--s8);padding-bottom:8px;margin-bottom:10px}
+.plorder .ph .t{font-size:1.3rem;font-weight:800;color:var(--s8)}
+.plorder table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:860px}
+.plorder th{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;border-bottom:1.5px solid var(--ink);padding:4px 5px}
+.plorder td{border-bottom:1px solid var(--line);padding:5px;vertical-align:top}.plorder .n{text-align:right;white-space:nowrap}
+.plorder .sub{color:var(--muted);font-size:.75rem}.plorder tr.sum td{border-top:2px solid var(--ink);border-bottom:0;font-weight:700}
+.plorder .foot{margin-top:14px;display:flex;gap:30px;font-size:.78rem;color:var(--muted)}.plorder .foot div{flex:1;border-top:1px solid var(--ink);padding-top:4px}
+@media print{.plorder{border:0;padding:0}.plorder table{min-width:0}}
 .schbog{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.schbog label{font-size:.75rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
 @media (max-width:620px){.schbog{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .scheig{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-top:8px}.scheig .t{width:100%;font-size:.8rem;font-weight:600;color:var(--muted)}
@@ -507,6 +520,7 @@ table.cut input[type=checkbox]{width:22px;height:22px}
     <button class="view" role="tab" data-go="sheet" id="v_sheet">2 · Nähzettel</button>
     <button class="view" role="tab" data-go="cut" id="v_cut">3 · Zuschnittliste</button>
     <button class="view" role="tab" data-go="mat" id="v_mat">4 · Materialliste</button>
+    <button class="view" role="tab" data-go="pl" id="v_pl">Plissee</button>
     <button class="view" role="tab" data-go="shop" id="v_shop">Werkstatt</button>
     <button class="view" role="tab" data-go="orders" id="v_orders">Gespeicherte Aufträge</button>
     <button class="view" role="tab" data-go="vendoc" id="v_vendoc">Vendoc</button>
@@ -732,6 +746,15 @@ table.cut input[type=checkbox]{width:22px;height:22px}
   </section>
 
   <!-- WERKSTATT -->
+  <section data-view="pl" style="display:flex;flex-direction:column;gap:12px" hidden>
+    <div class="plbar no-print"><button class="primary" type="button" id="plAdd">+ Plissee</button><span class="muted" id="plSum"></span><span style="flex:1"></span>
+      <button type="button" id="plAbzBtn">Eigene Abzüge …</button><button class="primary" type="button" onclick="window.print()">Bestellung drucken / PDF</button></div>
+    <div class="card no-print" id="plAbzCard" hidden><h2>Eigene Abzüge (gilt für alle Aufträge)</h2>
+      <p class="muted" style="margin:0 0 8px;font-size:.88rem">Abzug vom gemessenen Maß je Montageart in cm. Leer oder 0 = Leha zieht ab. Bei „Fertigmaß“ wird nie abgezogen.</p><div class="plabz" id="plAbz"></div></div>
+    <div id="plCards" class="no-print" style="display:flex;flex-direction:column;gap:12px"></div>
+    <div id="plOrder"></div>
+  </section>
+
   <section data-view="shop" class="no-print" style="display:flex;flex-direction:column;gap:12px" hidden>
     <div class="row"><div class="seg" id="shopMode"><button type="button" data-sm="tafel" aria-pressed="true">Tafel nach Status</button><button type="button" data-sm="woche" aria-pressed="false">Wochenplan</button></div>
       <span id="shopInfo" class="muted"></span></div>
@@ -1328,6 +1351,84 @@ function schLines(St){const M=schMaterial(St),rows=[];
 function schPlanLines(St){return schMaterial(St).groups.filter(g=>g.bars.length).map(g=>['Leha '+g.R.n+' '+g.farbe+' · Stangen à '+cm(SCH_STANGE),
   g.bars.map((b,j)=>'Stange '+(j+1)+': '+b.p.map(([ln,lab])=>cm(ln)+' ('+lab+')').join(' + ')+' · Rest '+cm(b.rest))]);}
 let schEigSig='';
+/* ---------- Plissee (Leha) ---------- */
+const PL_TYPEN=[['vs2','Verspannt, 2 Bedienschienen (VS2)'],['vs1','Verspannt, 1 Bedienschiene (VS1)'],['frei','Freihängend (F1)'],['df','Dachfenster'],['sonder','Sonderform (Schräge/Rund)']];
+const PL_MONTAGE=[['gl_spann','Glasleiste – Spannschuh'],['gl_kleb','Glasleiste – geklebt'],['klemm','Klemmträger (ohne Bohren)'],['fluegel','Fensterflügel geschraubt'],['wand','Wand'],['decke','Decke'],['nische','Nische / Laibung'],['dach','Dachfenster']];
+const PL_MESSART=[['glas','Glasleistenmaß (licht)'],['fluegel','Flügelaußenmaß'],['licht','Lichtmaß Nische'],['fertig','Fertigmaß (Bestellmaß)']];
+const PL_BED=[['griff','Griff'],['schnur','Schnurzug'],['stab','Bedienstab'],['elektro','Elektrisch']];
+const PL_FARBEN=['weiß','silber','anthrazit','bronze','braun','schwarz'];
+const PL_SEITEN=[['','–'],['links','links'],['rechts','rechts']];
+if(!S.plisseeAbzug||typeof S.plisseeAbzug!=='object')S.plisseeAbzug={};
+const plAbz=()=>S.plisseeAbzug||(S.plisseeAbzug={});
+const plLabel=(lst,k)=>{const f=lst.find(x=>x[0]===k);return f?f[1]:(k||'');};
+const plNew=name=>({id:'p'+Date.now().toString(16)+String(Math.floor(Math.random()*1000)).padStart(3,'0'),name:name||'',bereich:'',stk:1,typ:'vs2',montage:'gl_spann',messart:'glas',b:'',h:'',glt:'',stoff:'',farbe:'weiß',bed:'griff',seite:'',preis:'',notiz:''});
+function plBestell(pl){const b=num(pl.b),h=num(pl.h);if((pl.messart||'glas')==='fertig')return [b,h];const a=plAbz()[pl.montage||'']||{};
+  return [b?Math.round(Math.max(0,b-num(a.b))*10)/10:0,h?Math.round(Math.max(0,h-num(a.h))*10)/10:0];}
+function plAbzugTxt(pl){if((pl.messart||'glas')==='fertig')return '';const a=plAbz()[pl.montage||'']||{},ab=num(a.b),ah=num(a.h);if(!ab&&!ah)return 'Leha zieht ab';return 'abzgl. B '+cm(ab)+' / H '+cm(ah);}
+function plTitle(pl,i){const b=(pl.bereich||'').trim();return (i!=null?'Pl. '+(i+1)+' · ':'')+(b?b+' · ':'')+(pl.name||'Plissee');}
+const plStk=pl=>Math.max(1,Math.trunc(num(pl.stk))||1);
+function plSumme(A){const L=A.plissee||[];const n=L.reduce((a,p)=>a+plStk(p),0),e=L.reduce((a,p)=>a+plStk(p)*num(p.preis),0);return [n,Math.round(e*100)/100];}
+function plWarn(pl){const w=[];if(!num(pl.b)||!num(pl.h))w.push('Breite und Höhe fehlen.');if(pl.montage==='gl_spann'&&!num(pl.glt))w.push('Glasleistentiefe fehlt (für Spannschuh nötig).');
+  if(pl.bed==='schnur'&&!pl.seite)w.push('Bedienseite für Schnurzug angeben.');if(!String(pl.stoff||'').trim())w.push('Stoff fehlt.');return w;}
+function plOrderHTML(){const A=S.auftrag,L=A.plissee||[];if(!L.length)return '';let tot=0;
+  let h='<article class="plorder"><div class="ph"><div class="hl" style="display:flex;gap:12px;align-items:center">'+(logoSrc()?'<img class="sheet-logo" src="'+logoSrc()+'" alt="Logo">':'')+'<div><div class="lbl">'+esc(A.betrieb||'Raumausstattung')+'</div><div class="t">Plissee-Bestellung · Leha</div></div></div>'+
+    '<div class="meta"><span>Kommission</span> <b>'+esc(A.kunde||'—')+'</b><br><span>Auftrag</span> <b>'+esc(A.nr||'—')+'</b><br><span>Datum</span> '+dDE(today)+(A.montage?'<br><span>Montage am</span> <b>'+dDE(A.montage)+'</b>':'')+'</div></div>'+
+    '<table><tr><th>Nr.</th><th>Raum / Fenster</th><th class="n">Stk</th><th>Typ</th><th>Montage</th><th class="n">Gemessen</th><th class="n">Bestellmaß B × H</th><th>Stoff</th><th>Profil</th><th>Bedienung</th></tr>';
+  L.forEach((p,i)=>{const stk=plStk(p),[bb,hh]=plBestell(p),pr=num(p.preis);tot+=pr*stk;
+    h+='<tr><td>'+(i+1)+'</td><td>'+esc(plTitle(p))+'</td><td class="n">'+stk+'</td><td>'+esc(plLabel(PL_TYPEN,p.typ))+'</td><td>'+esc(plLabel(PL_MONTAGE,p.montage))+(num(p.glt)?'<div class="sub">Glasleistentiefe '+fmt(num(p.glt),0)+' mm</div>':'')+'</td>'+
+      '<td class="n">'+cm(num(p.b))+' × '+cm(num(p.h))+'<div class="sub">'+esc(plLabel(PL_MESSART,p.messart))+'</div></td><td class="n"><b>'+cm(bb)+' × '+cm(hh)+'</b><div class="sub">'+esc(plAbzugTxt(p))+'</div></td>'+
+      '<td>'+esc(p.stoff||'—')+'</td><td>'+esc(p.farbe||'')+'</td><td>'+esc(plLabel(PL_BED,p.bed))+(p.seite?' · '+esc(p.seite):'')+'</td></tr>'+
+      (String(p.notiz||'').trim()?'<tr><td></td><td colspan="9" class="sub" style="color:var(--s8)">'+esc(p.notiz)+'</td></tr>':'');});
+  const [n]=plSumme(A);
+  return h+'<tr class="sum"><td></td><td>Gesamt</td><td class="n">'+n+'</td><td colspan="7"></td></tr></table>'+
+    '<div class="foot"><div>Bestellt am / von</div><div>Auftragsbestätigung Leha erhalten</div><div>Ware geprüft</div></div></article>';}
+let plSig='';
+function plCardInner(p,i){const sel=(k,lst)=>'<select data-pl="'+i+':'+k+'">'+lst.map(([v,l])=>'<option value="'+esc(v)+'"'+((p[k]||'')===v?' selected':'')+'>'+esc(l)+'</option>').join('')+'</select>';
+  const inp=(k,extra)=>'<input data-pl="'+i+':'+k+'" value="'+esc(p[k]??'')+'" '+(extra||'')+'>';
+  const nu=(k,u,step)=>'<div class="unit" data-u="'+u+'"><input type="number" min="0" step="'+(step||'0.1')+'" inputmode="decimal" data-pl="'+i+':'+k+'" value="'+esc(p[k]??'')+'"></div>';
+  return '<div class="card-h"><span class="stepno">'+(i+1)+'</span><h2 data-pltitle="'+i+'">'+esc(plTitle(p))+'</h2><span style="flex:1"></span><button class="link" type="button" data-pldup="'+i+'">Duplizieren</button><button class="link danger" type="button" data-pldel="'+i+'">Löschen</button></div>'+
+    '<div class="fields f3">'+
+    '<div class="f"><label>Bereich</label>'+inp('bereich','list="plBereiche" autocomplete="off"')+'</div>'+
+    '<div class="f"><label>Raum / Fenster</label>'+inp('name','autocomplete="off"')+'</div>'+
+    '<div class="f"><label>Gleiche Fenster</label>'+nu('stk','Stk','1')+'</div>'+
+    '<div class="f"><label>Typ</label>'+sel('typ',PL_TYPEN)+'</div>'+
+    '<div class="f"><label>Montage</label>'+sel('montage',PL_MONTAGE)+'</div>'+
+    '<div class="f"><label>Gemessen als</label>'+sel('messart',PL_MESSART)+'</div>'+
+    '<div class="f"><label>Breite</label>'+nu('b','cm')+'</div>'+
+    '<div class="f"><label>Höhe</label>'+nu('h','cm')+'</div>'+
+    '<div class="f"><label>Glasleistentiefe</label>'+nu('glt','mm','1')+'</div>'+
+    '<div class="f two"><label>Stoff (Kollektion / Nr. / Farbe)</label>'+inp('stoff','autocomplete="off"')+'</div>'+
+    '<div class="f"><label>Profilfarbe</label>'+inp('farbe','list="plFarben" autocomplete="off"')+'</div>'+
+    '<div class="f"><label>Bedienung</label>'+sel('bed',PL_BED)+'</div>'+
+    '<div class="f"><label>Bedienseite</label>'+sel('seite',PL_SEITEN)+'</div>'+
+    '<div class="f wide"><label>Notiz für Leha</label>'+inp('notiz','autocomplete="off"')+'</div></div>'+
+    '<div class="plinfo" data-plinfo="'+i+'"></div><div data-plwarn="'+i+'" style="display:flex;flex-direction:column;gap:6px;margin-top:6px"></div>';}
+function plInfo(i){const p=(S.auftrag.plissee||[])[i];if(!p)return;const [bb,hh]=plBestell(p),at=plAbzugTxt(p);
+  const el=document.querySelector('[data-plinfo="'+i+'"]');if(el)el.innerHTML=(bb&&hh?'Bestellmaß '+cm(bb)+' × '+cm(hh):'Bestellmaß –')+(at?' <span>· '+esc(at)+'</span>':'')+(plStk(p)>1?' <span>· '+plStk(p)+' Stk</span>':'');
+  const w=document.querySelector('[data-plwarn="'+i+'"]');if(w)w.innerHTML=plWarn(p).map(t=>'<div class="warn">'+esc(t)+'</div>').join('');
+  const t=document.querySelector('[data-pltitle="'+i+'"]');if(t)t.textContent=plTitle(p);}
+function plSumUpd(){const [n,e]=plSumme(S.auftrag);document.getElementById('plSum').textContent=n?n+' Plissee'+(n===1?'':'s'):'';
+  document.getElementById('v_pl').textContent=n?'Plissee ('+n+')':'Plissee';}
+function renderPl(force){const L=S.auftrag.plissee||[];const box=document.getElementById('plCards');
+  const sig=S.orderId+'|'+JSON.stringify(L);
+  if(sig!==plSig||force){plSig=sig;
+    box.innerHTML=(L.length?L.map((p,i)=>'<div class="card sec sec-pl">'+plCardInner(p,i)+'</div>').join(''):'<p class="muted">Noch keine Plissees in diesem Auftrag. „+ Plissee“ legt eines an – Maße, Montage, Stoff und Bedienung je Fenster.</p>')+
+      '<datalist id="plBereiche">'+BEREICHE.map(b=>'<option value="'+b+'">').join('')+'</datalist><datalist id="plFarben">'+PL_FARBEN.map(b=>'<option value="'+b+'">').join('')+'</datalist>';
+    box.querySelectorAll('[data-pl]').forEach(el=>el.addEventListener('input',()=>{const [i,k]=el.dataset.pl.split(':');const p=S.auftrag.plissee[+i];if(!p)return;
+      p[k]=el.value;S.isSample=false;plSig=S.orderId+'|'+JSON.stringify(S.auftrag.plissee);plInfo(+i);plSumUpd();document.getElementById('plOrder').innerHTML=plOrderHTML();save();}));
+    box.querySelectorAll('[data-pldel]').forEach(b=>b.onclick=()=>{const i=+b.dataset.pldel;if(b.dataset.sure){S.auftrag.plissee.splice(i,1);save();renderPl(true);}else{b.dataset.sure='1';b.textContent='Wirklich löschen?';}});
+    box.querySelectorAll('[data-pldup]').forEach(b=>b.onclick=()=>{const i=+b.dataset.pldup,c=clone(S.auftrag.plissee[i]);c.id=plNew().id;c.name=(c.name||'Plissee')+' (Kopie)';S.auftrag.plissee.splice(i+1,0,c);save();renderPl(true);});
+    L.forEach((p,i)=>plInfo(i));}
+  plSumUpd();document.getElementById('plOrder').innerHTML=plOrderHTML();
+  const ab=document.getElementById('plAbz');if(!ab.dataset.built){ab.dataset.built='1';const A0=plAbz();
+    ab.innerHTML='<span></span><b class="muted" style="font-size:.8rem">Breite</b><b class="muted" style="font-size:.8rem">Höhe</b>'+PL_MONTAGE.map(([k,l])=>'<span>'+esc(l)+'</span>'+['b','h'].map(kk=>'<div class="unit" data-u="cm"><input type="number" step="0.1" min="0" inputmode="decimal" data-plabz="'+k+':'+kk+'" value="'+esc((A0[k]||{})[kk]??'')+'"></div>').join('')).join('');
+    ab.querySelectorAll('[data-plabz]').forEach(el=>el.addEventListener('input',()=>{const [k,kk]=el.dataset.plabz.split(':'),E=plAbz(),x=num(el.value);
+      if(x){(E[k]||(E[k]={}))[kk]=x;}else if(E[k]){delete E[k][kk];if(!Object.keys(E[k]).length)delete E[k];}
+      save();(S.auftrag.plissee||[]).forEach((p,i)=>plInfo(i));document.getElementById('plOrder').innerHTML=plOrderHTML();if(typeof syncSoon==='function')syncSoon();}));}}
+document.getElementById('plAdd').onclick=()=>{const A=S.auftrag;A.plissee=A.plissee||[];const L=A.plissee,p=plNew('Fenster '+(L.length+1));
+  if(L.length){const last=L[L.length-1];for(const k of ['bereich','typ','montage','messart','stoff','farbe','bed'])p[k]=last[k]??p[k];}
+  L.push(p);S.isSample=false;save();renderPl(true);setTimeout(()=>{const c=document.querySelectorAll('#plCards .card');if(c.length)c[c.length-1].scrollIntoView({behavior:'smooth',block:'start'});},50);};
+document.getElementById('plAbzBtn').onclick=()=>{const c=document.getElementById('plAbzCard');c.hidden=!c.hidden;if(!c.hidden){document.getElementById('plAbz').dataset.built='';renderPl();}};
 function renderSchCard(){const p=cur();if(!p)return;const R=schById(p.schTyp),body=document.getElementById('schBody');
   const ts=document.getElementById('p_schTyp');if(ts.value!==(p.schTyp||''))ts.value=p.schTyp||'';
   if(!R){body.hidden=true;document.getElementById('sum5').textContent='';return;}body.hidden=false;
@@ -1572,7 +1673,7 @@ document.getElementById('btnDel').onclick=()=>{if(S.pos.length===1){S.pos[0]=new
 const cn=document.getElementById('confirmNew');
 document.getElementById('btnNew').onclick=()=>{document.getElementById('newText').textContent=(S.orderId||hasContent())?'Neuen Auftrag beginnen? Der aktuelle Auftrag wird vorher gespeichert.':'Neuen Auftrag beginnen? Der aktuelle Auftrag ist nicht gespeichert und wird verworfen.';cn.hidden=false;};
 document.getElementById('noNew').onclick=()=>{cn.hidden=true;};
-document.getElementById('yesNew').onclick=()=>{if(S.orderId||hasContent())upsertOrder();const b=S.auftrag.betrieb;S={orderId:null,isSample:false,auftrag:{kunde:'',nr:'',datum:today,termin:'',montage:'',status:'auftrag',betrieb:b,naeher:''},pos:[newPos('Fenster 1')],sel:0,view:'calc',photos:S.photos||{},customGl:S.customGl||[],schienenEigen:S.schienenEigen||{},logo:S.logo||'',kbdx:0,seedGl1:true,seedGl2:true,seedGl3:true};cn.hidden=true;document.getElementById('auftragBox').open=true;save();fillForm();render();};
+document.getElementById('yesNew').onclick=()=>{if(S.orderId||hasContent())upsertOrder();const b=S.auftrag.betrieb;S={orderId:null,isSample:false,auftrag:{kunde:'',nr:'',datum:today,termin:'',montage:'',status:'auftrag',betrieb:b,naeher:''},pos:[newPos('Fenster 1')],sel:0,view:'calc',photos:S.photos||{},customGl:S.customGl||[],schienenEigen:S.schienenEigen||{},plisseeAbzug:S.plisseeAbzug||{},logo:S.logo||'',kbdx:0,seedGl1:true,seedGl2:true,seedGl3:true};cn.hidden=true;document.getElementById('auftragBox').open=true;save();fillForm();render();};
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{S.view=b.dataset.go;save();render();window.scrollTo({top:0});}));
 
 /* ---------- Texte ---------- */
@@ -1625,6 +1726,7 @@ function render(){
   if(view==='vendoc')renderVendoc();
   if(view==='shop')renderShop();
   if(view==='aufmass')renderAufmass();
+  if(view==='pl')renderPl();else plSumUpd();
   if(typeof renderAufmassCard==='function')renderAufmassCard();
   renderSchCard();
 
@@ -1679,6 +1781,7 @@ function render(){
   if(oes)rows+='<tr><td>Ösen</td><td class="n">'+oes+' Stk</td><td></td></tr>';
   if(blei)rows+='<tr><td>Bleiband</td><td class="n">'+m(blei)+'</td><td></td></tr>';
   if(kost)rows+='<tr class="sum"><td>Stoffkosten gesamt</td><td></td><td class="n">'+eur(kost)+'</td></tr>';
+  {const [pn,pe]=plSumme(S.auftrag);if(pn)rows+='<tr><td>Plissees Leha (siehe Plissee)</td><td class="n">'+pn+' Stk</td><td></td></tr>';}
   for(const [t,n] of schLines(S))rows+='<tr><td>'+esc(t)+'</td><td class="n">'+esc(n)+'</td><td></td></tr>';
   document.getElementById('totals').innerHTML=rows;
   {const pl=schPlanLines(S);document.getElementById('schPlanCard').hidden=!pl.length;document.getElementById('schPlan').textContent=pl.map(([h2,l])=>h2+'\n'+l.map(x=>'  '+x).join('\n')).join('\n\n');}
@@ -2382,6 +2485,7 @@ function renderAufmass(){const A=S.auftrag,RS=calcAll(),el=document.getElementBy
     h+='<section class="am-pos"><h3>Pos. '+(i+1)+' · '+esc(posTitle(q))+'</h3><div class="am-grid"><div class="am-kv">'+kv.map(([k,v])=>'<span>'+esc(k)+'</span><b>'+esc(v)+'</b>').join('')+'</div>'+
       '<div>'+(hasSk(q.skizze)?'<div class="am-sk">'+strokesSvg(q.skizze,null,massTexte(q))+'</div>':'')+'</div></div>'+
       ((q.fotos||[]).length?'<div class="am-fotos">'+q.fotos.map(id=>'<figure class="mf"><img data-foto="'+esc(id)+'" alt="Foto"><figcaption>'+esc(fotoLeiste(q,i))+'</figcaption></figure>').join('')+'</div>':'')+'</section>';});
+  if((A.plissee||[]).length)h+='<section class="am-pos"><h3>Plissees</h3><div class="am-kv">'+A.plissee.map((p,i)=>'<span>'+esc(plTitle(p,i))+'</span><b>'+(plStk(p)>1?plStk(p)+' × ':'')+esc(plLabel(PL_TYPEN,p.typ).split(' (')[0]+' · gemessen '+cm(num(p.b))+' × '+cm(num(p.h))+' ('+plLabel(PL_MESSART,p.messart)+') · '+plLabel(PL_MONTAGE,p.montage)+' · '+(p.stoff||'Stoff offen'))+'</b>').join('')+'</div></section>';
   const u=A.unterschrift;
   h+='<div class="am-sign"><div><small>Die Maße wurden gemeinsam geprüft und sind so freigegeben.</small><div class="sg">'+(u&&u.s?strokesSvg(u,'#11306b'):'')+'</div>'+
     '<small>Unterschrift Kunde'+(u&&u.n?' · '+esc(u.n):'')+(u&&u.t?' · '+new Date(u.t).toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'}):'')+'</small></div>'+
@@ -2538,6 +2642,7 @@ function sySnapshot(){const snap={};
   for(const k of ['kontakte','artikel','auftraege'])if(VD[k]&&VD[k].length)snap['vendoc/'+k]=['vendoc',k,{v:VD[k],stand:VD.stand[k]||''}];
   for(const k of ['vmap','artInfo'])if(VD[k]&&Object.keys(VD[k]).length)snap['vendoc/'+k]=['vendoc',k,{v:VD[k]}];
   if(S.appUrl)snap['settings/appUrl']=['settings','appUrl',{v:S.appUrl}];
+  if(S.plisseeAbzug&&Object.keys(S.plisseeAbzug).length)snap['settings/plissee']=['settings','plissee',{v:S.plisseeAbzug}];
   if(S.schienenEigen&&Object.keys(S.schienenEigen).length)snap['settings/schienen']=['settings','schienen',{v:S.schienenEigen}];
   return snap;}
 const sySaved=d=>{const v=(d&&d.savedAt)||0;return v&&v<1e11?v*1000:v;};
@@ -2560,6 +2665,7 @@ function syApply(apply){if(!apply.length)return;let l=null,reload=null,vd=false;
     else if(kind==='gleiter'){S.customGl=(S.customGl||[]).filter(g=>g.id!==id);if(!del&&data)S.customGl.unshift(Object.assign(clone(data),{id}));}
     else if(kind==='photo'){if(del)delete S.photos[id];else if(data&&data.uri)S.photos[id]=data.uri;}
     else if(kind==='logo'){const u=(data&&data.uri)||'';S.logo=u?u:'none';}
+    else if(kind==='settings'&&id==='plissee'&&!del&&data&&data.v&&typeof data.v==='object'){S.plisseeAbzug=clone(data.v);const ab=document.getElementById('plAbz');if(ab)ab.dataset.built='';}
     else if(kind==='settings'&&id==='schienen'&&!del&&data&&data.v&&typeof data.v==='object'){S.schienenEigen=clone(data.v);schEigSig='';}
     else if(kind==='settings'&&id==='appUrl'&&!del&&data&&data.v&&!/^https:$/.test(location.protocol))S.appUrl=data.v;
     else if(kind==='vendoc'&&!del&&data){if(['kontakte','artikel','auftraege'].includes(id)&&Array.isArray(data.v)){VD[id]=data.v;if(data.stand)VD.stand[id]=data.stand;vd=true;}
