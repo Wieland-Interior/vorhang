@@ -22,7 +22,7 @@
   --paper:#f3f5f8; --surface:#ffffff; --ink:#1b2331; --muted:#5d6879; --line:#d6dce6;
   --indigo:#2d4a8c; --indigo-soft:#e5ebf7; --thread:#b93a32; --ok:#2f7a4f; --warn:#a15c06; --warn-soft:#fbf0dd;
   --c1:#2d5fa8; --c1s:#e6eefa; --c2:#c26a12; --c2s:#fdf0e1; --c3:#2f7d55; --c3s:#e5f4ec; --c4:#7a4aa6; --c4s:#f1e9f9; --c5:#c99a1a; --c5s:#fbf5df;
-  --s1:#7a4aa6; --s1s:#f4eefa; --s2:#c2560f; --s2s:#fde8d6; --s3:#2d5fa8; --s3s:#dfe9f9; --s4:#2f7d55; --s4s:#e5f4ec; --s5:#b8890f; --s5s:#fbf5df; --s6:#0f7f86; --s6s:#ddf3f4; --rowon:#f9c9a0; --oksoft:#e5f4ec;
+  --s1:#7a4aa6; --s1s:#f4eefa; --s2:#c2560f; --s2s:#fde8d6; --s3:#2d5fa8; --s3s:#dfe9f9; --s4:#2f7d55; --s4s:#e5f4ec; --s5:#b8890f; --s5s:#fbf5df; --s6:#0f7f86; --s6s:#ddf3f4; --s7:#6b5a3a; --s7s:#f3eee4; --rowon:#f9c9a0; --oksoft:#e5f4ec;
   --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -31,12 +31,12 @@
   --paper:#11151c; --surface:#192030; --ink:#e3e7ee; --muted:#9aa5b8; --line:#2c3547;
   --indigo:#93abe9; --indigo-soft:#222d47; --thread:#e57a70; --ok:#6cc792; --warn:#e7ad55; --warn-soft:#352a17;
   --c1:#8fb3ee; --c1s:#1c2a44; --c2:#f0a85c; --c2s:#3a2814; --c3:#7cd2a2; --c3s:#16352a; --c4:#c7a0ee; --c4s:#2f2240; --c5:#ebc75a; --c5s:#3a3112;
-  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}}
+  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --s7:#d9c39a; --s7s:#2c261b; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#11151c; --surface:#192030; --ink:#e3e7ee; --muted:#9aa5b8; --line:#2c3547;
   --indigo:#93abe9; --indigo-soft:#222d47; --thread:#e57a70; --ok:#6cc792; --warn:#e7ad55; --warn-soft:#352a17;
   --c1:#8fb3ee; --c1s:#1c2a44; --c2:#f0a85c; --c2s:#3a2814; --c3:#7cd2a2; --c3s:#16352a; --c4:#c7a0ee; --c4s:#2f2240; --c5:#ebc75a; --c5s:#3a3112;
-  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}
+  --s1:#c7a0ee; --s1s:#2a2238; --s2:#f0a060; --s2s:#3a2516; --s3:#8fb3ee; --s3s:#1b2740; --s4:#7cd2a2; --s4s:#163228; --s5:#ebc75a; --s5s:#332b12; --s6:#6fd3d9; --s6s:#12302f; --s7:#d9c39a; --s7s:#2c261b; --rowon:#5a3418; --oksoft:#163228; color-scheme:dark}
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -279,6 +279,13 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .sheet-head .meta{font-size:.86rem;color:var(--muted);display:grid;grid-template-columns:auto auto;gap:2px 14px}
 .sheet-head .meta b{color:var(--ink)}
 .sec-aufmass{--sec:var(--s6);--secs:var(--s6s)}
+.sec-schiene{--sec:var(--s7);--secs:var(--s7s)}
+.schbog{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.schbog label{font-size:.75rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+@media (max-width:620px){.schbog{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.scheig{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-top:8px}.scheig .t{width:100%;font-size:.8rem;font-weight:600;color:var(--muted)}
+.scheig label{font-size:.75rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}.scheig input{width:130px}
+.schinfo{margin-top:8px;font-size:.88rem;line-height:1.45}.schinfo b{font-family:var(--mono)}
+.schplan{font-family:var(--mono);font-size:.85rem;white-space:pre-wrap;margin:0}
 .fotogrid{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .fotogrid .ft{width:96px;height:96px;border-radius:6px;border:1px solid var(--line);background:var(--paper) center/cover no-repeat;cursor:pointer;position:relative;padding:0}
 .fotogrid .ft span{position:absolute;inset:auto 0 0 0;font-size:.7rem;background:rgba(0,0,0,.45);color:#fff;padding:1px 4px}
@@ -641,6 +648,30 @@ table.cut input[type=checkbox]{width:22px;height:22px}
           <div class="f"><span class="flabel">Fotos</span><div class="fotogrid" id="fotoGrid"></div></div>
           <div class="f"><span class="flabel">Skizze</span><div class="skprev" id="skPrev" role="button" tabindex="0"></div></div>
         </div>
+        <div class="card sec sec-schiene">
+          <div class="card-h"><span class="stepno">5</span><h2>Schiene</h2><span class="sum" id="sum5"></span></div>
+          <div class="fields f3">
+            <div class="f two"><label for="p_schTyp">Schiene</label><select id="p_schTyp" data-p="schTyp"></select></div>
+          </div>
+          <div id="schBody" hidden>
+            <div class="fields f3">
+              <div class="f"><label for="p_schL">Schienenlänge</label><div class="unit" data-u="cm"><input id="p_schL" type="number" step="0.5" min="0" inputmode="decimal" data-p="schL"></div><span class="hint" id="schLHint"></span></div>
+              <div class="f"><label for="p_schLauf">Läufe</label><select id="p_schLauf" data-p="schLauf"></select><label class="check"><input type="checkbox" id="p_schW2W" data-p="schW2W"> Wand zu Wand (−1 cm)</label></div>
+              <div class="f"><label for="p_schFarbe">Farbe</label><input id="p_schFarbe" data-p="schFarbe" list="schFarben" placeholder="weiß" autocomplete="off"><datalist id="schFarben"><option value="weiß"><option value="alu natur"><option value="schwarz"><option value="silber"></datalist></div>
+              <div class="f"><label for="p_schUeb">Überlappungen</label><div class="unit" data-u="Stk"><input id="p_schUeb" type="number" min="0" step="1" inputmode="numeric" data-p="schUeb" placeholder="auto"></div></div>
+              <div class="f two"><span class="flabel">Lieferung</span><select id="p_schLief" data-p="schLief" class="seg-src" hidden><option value="stange">6-m-Stange, selbst schneiden</option><option value="abg">abgelängt bestellen</option></select></div>
+              <div class="f wide"><span class="flabel">Bögen (Stück je Fenster)</span><div class="schbog">
+                <label>Retoure links<input type="number" min="0" step="1" inputmode="numeric" data-p="schB_retL"></label>
+                <label>Retoure rechts<input type="number" min="0" step="1" inputmode="numeric" data-p="schB_retR"></label>
+                <label>Rundbogen<input type="number" min="0" step="1" inputmode="numeric" data-p="schB_rund"></label>
+                <label>Erkerbogen<input type="number" min="0" step="1" inputmode="numeric" data-p="schB_erker"></label>
+                <label>Gehrung<input type="number" min="0" step="1" inputmode="numeric" data-p="schB_gehr"></label></div></div>
+            </div>
+            <div class="scheig" id="schEig"></div>
+            <div class="schinfo" id="schInfo"></div>
+            <div id="schWarn" style="display:flex;flex-direction:column;gap:6px;margin-top:6px"></div>
+          </div>
+        </div>
       </div>
 
       <aside class="resultcol" aria-label="Ergebnis">
@@ -689,6 +720,10 @@ table.cut input[type=checkbox]{width:22px;height:22px}
     <div class="card">
       <h2>Materialliste gesamt</h2>
       <div class="tblwrap"><table id="totals"></table></div>
+    </div>
+    <div class="card" id="schPlanCard" hidden>
+      <h2>Schienen-Zuschnitt (6-m-Stangen)</h2>
+      <pre class="schplan" id="schPlan"></pre>
     </div>
     <div class="card">
       <h2>Übersicht der Positionen</h2>
@@ -801,7 +836,8 @@ const today=new Date().toISOString().slice(0,10);
 function newPos(name){return {name:name||'Neues Fenster',schiene:200,hoehe:250,schals:2,stk:1,ueberlapp:0,rueck:0,
   kopfart:'wellen',faktor:2.2,kopf:10,saumart:'doppelt',saum:10,seite:2.5,schrumpf:0,
   stoff:'',ware:'hoehe',stoffbreite:300,rapport:0,naht:2,preis:0,halb:true,halbSeite:'aussen',koepfchen:0,gleiter:'',bem:'',
-  hmode:'fertig',hmass:'',boden:1.5,schieneAbz:3,luft:1,geschnitten:false,genaeht:false,bereich:'',montageart:'',abstand:'',mnotiz:'',fotos:[],skizze:null};}
+  hmode:'fertig',hmass:'',boden:1.5,schieneAbz:3,luft:1,geschnitten:false,genaeht:false,bereich:'',montageart:'',abstand:'',mnotiz:'',fotos:[],skizze:null,
+  schTyp:'',schL:'',schW2W:false,schLauf:'',schLief:'stange',schFarbe:'',schUeb:''};}
 function sample(){
   const a=newPos('Wohnzimmer – Terrassentür');
   Object.assign(a,{bereich:'EG',schiene:280,hoehe:248,stoff:'Beispiel: Leinenoptik natur',ware:'hoehe',stoffbreite:300,preis:29.9,ueberlapp:8,bem:'Beispiel – Saum mit Eckgewicht, Bleiband nicht nötig.'});
@@ -950,6 +986,7 @@ function fillForm(){
   syncVis();
   if(typeof updSegs==='function')updSegs();
   if(typeof renderAufmassCard==='function')renderAufmassCard();
+  if(typeof renderSchCard==='function')renderSchCard();
   if(typeof vdInfos==='function')vdInfos();
 }
 function syncVis(){
@@ -973,6 +1010,7 @@ document.querySelectorAll('[data-p]').forEach(el=>el.addEventListener('input',()
   p[k]=el.type==='checkbox'?el.checked:el.value;
   if(k==='kopfart'){const H=HEADS[el.value];p.faktor=H.f;p.kopf=H.kopf;p.band='';fillForm();}
   if(k==='ware'){p.stoffbreite=el.value==='hoehe'?300:140;fillForm();}
+  if(k==='schTyp'){const R=schById(el.value);if(R&&!R.lauf.includes(Math.trunc(num(p.schLauf))))p.schLauf=R.lauf[0];schEigSig='';}
   if(k==='saumart'){syncVis();}
   if((k==='faktor'||k==='kopfart')&&S.pos.length>1){tfOpen=true;if(k==='kopfart')document.getElementById('tf_kopf').checked=true;}
   save();render();
@@ -1233,6 +1271,92 @@ if(!S.seedGl1){S.customGl.unshift({id:'eig_haken30',a:'',n:'LEHA Liftgleiter Kar
 if(!S.seedGl2){S.customGl.splice(1,0,{id:'eig_eckig24',a:'',n:'LEHA Liftgleiter Karniese Kopf eckig',t:'eigen',r:'für Karniese',h:'Kunststoff weiß · Kopf eckig 11 mm · Höhe 24 mm',abst:''});S.seedGl2=true;}
 if(!S.seedGl3){S.customGl.splice(2,0,{id:'eig_rolle',a:'',n:'Rollengleiter mit Haken',t:'eigen',r:'eigener Gleiter',h:'Kunststoff weiß · Laufrolle mit angeformtem Haken',abst:''});S.seedGl3=true;}
 const allGl=()=>S.customGl.concat(LEHA);
+/* ---------- Schienen (Leha) ---------- */
+const SCHIENEN=[{"id":"412","n":"412 UNO","typ":"Schleuderschiene","nr":"412STG","lauf":[1,2],"gl":"4922","glOpt":["4822","4828","4824","4825","4826","4263+4803"],"tpm":{"1":3,"2":3},"tr":{"d1":"4081","d2":"4081/D","w1":"4082","w2":"4143/8"},"end":"4126","fest":"4722","zw":"4277","verb":"4113","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499","vert":"4551","schraeg":"4536"},"r":10,"kg":8,"mont":"beides"},{"id":"417","n":"417 BASIC","typ":"Schleuderschiene","nr":"417STG","lauf":[1,2],"gl":"4821","glOpt":["4827","4829","4361","4803"],"tpm":{"1":3,"2":3},"tr":{"d1":"4081","d2":"4081/D","w1":"4082","w2":"4143/8"},"end":"4354","fest":"4721","zw":"4365","verb":"4381","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499"},"r":10,"kg":5,"mont":"beides"},{"id":"422","n":"422 DISKRET","typ":"Schleuderschiene","nr":"421STG","lauf":[1,2],"gl":"4922","glOpt":["4822","4828","4824","4825","4826","4263+4803"],"tpm":{"1":4,"2":8},"tr":{"d1":"4161","d2":"4161","w1":"","w2":""},"end":"4481","fest":"4722","zw":"4277","verb":"4098","bog":{"vert":"4551","schraeg":"4536","gehr":"6499"},"r":12,"kg":11,"mont":"decke"},{"id":"426","n":"426 LINEA","typ":"Schleuderschiene","nr":"426STG","lauf":[1,2],"gl":"4821","glOpt":["4827","4829","4361","4803"],"tpm":{"1":4,"2":4},"tr":{"d1":"4368","d2":"4368/D","w1":"4366","w2":""},"end":"4358","fest":"4721","zw":"4365","verb":"4658","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499"},"r":7,"kg":5,"mont":"beides"},{"id":"454","n":"454 RUN","typ":"Schleuderschiene","nr":"454STG","lauf":[1,2],"gl":"4822","glOpt":["4828","4824","4825","4826","4263+4803","4330+4806"],"tpm":{"1":3,"2":6},"tr":{"d1":"","d2":"","w1":"","w2":""},"end":"","fest":"4722","zw":"4277","verb":"","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499"},"r":15,"kg":11,"mont":"beides"},{"id":"455top","n":"455 TOP","typ":"Schleuderschiene","nr":"455STG","lauf":[1,2],"gl":"4822","glOpt":["4828","4824","4825","4826","4263+4803","4330+4806"],"tpm":{"1":4,"2":8},"tr":{"d1":"4520","d2":"4520","w1":"","w2":""},"end":"4523","fest":"4722","zw":"4277","verb":"4726","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499"},"r":15,"kg":8,"mont":"decke"},{"id":"455","n":"455/W TOP ONDA (Welle)","typ":"Wellenschiene","nr":"455STG","lauf":[1],"gl":"9100-99","glOpt":["9100-70"],"tpm":{"1":null},"tr":{"d1":"4520","d2":"","w1":"","w2":""},"end":"4523","fest":"","zw":"","verb":"4726","bog":{"rund1":"4540","horiz":"4528","erker":"4517","gehr":"6499"},"r":20,"kg":5,"mont":"decke"},{"id":"460","n":"460 SPEED","typ":"Schleuderschiene","nr":"460STG","lauf":[1,2],"gl":"4922","glOpt":["4822","4828","4824","4825","4826","4263+4803","4330+4806"],"tpm":{"1":4,"2":8},"tr":{"d1":"","d2":"","w1":"","w2":""},"end":"4502","fest":"4722","zw":"4277","verb":"4503","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499"},"r":14,"kg":11,"mont":"decke"},{"id":"466","n":"466 ZENIT","typ":"Schleuderschiene","nr":"466STG","lauf":[1,2],"gl":"4922","glOpt":["4822","4828","4824","4825","4826","4263+4803"],"tpm":{"1":4,"2":8},"tr":{"d1":"4520","d2":"4520","w1":"","w2":""},"end":"4660","fest":"4722","zw":"4277","verb":"4726","bog":{"retL":"4537","retR":"4538","rund1":"4540","rund2":"4541","horiz":"4528","erker":"4517","gehr":"6499","vert":"4551","schraeg":"4536"},"r":7,"kg":5,"mont":"decke"},{"id":"487","n":"487 CURVE","typ":"Schleuderschiene","nr":"487STG","lauf":[1,2],"gl":"4829","glOpt":["4821","4827","4361","4803"],"tpm":{"1":null,"2":null},"tr":{"d1":"4871","d2":"4874","w1":"4872","w2":"4873"},"end":"4870","fest":"4721","zw":"4365","verb":"4879","bog":{},"r":10,"kg":5,"mont":"beides"},{"id":"555","n":"555 HEAVY","typ":"Schwerlastschiene","nr":"701STG","lauf":[1],"gl":"7773+4806","glOpt":["5017","5018"],"tpm":{"1":2},"tr":{"d1":"7781","d2":"","w1":"7780","w2":""},"end":"5284","fest":"5561","zw":"","verb":"7779","bog":{"rund1":"4546","horiz":"4528","gehr":"6499"},"r":35,"kg":60,"mont":"beides"},{"id":"642","n":"642 PROJEKT (Objekt)","typ":"Objektschiene","nr":"642STG","lauf":[2],"gl":"Liftgleiter L","glOpt":[],"tpm":{"2":3},"tr":{"d1":"","d2":"7123","w1":"","w2":"6423"},"end":"6421","fest":"","zw":"4365","verb":"6422","bog":{"gehr":"6499"},"r":0,"kg":15,"mont":"beides"},{"id":"458","n":"458 PRAXIS (Raumtrenn)","typ":"Raumtrennschiene","nr":"458STG","lauf":[1],"gl":"4263+4803","glOpt":["4824","4825","4826","4330+4806"],"tpm":{"1":2},"tr":{"d1":"4055","d2":"","w1":"4059","w2":""},"end":"4582","fest":"4722","zw":"4277","verb":"4065","bog":{"rund1":"4540","horiz":"4528"},"r":12,"kg":11,"mont":"beides"},{"id":"464","n":"464 RONDO (Raumtrenn)","typ":"Raumtrennschiene","nr":"464STG","lauf":[1],"gl":"4263+4803","glOpt":["4824","4825","4826","4330+4806"],"tpm":{"1":2},"tr":{"d1":"4055","d2":"","w1":"4526","w2":""},"end":"4642","fest":"4722","zw":"4277","verb":"4065","bog":{"rund1":"4540","horiz":"4528"},"r":30,"kg":11,"mont":"beides"}];
+if(!S.schienenEigen||typeof S.schienenEigen!=='object')S.schienenEigen={};
+const SCH_STANGE=600,SCH_KERF=0.5;
+const SCH_BOG=[['retL','Runde Retoure links'],['retR','Runde Retoure rechts'],['rund','Rundbogen'],['erker','Erkerbogen'],['gehr','Gehrungsschnitt']];
+const SCH_TR_TXT={d1:'Deckenträger einläufig',d2:'Deckenträger zweiläufig',w1:'Wandträger einläufig',w2:'Wandträger zweiläufig'};
+const schById=i=>i?SCHIENEN.find(r=>r.id===i)||null:null;
+const schEig=()=>S.schienenEigen||(S.schienenEigen={});
+function schVal(R,key){const e=schEig()[R.id]||{};const ev=String(e[key]??'').trim();if(ev)return ev;
+  if(key.startsWith('tr_'))return R.tr[key.slice(3)]||'';if(key.startsWith('bog_'))return (R.bog||{})[key.slice(4)]||'';const v=R[key];return v==null?'':String(v);}
+function schTpm(R,lauf){const e=schEig()[R.id]||{};const v=num(e['tpm'+lauf]);if(v>0)return [v,false];const t=(R.tpm||{})[String(lauf)];if(t)return [Number(t),false];return [lauf===1?3:6,true];}
+function schGlOk(R,gl){if(!R||!gl||gl.t==='eigen')return null;if(gl.t==='welle')return R.typ==='Wellenschiene';
+  const codes=new Set();[R.gl].concat(R.glOpt||[]).forEach(c=>String(c).split('+').forEach(x=>codes.add(x.trim())));return codes.has(gl.a);}
+const schBogKey=(R,k,lauf)=>k==='rund'?(lauf===2&&(R.bog||{}).rund2?'rund2':'rund1'):k;
+function schCalc(q){const R=schById(q.schTyp);if(!R)return null;
+  let raw=num(q.schL);const ausDeck=raw<=0;if(ausDeck)raw=num(q.schiene);const w2w=!!q.schW2W&&!ausDeck;
+  const L=Math.round((w2w?raw-1:raw)*10)/10;let lauf=Math.trunc(num(q.schLauf))||R.lauf[0];if(!R.lauf.includes(lauf))lauf=R.lauf[0];
+  const stk=Math.max(1,Math.trunc(num(q.stk))||1),schals=Math.max(1,Math.trunc(num(q.schals))||1);
+  const wand=q.montageart==='wand'&&R.mont!=='decke';
+  const r={R,L,ausDeck,w2w,lauf,stk,wand,lief:q.schLief||'stange',farbe:String(q.schFarbe||'weiß').trim()||'weiß',teile:[],trN:0,trNr:'',trTxt:'',tpmEst:false,end:0,fest:0,verb:0,ueb:0,bog:{}};
+  if(L<=0)return r;
+  const k=Math.max(1,Math.ceil(L/SCH_STANGE-1e-9)),t=Math.round(L/k*10)/10;
+  for(let i=0;i<k-1;i++)r.teile.push(t);r.teile.push(Math.round((L-t*(k-1))*10)/10);
+  const trk=(wand?'w':'d')+lauf;r.trNr=schVal(R,'tr_'+trk);r.trTxt=SCH_TR_TXT[trk];
+  const [tpm,est]=schTpm(R,lauf);r.tpmEst=est;r.trN=Math.max(2,Math.ceil(L*tpm/100-1e-9))*stk;
+  r.end=2*lauf*stk;r.fest=schVal(R,'fest')?2*lauf*stk:0;r.verb=(k-1)*lauf*stk;
+  const us=String(q.schUeb??'').trim();r.ueb=(us!==''?Math.trunc(num(us)):(schals>=2?schals-1:0))*stk;r.uebAuto=us==='';
+  for(const [key] of SCH_BOG){const n=Math.trunc(num(q['schB_'+key]));if(n>0)r.bog[key]=n*stk;}
+  return r;}
+function schKurz(q,c){c=c!==undefined?c:schCalc(q);if(!c)return '';if(c.L<=0)return 'Leha '+c.R.n;
+  return 'Leha '+c.R.n+' · '+(c.lauf===2?'2-läufig':'1-läufig')+' · '+cm(c.L)+(c.w2w?' (Mauerlichte − 1 cm)':'')+' · '+c.farbe;}
+function schPack(pieces){const bars=[];
+  const sorted=pieces.slice().sort((a,b)=>(b[0]-a[0])||(a[1]<b[1]?-1:a[1]>b[1]?1:0));
+  for(const [ln,lab] of sorted){let put=false;for(const b of bars){const need=ln+(b.p.length?SCH_KERF:0);if(b.used+need<=SCH_STANGE+1e-9){b.p.push([ln,lab]);b.used+=need;put=true;break;}}
+    if(!put)bars.push({p:[[ln,lab]],used:ln});}
+  return bars.map(b=>({p:b.p,rest:Math.round((SCH_STANGE-b.used)*10)/10}));}
+function schMaterial(St){const groups={},order=[],acc={},accOrder=[];
+  const add=(t,n)=>{if(n<=0)return;if(!(t in acc)){acc[t]=0;accOrder.push(t);}acc[t]+=n;};
+  const art=(nr,txt)=>nr?nr+' '+txt:txt+' – Art.-Nr. fehlt';
+  St.pos.forEach((q,i)=>{const c=schCalc(q);if(!c||c.L<=0)return;const R=c.R,key=R.id+'|'+c.farbe;
+    if(!groups[key]){groups[key]={R,farbe:c.farbe,stange:[],abg:[]};order.push(key);}const g=groups[key],lab='Pos. '+(i+1);
+    for(let j=0;j<c.lauf*c.stk;j++)for(const t of c.teile)(c.lief==='abg'?g.abg:g.stange).push([t,lab]);
+    add(art(c.trNr,c.trTxt)+' · '+R.n+(c.tpmEst?' (Anzahl geschätzt)':''),c.trN);
+    add(art(schVal(R,'end'),'Enddeckel')+' · '+R.n,c.end);
+    if(c.fest)add(art(schVal(R,'fest'),'Ösenfeststeller')+' · '+R.n,c.fest);
+    add(art(schVal(R,'verb'),'Profilverbinder')+' · '+R.n,c.verb);
+    add(art(schVal(R,'ueb'),'Überlappung / Mitnehmer')+' · '+R.n,c.ueb);
+    for(const [k,txt] of SCH_BOG)if(c.bog[k])add(art(schVal(R,'bog_'+schBogKey(R,k,c.lauf)),txt+(k==='rund'&&c.lauf===2?' zweiläufig':''))+' · '+R.n,c.bog[k]);});
+  return {groups:order.map(k=>{const g=groups[k];return {R:g.R,farbe:g.farbe,bars:schPack(g.stange),abg:g.abg};}),acc:accOrder.map(t=>[t,acc[t]])};}
+function schLines(St){const M=schMaterial(St),rows=[];
+  for(const g of M.groups){const R=g.R;
+    if(g.bars.length){const n=g.bars.length;rows.push(['Leha '+R.n+' Profil '+R.nr+' '+g.farbe+' – Stangen '+fmt(SCH_STANGE/100,0)+' m',n+' Stk (= '+m(n*SCH_STANGE)+')']);}
+    if(g.abg.length){const tot=g.abg.reduce((a,x)=>a+x[0],0);rows.push(['Leha '+R.n+' Profil '+R.nr+'ABG '+g.farbe+' – abgelängt: '+g.abg.map(([ln,lab])=>cm(ln)+' ('+lab+')').join(', '),g.abg.length+' Stk (= '+m(tot)+')']);}}
+  for(const [t,n] of M.acc)rows.push(['Leha '+t,n+' Stk']);return rows;}
+function schPlanLines(St){return schMaterial(St).groups.filter(g=>g.bars.length).map(g=>['Leha '+g.R.n+' '+g.farbe+' · Stangen à '+cm(SCH_STANGE),
+  g.bars.map((b,j)=>'Stange '+(j+1)+': '+b.p.map(([ln,lab])=>cm(ln)+' ('+lab+')').join(' + ')+' · Rest '+cm(b.rest))]);}
+let schEigSig='';
+function renderSchCard(){const p=cur();if(!p)return;const R=schById(p.schTyp),body=document.getElementById('schBody');
+  const ts=document.getElementById('p_schTyp');if(ts.value!==(p.schTyp||''))ts.value=p.schTyp||'';
+  if(!R){body.hidden=true;document.getElementById('sum5').textContent='';return;}body.hidden=false;
+  const c=schCalc(p),ls=document.getElementById('p_schLauf'),lv=R.lauf.map(String).join(',');
+  if(ls.dataset.opts!==lv){ls.innerHTML=R.lauf.map(n=>'<option value="'+n+'">'+n+'-läufig</option>').join('');ls.dataset.opts=lv;}
+  ls.value=String(c.lauf);const lf=document.getElementById('p_schLief');if(lf.value!==(p.schLief||'stange')){lf.value=p.schLief||'stange';if(typeof updSegs==='function')updSegs();}
+  document.getElementById('schLHint').textContent=c.ausDeck?'leer = Deckbreite '+cm(num(p.schiene)):(c.w2w?'Schiene '+cm(c.L):'');
+  document.getElementById('sum5').textContent=schKurz(p,c);
+  const parts=[];const miss='<i>(Art.-Nr. fehlt)</i>';
+  if(c.L>0){if(c.teile.length>1)parts.push('geteilt: '+c.teile.map(cm).join(' + ')+' (je Lauf, mit '+(c.teile.length-1)+' Profilverbinder'+(c.teile.length===2?'':'n')+')');
+    parts.push(c.trN+' × '+(c.trNr?'<b>'+esc(c.trNr)+'</b>':miss)+' '+c.trTxt+(c.tpmEst?' – Anzahl geschätzt':''));
+    parts.push(c.end+' × Enddeckel '+(schVal(R,'end')?'<b>'+esc(schVal(R,'end'))+'</b>':miss));
+    if(c.fest)parts.push(c.fest+' × Ösenfeststeller <b>'+esc(schVal(R,'fest'))+'</b>');
+    if(c.ueb)parts.push(c.ueb+' × Überlappung '+(schVal(R,'ueb')?'<b>'+esc(schVal(R,'ueb'))+'</b>':miss)+(c.uebAuto?' (automatisch aus Schals)':''));
+    for(const [k,txt] of SCH_BOG)if(c.bog[k]){const nr=schVal(R,'bog_'+schBogKey(R,k,c.lauf));parts.push(c.bog[k]+' × '+txt+' '+(nr?'<b>'+esc(nr)+'</b>':miss));}
+    if(c.stk>1)parts.push('(alles für '+c.stk+' gleiche Fenster)');}
+  document.getElementById('schInfo').innerHTML='<span class="muted">Montage: '+(c.wand?'Wand':'Decke'+(R.mont==='decke'?' (nur Decke möglich)':''))+' · Standard-Gleiter Leha '+esc(R.gl)+' · max. '+R.kg+' kg · Biegeradius '+(R.r?cm(R.r):'nicht biegbar')+'</span><br>'+parts.join(' · ');
+  const warn=[],rr=calc(p),ok=schGlOk(R,rr.GL);
+  if(ok===false)warn.push('Der gewählte Gleiter ('+rr.glName+') passt laut Leha nicht zu '+R.n+'. Passend: '+[R.gl].concat(R.glOpt||[]).join(', ')+'.');
+  if(R.mont==='decke'&&p.montageart==='wand')warn.push('Diese Schiene ist laut Leha nur für Deckenmontage – bei „Aufmaß vor Ort“ steht Wand.');
+  document.getElementById('schWarn').innerHTML=warn.map(t=>'<div class="warn">'+esc(t)+'</div>').join('');
+  const need=[];if(c.L>0){const trk=(c.wand?'w':'d')+c.lauf;if(!R.tr[trk])need.push(['tr_'+trk,'Art.-Nr. '+SCH_TR_TXT[trk]]);if(!R.end)need.push(['end','Art.-Nr. Enddeckel']);
+    if(c.verb&&!R.verb)need.push(['verb','Art.-Nr. Profilverbinder']);need.push(['ueb','Art.-Nr. Überlappung']);if(c.tpmEst)need.push(['tpm'+c.lauf,'Träger je 100 cm']);}
+  const sig=R.id+'|'+need.map(x=>x[0]).join(',');const box=document.getElementById('schEig');
+  if(sig!==schEigSig){schEigSig=sig;const e=schEig()[R.id]||{};
+    box.innerHTML=need.length?'<span class="t">Ergänzen für '+esc(R.n)+' (gilt für alle Aufträge):</span>'+need.map(([k,t])=>'<label>'+esc(t)+'<input data-eig="'+k+'" value="'+esc(e[k]||'')+'"'+(k.startsWith('tpm')?' type="number" step="0.5" inputmode="decimal"':' autocomplete="off"')+'></label>').join(''):'';
+    box.querySelectorAll('[data-eig]').forEach(inp=>inp.addEventListener('input',()=>{const E=schEig(),o=E[R.id]||(E[R.id]={}),v=inp.value.trim();
+      if(v)o[inp.dataset.eig]=v;else{delete o[inp.dataset.eig];if(!Object.keys(o).length)delete E[R.id];}S.isSample=false;save();render();if(typeof syncSoon==='function')syncSoon();}));}}
+{const ts=document.getElementById('p_schTyp');ts.innerHTML='<option value="">— keine Schiene —</option>'+SCHIENEN.map(R=>'<option value="'+R.id+'">Leha '+esc(R.n)+'</option>').join('');}
 const glById=id=>allGl().find(g=>g.id===id);
 function gliderSVG(t){
   const W=120,H=80;let g='<svg viewBox="0 0 '+W+' '+H+'" aria-hidden="true">';
@@ -1448,7 +1572,7 @@ document.getElementById('btnDel').onclick=()=>{if(S.pos.length===1){S.pos[0]=new
 const cn=document.getElementById('confirmNew');
 document.getElementById('btnNew').onclick=()=>{document.getElementById('newText').textContent=(S.orderId||hasContent())?'Neuen Auftrag beginnen? Der aktuelle Auftrag wird vorher gespeichert.':'Neuen Auftrag beginnen? Der aktuelle Auftrag ist nicht gespeichert und wird verworfen.';cn.hidden=false;};
 document.getElementById('noNew').onclick=()=>{cn.hidden=true;};
-document.getElementById('yesNew').onclick=()=>{if(S.orderId||hasContent())upsertOrder();const b=S.auftrag.betrieb;S={orderId:null,isSample:false,auftrag:{kunde:'',nr:'',datum:today,termin:'',montage:'',status:'auftrag',betrieb:b,naeher:''},pos:[newPos('Fenster 1')],sel:0,view:'calc',photos:S.photos||{},customGl:S.customGl||[],logo:S.logo||'',kbdx:0,seedGl1:true,seedGl2:true,seedGl3:true};cn.hidden=true;document.getElementById('auftragBox').open=true;save();fillForm();render();};
+document.getElementById('yesNew').onclick=()=>{if(S.orderId||hasContent())upsertOrder();const b=S.auftrag.betrieb;S={orderId:null,isSample:false,auftrag:{kunde:'',nr:'',datum:today,termin:'',montage:'',status:'auftrag',betrieb:b,naeher:''},pos:[newPos('Fenster 1')],sel:0,view:'calc',photos:S.photos||{},customGl:S.customGl||[],schienenEigen:S.schienenEigen||{},logo:S.logo||'',kbdx:0,seedGl1:true,seedGl2:true,seedGl3:true};cn.hidden=true;document.getElementById('auftragBox').open=true;save();fillForm();render();};
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{S.view=b.dataset.go;save();render();window.scrollTo({top:0});}));
 
 /* ---------- Texte ---------- */
@@ -1502,6 +1626,7 @@ function render(){
   if(view==='shop')renderShop();
   if(view==='aufmass')renderAufmass();
   if(typeof renderAufmassCard==='function')renderAufmassCard();
+  renderSchCard();
 
   renderTf();
   { const hf=document.getElementById('halbSeiteField'), rr=calc(cur()); hf.hidden=!(rr.ware==='bahn'&&rr.halbeJe);
@@ -1554,7 +1679,9 @@ function render(){
   if(oes)rows+='<tr><td>Ösen</td><td class="n">'+oes+' Stk</td><td></td></tr>';
   if(blei)rows+='<tr><td>Bleiband</td><td class="n">'+m(blei)+'</td><td></td></tr>';
   if(kost)rows+='<tr class="sum"><td>Stoffkosten gesamt</td><td></td><td class="n">'+eur(kost)+'</td></tr>';
+  for(const [t,n] of schLines(S))rows+='<tr><td>'+esc(t)+'</td><td class="n">'+esc(n)+'</td><td></td></tr>';
   document.getElementById('totals').innerHTML=rows;
+  {const pl=schPlanLines(S);document.getElementById('schPlanCard').hidden=!pl.length;document.getElementById('schPlan').textContent=pl.map(([h2,l])=>h2+'\n'+l.map(x=>'  '+x).join('\n')).join('\n\n');}
   let pt='<tr><th>Pos.</th><th>Raum / Fenster</th><th>Kopf</th><th class="n">Raffung</th><th class="n">Deckbreite</th><th class="n">Höhe</th><th class="n">Stk</th><th class="n">Stoff</th></tr>';
   all.forEach(({q,r},i)=>pt+='<tr><td>'+(i+1)+'</td><td>'+esc(posTitle(q))+'</td><td>'+esc(r.B?'Bandex '+r.B.n:r.H.label)+'</td><td class="n">1 : '+fmt(num(q.faktor),2)+'</td><td class="n">'+cm(num(q.schiene))+'</td><td class="n">'+cm(r.hoeheFertig)+'</td><td class="n">'+(r.stk*r.schals)+'</td><td class="n">'+m(r.stoffCm)+'</td></tr>');
   document.getElementById('posTable').innerHTML=pt;
@@ -2250,6 +2377,7 @@ function renderAufmass(){const A=S.auftrag,RS=calcAll(),el=document.getElementBy
       ['Aufteilung',r.schals+(r.schals===1?' Schal':' Schals')+(r.stk>1?' · '+r.stk+' Stück':'')],
       ...(q.montageart?[['Montage',MONTAGE[q.montageart]+(q.abstand?' · Abstand '+cm(num(q.abstand)):'')]]:[]),
       ...(q.mnotiz?[['Untergrund',q.mnotiz]]:[]),
+      ...(schKurz(q)?[['Schiene',schKurz(q)]]:[]),
       ['Stoff',(q.stoff||'—')],['Kopf',r.bandName||r.kopfLabel||''],...(r.gleiter?[['Gleiter',r.glName]]:[]),...(q.bem?[['Bemerkung',q.bem]]:[])];
     h+='<section class="am-pos"><h3>Pos. '+(i+1)+' · '+esc(posTitle(q))+'</h3><div class="am-grid"><div class="am-kv">'+kv.map(([k,v])=>'<span>'+esc(k)+'</span><b>'+esc(v)+'</b>').join('')+'</div>'+
       '<div>'+(hasSk(q.skizze)?'<div class="am-sk">'+strokesSvg(q.skizze,null,massTexte(q))+'</div>':'')+'</div></div>'+
@@ -2410,6 +2538,7 @@ function sySnapshot(){const snap={};
   for(const k of ['kontakte','artikel','auftraege'])if(VD[k]&&VD[k].length)snap['vendoc/'+k]=['vendoc',k,{v:VD[k],stand:VD.stand[k]||''}];
   for(const k of ['vmap','artInfo'])if(VD[k]&&Object.keys(VD[k]).length)snap['vendoc/'+k]=['vendoc',k,{v:VD[k]}];
   if(S.appUrl)snap['settings/appUrl']=['settings','appUrl',{v:S.appUrl}];
+  if(S.schienenEigen&&Object.keys(S.schienenEigen).length)snap['settings/schienen']=['settings','schienen',{v:S.schienenEigen}];
   return snap;}
 const sySaved=d=>{const v=(d&&d.savedAt)||0;return v&&v<1e11?v*1000:v;};
 function syPlan(snap,rows){const H=SY.hashes||(SY.hashes={}),loc={},dirty=new Set(),apply=[],rh={},taken=new Set();
@@ -2431,6 +2560,7 @@ function syApply(apply){if(!apply.length)return;let l=null,reload=null,vd=false;
     else if(kind==='gleiter'){S.customGl=(S.customGl||[]).filter(g=>g.id!==id);if(!del&&data)S.customGl.unshift(Object.assign(clone(data),{id}));}
     else if(kind==='photo'){if(del)delete S.photos[id];else if(data&&data.uri)S.photos[id]=data.uri;}
     else if(kind==='logo'){const u=(data&&data.uri)||'';S.logo=u?u:'none';}
+    else if(kind==='settings'&&id==='schienen'&&!del&&data&&data.v&&typeof data.v==='object'){S.schienenEigen=clone(data.v);schEigSig='';}
     else if(kind==='settings'&&id==='appUrl'&&!del&&data&&data.v&&!/^https:$/.test(location.protocol))S.appUrl=data.v;
     else if(kind==='vendoc'&&!del&&data){if(['kontakte','artikel','auftraege'].includes(id)&&Array.isArray(data.v)){VD[id]=data.v;if(data.stand)VD.stand[id]=data.stand;vd=true;}
       else if(['vmap','artInfo'].includes(id)&&data.v&&typeof data.v==='object'){VD[id]=data.v;vd=true;}}}

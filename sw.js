@@ -1,5 +1,5 @@
 // Offline-Speicher der Vorhangberechnung
-const CACHE = 'vorhangberechnung-v18';
+const CACHE = 'vorhangberechnung-v20';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './favicon.png', './etikett.html'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));

@@ -177,3 +177,25 @@ Maße auf Skizze und Foto (automatisch)
   Kamera bzw. die Foto-Auswahl. Bei mehreren Fotos wechselt jeder Tipp zum
   nächsten. Dann das Fenster auf dem Foto kurz umfahren – die Maßlinien
   stehen direkt im Foto. "Ohne Foto" nimmt es wieder heraus.
+
+Schienen (Leha)
+---------------
+Bereich 5 "Schiene" bei jedem Fenster:
+- Schiene wählen (Leha 412 UNO, 417 BASIC, 422 DISKRET, 426 LINEA, 454 RUN, 455 TOP,
+  455/W ONDA, 460 SPEED, 466 ZENIT, 487 CURVE, 555 HEAVY, 642 PROJEKT,
+  458 PRAXIS, 464 RONDO – Daten aus den Leha-Datenblättern).
+- Schienenlänge eigenes Feld (leer = Deckbreite). "Wand zu Wand" zieht
+  laut Leha 1 cm Luft ab. Über 6 m wird die Schiene mittig geteilt
+  (mit Profilverbinder).
+- Läufe, Farbe, Lieferung: 6-m-Stange (selbst schneiden) oder abgelängt.
+- Automatisch gerechnet: Träger (Decke oder Wand je nach Montageart beim
+  Aufmaß, Anzahl laut Leha je 100 cm), Enddeckel, Ösenfeststeller,
+  Profilverbinder, Überlappungen (bei 2 Schals 1 Stück – Feld leer =
+  automatisch) und Bögen (Retoure, Rundbogen, Erker, Gehrung).
+- Fehlt bei Leha eine Artikelnummer (z. B. Träger bei 454 RUN oder die
+  Überlappung), erscheint ein Feld "Ergänzen". Einmal eintragen – gilt für
+  alle Aufträge und kommt über den Abgleich auf alle Geräte.
+- Passt der gewählte Gleiter nicht zur Schiene, erscheint ein Hinweis.
+- Materialliste: Profile (Stangen bzw. abgelängte Längen) und Zubehör.
+  Darunter der Zuschnittplan: welche Stücke aus welcher 6-m-Stange, mit Rest.
+- Aufmaßblatt: Zeile "Schiene".
