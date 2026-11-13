@@ -1,0 +1,164 @@
+VORHANGBERECHNUNG FÜR DAS iPAD
+==============================
+
+Das iPad installiert Web-Apps über eine Internetadresse. Deshalb wird dieser
+Ordner einmal ins Internet gestellt. Danach läuft die App auf dem iPad wie ein
+eigenes Programm – auch ohne Internet auf der Baustelle.
+
+Eure Aufträge werden NICHT ins Internet hochgeladen. Sie bleiben nur auf dem iPad.
+Im Internet liegt nur das leere Programm.
+
+
+1. Einmalig: App ins Internet stellen (kostenlos, ca. 10 Minuten)
+-----------------------------------------------------------------
+Am einfachsten mit GitHub Pages:
+  a) Auf https://github.com ein kostenloses Konto anlegen.
+  b) Oben rechts "+" > "New repository", Name z. B.  vorhang
+     "Public" auswählen, "Create repository" klicken.
+  c) Auf "uploading an existing file" klicken und ALLE Dateien aus diesem Ordner
+     hineinziehen (index.html, sw.js, manifest.webmanifest, die PNG-Bilder).
+     Unten "Commit changes" klicken.
+  d) Im Repository: "Settings" > "Pages" > bei "Branch" "main" und "/ (root)"
+     wählen > "Save". Nach 1–2 Minuten erscheint dort die Adresse, z. B.
+        https://DEINNAME.github.io/vorhang/
+
+Tipp: Wenn GitHub mit Claude verbunden ist (claude.ai > Einstellungen >
+Connectors > GitHub), kann Claude diesen Schritt auch übernehmen.
+
+
+2. Auf dem iPad installieren
+----------------------------
+  a) Die Adresse aus Schritt 1 in SAFARI öffnen.
+  b) Auf das Teilen-Symbol tippen (Quadrat mit Pfeil nach oben).
+  c) "Zum Home-Bildschirm" > "Hinzufügen".
+  d) Auf dem Home-Bildschirm erscheint das Symbol "Vorhang" mit dem Wieland-W.
+     Ab jetzt immer darüber starten.
+
+Einmal mit Internet öffnen, danach funktioniert die App auch offline.
+
+
+3. Neue Version einspielen
+--------------------------
+Neue Dateien bei GitHub wie in Schritt 1c hochladen (alte überschreiben).
+Die App auf dem iPad holt sich die neue Version beim nächsten Start mit
+Internet automatisch (eventuell die App einmal schließen und neu öffnen).
+Die Aufträge bleiben erhalten.
+
+
+4. Aufträge sichern und zwischen iPad und Windows übertragen
+-------------------------------------------------------------
+Reiter "Gespeicherte Aufträge" > "Sicherung herunterladen".
+Die Datei landet in der Dateien-App. Von dort per AirDrop, Mail oder Cloud
+an den PC schicken und im Windows-Programm unter "Gespeicherte Aufträge" >
+"Sicherung einlesen" öffnen. Umgekehrt genauso.
+
+Wichtig: Regelmäßig eine Sicherung machen. Wird die App vom Home-Bildschirm
+gelöscht, sind auch die darin gespeicherten Aufträge weg.
+
+
+5. Drucken
+----------
+Nähzettel oder Zuschnittliste öffnen > "Drucken" > Drucker wählen
+(AirPrint) oder über "Teilen" als PDF sichern.
+Verbindung mit Vendoc
+---------------------
+Reiter "Vendoc":
+1. In Vendoc die Kontakte, die Artikel und die Aufträge jeweils über
+   "Export > Excel" speichern. Hier "Vendoc-Dateien einlesen" wählen und die
+   Dateien öffnen (mehrere auf einmal gehen). Das Programm erkennt selbst,
+   welche Liste es ist. Bei Änderungen in Vendoc einfach neu einlesen.
+2. Auftrag aus der Vendoc-Liste "Übernehmen": Belegnummer, Kunde, Datum und
+   Lieferadresse werden eingetragen, dann nur noch die Fenster erfassen.
+3. Kunde: im Feld "Kunde" ein paar Buchstaben tippen, darunter erscheinen die
+   Vendoc-Kontakte zum Antippen.
+4. Stoff: in der Spalte "Stoff" die Artikelnummer oder einen Teil der
+   Bezeichnung tippen und den Vorschlag wählen. Bezeichnung, Verkaufspreis und
+   (wenn in der Bezeichnung "B 140 cm" steht) die Stoffbreite werden
+   übernommen. Stoffbreite, Rapport und Warenart merkt sich das Programm je
+   Artikel für das nächste Mal.
+5. Band, Gleiter und Zubehör einmal einer Vendoc-Artikelnummer zuordnen –
+   gilt dann für alle Aufträge.
+6. "CSV für Vendoc speichern" erzeugt die Positionen (und eine kleine Datei
+   mit dem Auftragskopf) für den Vendoc-Universalimport. Ohne Importprofil:
+   "Kopieren" und in Vendoc einfügen. Siehe "Vendoc-Import - fuer den
+   Vendoc-Betreuer.txt".
+Die eingelesenen Vendoc-Listen und Zuordnungen kommen mit der Sicherungsdatei
+auch auf das andere Gerät (Windows <-> iPad).
+Abgleich zwischen Windows und iPad (Cloud)
+------------------------------------------
+Reiter "Gespeicherte Aufträge" -> oben "Abgleich":
+1. Mit dem Werkstatt-Zugang (E-Mail und Passwort aus Supabase) anmelden.
+   Das ist auf jedem Gerät nur einmal nötig.
+2. Danach gleicht das Programm automatisch ab: beim Start, jede Minute und
+   wenige Sekunden nach jedem Speichern. Abgeglichen werden Aufträge,
+   Vendoc-Listen und Zuordnungen, eigene Gleiter, Fotos und das Logo.
+3. Oben rechts steht der Stand, z. B. "☁ abgeglichen 10:24". Ein Klick
+   darauf führt zur Anmeldung. "offline" heißt: kein Internet – die
+   Änderungen werden später automatisch nachgeholt.
+4. Ändern zwei Geräte denselben Auftrag, gilt die zuletzt gespeicherte
+   Fassung. Gelöschte Aufträge verschwinden auf allen Geräten.
+Die Sicherungsdatei funktioniert weiterhin als zusätzliche Sicherung.
+Werkstatt: Status, Termine, Wochenplan
+--------------------------------------
+- Im Auftragskopf gibt es jetzt "Montage am" und "Status"
+  (Auftrag -> Ware da -> in Arbeit -> fertig -> montiert).
+- In der Zuschnittliste hat jede Position zwei Haken: "geschnitten" und
+  "genäht". Sobald etwas abgehakt ist, springt der Status auf "in Arbeit",
+  sind alle Positionen genäht, auf "fertig".
+- Reiter "Werkstatt":
+  * Tafel nach Status: alle Aufträge in fünf Spalten. Mit den Pfeilen
+    unten auf der Karte eine Station weiter oder zurück, Klick auf die
+    Karte öffnet den Auftrag. Überfällige Aufträge sind orange umrandet.
+  * Wochenplan: Fertig-bis- und Montagetermine der nächsten sechs Wochen,
+    oben "Überfällig", unten "Offen ohne Termin".
+- Status und Termine werden mit dem Abgleich auf alle Geräte übertragen.
+Montage-Etiketten mit QR-Code
+-----------------------------
+- Auf dem Nähzettel hat jede Position rechts oben einen QR-Code.
+- Mit der Kamera von iPad oder Handy scannen: Es öffnet sich das
+  Montage-Etikett dieser Position (Kunde, Auftrag, Pos./Raum, Schal
+  links/rechts, Fertigbreite × Fertighöhe, Deckbreite, Gleiter,
+  Montagetermin, Bemerkung). Dort "Drucken" tippen.
+- Alle Etiketten eines Auftrags auf einmal: Reiter "Nähzettel" ->
+  "Montage-Etiketten" (iPad) bzw. "Montage-Etiketten drucken" (Windows).
+- Etikettengröße oben auswählen (voreingestellt 102 × 156 mm hoch), außerdem Brother 62 mm Endlos, Dymo 99012,
+  Dymo 99014, 100 × 50 mm oder A4-Bogen 2 × 4. Im Druckdialog dasselbe
+  Papierformat und 100 % / ohne Rand wählen.
+- "je Schal ein Etikett": bei 2 Schals je ein Etikett "links" und "rechts".
+- Damit der QR-Code die Etikett-Seite öffnet, braucht das Programm die
+  Adresse der iPad-App. Das iPad trägt sie selbst ein und gibt sie über
+  den Abgleich an Windows weiter (Windows: Reiter "Gespeicherte Aufträge",
+  Feld "Adresse der iPad-App"). Ohne Adresse enthält der QR-Code nur Text.
+Aufmaß vor Ort
+--------------
+- Im Reiter "Berechnen" hat jede Position unten die Karte
+  "4 Aufmaß vor Ort": Montage (Decke / Wand / Nische), Abstand zur Wand
+  bzw. Decke, Untergrund/Befestigung, Fotos und Skizze.
+- Fotos: "Foto hinzufügen" – am iPad direkt mit der Kamera oder aus den
+  Fotos, am PC aus einem Ordner. Antippen zeigt das Foto groß, dort auch
+  löschen.
+- Skizze: auf die Fläche tippen bzw. "Skizze zeichnen" – mit Finger, Stift
+  oder Maus zeichnen, "Rückgängig", "Fertig".
+- Reiter "Aufmaßblatt" (iPad): alle Fenster mit Maßen, Skizzen und Fotos.
+  "Kunde unterschreibt" – der Kunde unterschreibt auf dem iPad, Name wird
+  dazugeschrieben. "Drucken / PDF" erzeugt das Aufmaßblatt zum Mitgeben
+  oder Mailen. Am PC: Reiter "Nähzettel" -> "Aufmaßblatt drucken".
+- Fotos, Skizzen und Unterschrift kommen über den Abgleich auf alle Geräte.
+- Die Montageart steht auch auf dem Montage-Etikett.
+Bosch-Laser (GLM 50-27 CG u. a.) über Bluetooth
+------------------------------------------------
+Funktioniert in der Web-App (gleiche Adresse wie am iPad):
+- Surface / Windows-Tablet: App in Microsoft Edge oder Google Chrome
+  öffnen (in Edge über "..." -> "Apps" -> "Diese Seite als App
+  installieren" bekommt sie ein eigenes Symbol).
+- iPad: Safari kann kein Bluetooth. Dafür die kostenlose Browser-App
+  "Bluefy" aus dem App Store installieren und die App-Adresse dort öffnen.
+So geht's:
+1. Am Laser Bluetooth einschalten. Die Bosch-App MeasureOn darf nicht
+   gleichzeitig verbunden sein.
+2. Oben "Laser verbinden" tippen und den GLM in der Liste auswählen.
+3. Ein Maßfeld antippen (es wird orange umrandet), am Laser messen –
+   der Wert steht in cm im Feld. "Rückgängig" in der Meldung unten setzt
+   den alten Wert zurück.
+Hinweis: Bosch veröffentlicht das Bluetooth-Protokoll nicht. Erscheint
+"Laser-Daten (unbekannt)", bitte ein Foto davon an den Programmierer.

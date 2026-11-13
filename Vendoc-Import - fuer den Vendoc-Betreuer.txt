@@ -1,0 +1,68 @@
+VENDOC-IMPORT – INFORMATION FÜR DEN VENDOC-BETREUER
+===================================================
+
+Die Vorhangberechnung (Raumausstattung Wieland) erzeugt je Auftrag zwei
+CSV-Dateien, die per Universalimport in Vendoc übernommen werden sollen.
+Bitte dafür einmalig ein Importprofil anlegen.
+
+Dateiformat (beide Dateien)
+---------------------------
+- Textdatei, Zeichensatz Windows-1252 (ANSI)
+- Trennzeichen Semikolon ( ; ), Texte bei Bedarf in Anführungszeichen
+- Dezimalkomma (z. B. 14,80), keine Tausenderpunkte
+- Erste Zeile = Spaltenüberschriften, Zeilenende CR LF
+
+
+1) <Name>.csv – Positionen
+--------------------------
+Spalten (Überschriften wie in der Vendoc-Positionsliste):
+  Positionsnummer          "1", "2" = Hauptposition je Fenster
+                           "1.1", "1.2" … = Materialzeilen darunter
+  LV PosNr                 leer
+  Positionsnotiz           Hauptposition: Maße, z. B.
+                           "300 × 250 cm, 2 Schals, Wellenband 1:2,2"
+                           Materialzeile: Raum / Fenster
+  Nähauftrag JA            "gewählt" bei der Hauptposition (Konfektion),
+                           sonst "nicht gewählt"
+  Artikelnummer            Vendoc-Artikelnummer (bei der Hauptposition leer,
+                           bei nicht zugeordnetem Material leer)
+  Bezeichnung              Hauptposition: "Vorhang <Bereich · Raum>"
+                           Material: Bezeichnung aus Vendoc
+  Menge                    Hauptposition: Stückzahl; Material: Menge
+  Einheit                  Stk / lfm
+  Einzelpreis              VK netto aus Vendoc (Stoff: Preis aus der Berechnung)
+  Rabatt                   0
+  Einzelpreis nach Rabatt  wie Einzelpreis
+  Gesamtpreis              Menge × Einzelpreis
+
+Beispiel:
+  1;;300 × 250 cm, 2 Schals, Wellenband 1:2,2;gewählt;;Vorhang EG · Wohnzimmer;1;Stk;0,00;0;0,00;0,00
+  1.1;;EG · Wohnzimmer;nicht gewählt;ZRSPIRIT;Spirit · 10838 597 · B 140 cm;14,00;lfm;74,92;0;74,92;1048,88
+
+Die Positionen gehören in den Auftrag mit der Belegnummer aus Datei 2.
+Für die Hauptposition (ohne Artikelnummer) bitte im Profil eine Text- bzw.
+Konfektionsposition anlegen oder einen festen Artikel "Vorhang Konfektion"
+vorgeben – je nachdem, wie es in Vendoc üblich ist.
+
+
+2) <Name>_Auftrag.csv – Auftragskopf (eine Zeile)
+-------------------------------------------------
+  Belegnummer   z. B. AU-2025739 (wenn der Auftrag aus Vendoc übernommen wurde)
+  Belegdatum    TT.MM.JJJJ
+  Kunde         Anzeigename des Kontakts genau wie in Vendoc (kann einen
+                Zeilenumbruch enthalten, z. B. "Zwischenberger Stefan
+                Tischlerei")
+  Lieferadresse
+  Betreff       "Vorhänge – <Belegnummer>"
+  Lieferdatum   TT.MM.JJJJ (Fertig bis)
+
+
+Daten aus Vendoc für die Vorhangberechnung
+------------------------------------------
+Die Vorhangberechnung liest die normalen Excel-Exporte (.xlsx) aus Vendoc:
+  - Kontakte  (Spalten u. a. Anzeigename, Straße, Hausnummer, Postleitzahl,
+               Ort, Nicht aktiv)
+  - Artikel   (Artikelnummer, Bezeichnung, Rechnungseinheit,
+               Verkaufspreis Netto, Warengruppe)
+  - Aufträge  (Belegnummer, Belegdatum, Kunde, Lieferadresse, Betreff, Status)
+Die Spaltennamen sollten so bleiben. Weitere Spalten stören nicht.
