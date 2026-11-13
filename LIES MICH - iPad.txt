@@ -162,3 +162,18 @@ So geht's:
    den alten Wert zurück.
 Hinweis: Bosch veröffentlicht das Bluetooth-Protokoll nicht. Erscheint
 "Laser-Daten (unbekannt)", bitte ein Foto davon an den Programmierer.
+
+Maße auf Skizze und Foto (automatisch)
+--------------------------------------
+- In der Skizze werden Deckbreite (oben) und Höhe (rechts) automatisch als
+  Maßlinien um die gezeichnete Form eingetragen – schon beim Zeichnen.
+- Fotos bekommen unten eine Maßleiste: Position, Deckbreite × Höhe und
+  Montageart. Zu sehen beim Antippen/Anklicken des Fotos und auf dem
+  Aufmaßblatt.
+- Ändern sich die Maße (auch per Laser), passen sich Skizze und Foto-Leiste
+  von selbst an. Die Original-Fotos bleiben unverändert.
+- Foto als Skizzen-Hintergrund: In der Skizze auf "Foto" (Windows: "Foto
+  als Hintergrund") tippen. Gibt es noch kein Foto, öffnet sich gleich die
+  Kamera bzw. die Foto-Auswahl. Bei mehreren Fotos wechselt jeder Tipp zum
+  nächsten. Dann das Fenster auf dem Foto kurz umfahren – die Maßlinien
+  stehen direkt im Foto. "Ohne Foto" nimmt es wieder heraus.
