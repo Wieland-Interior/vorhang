@@ -469,6 +469,15 @@ table.cut input[type=checkbox]{width:22px;height:22px}
 .tag{background:var(--thread);color:var(--surface);font-family:var(--mono);font-weight:600;font-size:.78rem;padding:1px 6px;border-radius:3px;white-space:nowrap}
 .half{color:var(--warn);font-weight:700}
 .small{font-size:.8rem;color:var(--muted)}
+/* große Bildschirme: breiter, mehr Spalten */
+@media (min-width:1400px){.wrap{max-width:1560px}.main{grid-template-columns:minmax(0,1fr) 380px}
+  .fields,.fields.f3{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1360px){.steps{display:block;column-count:2;column-gap:14px}
+  .steps>*{break-inside:avoid;-webkit-column-break-inside:avoid;margin-bottom:14px}.steps>.namebar{column-span:all}
+  .steps .fields,.steps .fields.f3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1800px){.wrap{max-width:1840px}.main{grid-template-columns:minmax(0,1fr) 420px}}
+@media (min-width:2300px){.wrap{max-width:2200px}.fields,.fields.f3{grid-template-columns:repeat(5,minmax(0,1fr))}}
+select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
 @page{size:A4;margin:12mm}
 @media print{
   body{background:#fff;padding:0;font-size:11px}.no-print{display:none!important}
@@ -491,6 +500,7 @@ table.cut input[type=checkbox]{width:22px;height:22px}
       <button class="primary" id="btnSave">Auftrag speichern</button>
       <button id="btnKbd" aria-pressed="false" title="Bildschirmtastatur für Touch ein- oder ausschalten">⌨ Touch-Tastatur</button>
       <button id="btnLaser" type="button" title="Bosch-Laser über Bluetooth verbinden">📏 Laser verbinden</button>
+      <select id="zoomSel" class="zoomsel" title="Ansicht – Größe für dieses Gerät" aria-label="Ansicht"><option value="auto">Ansicht: automatisch</option><option value="0.8">Ansicht: 80 %</option><option value="0.9">Ansicht: 90 %</option><option value="1">Ansicht: 100 %</option><option value="1.1">Ansicht: 110 %</option><option value="1.25">Ansicht: 125 %</option><option value="1.4">Ansicht: 140 %</option></select>
       <span id="printSlot"></span>
       <button class="link" id="btnNew">Neuer Auftrag</button>
     </div>
@@ -1351,6 +1361,16 @@ function schLines(St){const M=schMaterial(St),rows=[];
 function schPlanLines(St){return schMaterial(St).groups.filter(g=>g.bars.length).map(g=>['Leha '+g.R.n+' '+g.farbe+' · Stangen à '+cm(SCH_STANGE),
   g.bars.map((b,j)=>'Stange '+(j+1)+': '+b.p.map(([ln,lab])=>cm(ln)+' ('+lab+')').join(' + ')+' · Rest '+cm(b.rest))]);}
 let schEigSig='';
+/* ---------- Ansicht je Gerät ---------- */
+function zoomAuto(){const w=Math.min(screen.width||innerWidth,innerWidth),W=innerWidth;
+  return W>=2300?1.15:1;}
+function applyZoom(){let v='auto';try{v=localStorage.getItem('vb-zoom')||'auto';}catch(e){}
+  const z=v==='auto'?zoomAuto():Math.max(.6,Math.min(1.6,parseFloat(v)||1));
+  const w=document.querySelector('.wrap');if(w)w.style.zoom=z===1?'':String(z);
+  const sel=document.getElementById('zoomSel');if(sel){sel.value=v;sel.options[0].textContent='Ansicht: automatisch ('+Math.round(z*100)+' %)';}}
+document.getElementById('zoomSel').addEventListener('change',e=>{try{localStorage.setItem('vb-zoom',e.target.value);}catch(_){}applyZoom();});
+addEventListener('resize',()=>{clearTimeout(window._zt);window._zt=setTimeout(applyZoom,200);});
+applyZoom();
 /* ---------- Plissee (Leha) ---------- */
 const PL_TYPEN=[['vs2','Verspannt, 2 Bedienschienen (VS2)'],['vs1','Verspannt, 1 Bedienschiene (VS1)'],['frei','Freihängend (F1)'],['df','Dachfenster'],['sonder','Sonderform (Schräge/Rund)']];
 const PL_MONTAGE=[['gl_spann','Glasleiste – Spannschuh'],['gl_kleb','Glasleiste – geklebt'],['klemm','Klemmträger (ohne Bohren)'],['fluegel','Fensterflügel geschraubt'],['wand','Wand'],['decke','Decke'],['nische','Nische / Laibung'],['dach','Dachfenster']];

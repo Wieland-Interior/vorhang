@@ -219,3 +219,13 @@ Eigener Reiter "Plissee" je Auftrag:
   Kommission, Maßen, Bestellmaß, Stoff, Profil und Bedienung.
 - Plissees stehen auch auf dem Aufmaßblatt und in der Materialliste und
   kommen über den Abgleich auf alle Geräte.
+
+Ansicht je Gerät
+----------------
+- Oben "Ansicht": automatisch oder 80 % bis 140 %. Die Einstellung gilt nur
+  für das jeweilige Gerät (Surface, iPad, PC können verschieden sein).
+- Web-App auf großen Bildschirmen (ab ca. 1360 Pixel Breite, z. B. Surface
+  quer oder PC): Die Bereiche 1–5 stehen in zwei Spalten nebeneinander, die
+  Seite nutzt die volle Breite – mehr auf einen Blick.
+- Kleinere Ansicht (z. B. 90 %) = mehr Platz, größere (125 %) = besser
+  mit dem Finger zu bedienen.
