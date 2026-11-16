@@ -12,6 +12,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="favicon.png">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<script src="pdfdruck.js" defer></script>
 <title>Vorhangberechnung</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -478,6 +479,28 @@ table.cut input[type=checkbox]{width:22px;height:22px}
 @media (min-width:1800px){.wrap{max-width:1840px}.main{grid-template-columns:minmax(0,1fr) 420px}}
 @media (min-width:2300px){.wrap{max-width:2200px}.fields,.fields.f3{grid-template-columns:repeat(5,minmax(0,1fr))}}
 select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
+/* Zurück / Rückgängig / Bereiche */
+.view.back{color:var(--indigo)}.view.back[hidden]{display:none}
+#btnUndo:disabled{opacity:.45}
+.utoast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:9px 16px;border-radius:8px;font-size:.92rem;z-index:80;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+/* ca.-Maß: kräftig markieren, bis das echte Maß da ist */
+table.qt tr.ca td{background:#ffcf33!important;color:#3a2600}
+table.qt tr.ca td.qn{background:#d62828!important;color:#fff;font-weight:800}
+table.qt tr.ca input,table.qt tr.ca select{border-color:#d62828;border-width:2px;font-weight:700}
+table.qt td.qca{text-align:center}table.qt td.qca input{width:20px;height:20px;accent-color:#d62828}
+.cabadge{display:inline-block;background:#d62828;color:#fff;font-weight:800;font-size:.78em;letter-spacing:.03em;padding:1px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cacheck{display:flex;align-items:center;gap:8px;font-weight:700;color:#b42318;margin-top:6px}.cacheck input{width:22px;height:22px;accent-color:#d62828}
+table.ord tr.ogrp td{background:var(--paper);border-top:2px solid var(--ink);padding:8px 6px}
+table.qt tr.grp td{background:var(--paper);border-top:2px solid var(--ink);padding:7px 6px;font-size:.9rem}
+table.qt tr.grp .grpt{font-weight:700;font-size:1rem;color:var(--ink);padding:2px 4px}
+table.qt tr.grp .gs{color:var(--muted);margin:0 10px}
+.bhead{font-family:var(--display);font-weight:700;font-size:1.05rem;padding:8px 16px;background:var(--paper);border-top:2px solid var(--ink);border-bottom:1px solid var(--line);break-after:avoid;page-break-after:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+/* Baustellen-Ansicht: nur Berechnen, Maße, Aufmaß, Schiene */
+#btnBau.on{background:#c2410c;border-color:#c2410c;color:#fff}
+.baubar{display:none;align-items:center;gap:10px;background:#fff1e6;border:1px solid #f0b48a;color:#7a2e0b;border-radius:8px;padding:8px 12px;font-weight:600;font-size:.92rem}
+body.baustelle .baubar{display:flex}
+body.baustelle #v_sheet,body.baustelle #v_cut,body.baustelle #v_mat,body.baustelle #v_pl,body.baustelle #v_shop,body.baustelle #v_vendoc,
+body.baustelle [data-view=calc] .sec-kopf,body.baustelle [data-view=calc] .sec-stoff,body.baustelle .resultcol [data-go="sheet"]{display:none!important}
 @page{size:A4;margin:12mm}
 @media print{
   body{background:#fff;padding:0;font-size:11px}.no-print{display:none!important}
@@ -497,8 +520,10 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
     <div class="row">
       <button class="link savestate" id="syncState" type="button" title="Abgleich mit der Cloud"></button>
       <span class="savestate" id="saveState"></span>
+      <button type="button" id="btnUndo" title="Letzte Änderung zurücknehmen (Strg+Z)" disabled>↶ Rückgängig</button>
       <button class="primary" id="btnSave">Auftrag speichern</button>
       <button id="btnKbd" aria-pressed="false" title="Bildschirmtastatur für Touch ein- oder ausschalten">⌨ Touch-Tastatur</button>
+      <button id="btnBau" type="button" title="Baustellen-Ansicht: nur Berechnen, Maße, Aufmaß und Schiene">🏗 Baustelle</button>
       <button id="btnLaser" type="button" title="Bosch-Laser über Bluetooth verbinden">📏 Laser verbinden</button>
       <select id="zoomSel" class="zoomsel" title="Ansicht – Größe für dieses Gerät" aria-label="Ansicht"><option value="auto">Ansicht: automatisch</option><option value="0.8">Ansicht: 80 %</option><option value="0.9">Ansicht: 90 %</option><option value="1">Ansicht: 100 %</option><option value="1.1">Ansicht: 110 %</option><option value="1.25">Ansicht: 125 %</option><option value="1.4">Ansicht: 140 %</option></select>
       <span id="printSlot"></span>
@@ -525,6 +550,7 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
   </details>
 
   <nav class="views no-print" role="tablist">
+    <button class="view back" type="button" id="navBack" hidden title="Zur vorigen Seite">← Zurück</button>
     <button class="view" role="tab" data-go="calc" id="v_calc">1 · Berechnen</button>
     <button class="view" role="tab" data-go="aufmass" id="v_aufmass">Aufmaßblatt</button>
     <button class="view" role="tab" data-go="sheet" id="v_sheet">2 · Nähzettel</button>
@@ -537,6 +563,7 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
   </nav>
 
   <!-- BERECHNEN -->
+  <div class="baubar no-print" id="bauBar">🏗 Baustellen-Ansicht – nur Berechnen, Maße, Aufmaß und Schiene.<span style="flex:1"></span><button type="button" id="bauOff">Alle Bereiche zeigen</button></div>
   <section data-view="calc" class="no-print" style="display:flex;flex-direction:column;gap:14px">
     <div class="card quick sec sec-liste">
       <div class="row" style="justify-content:space-between">
@@ -544,7 +571,7 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
         <span class="muted" style="font-size:.82rem"><kbd>Tab</kbd> nächstes Feld · <kbd>Enter</kbd> nächste Zeile · neue Zeile übernimmt Stoff, Band und Saum von oben</span>
       </div>
       <div class="tblwrap"><table class="qt" id="quick"></table></div>
-      <div class="row"><button id="q_add" class="primary">+ Fenster</button><button id="q_sort">Nach Bereich sortieren</button><span class="muted" style="font-size:.82rem">Zeile anklicken, um unten Band, Saum und Zugaben einzustellen.</span></div>
+      <div class="row"><button id="q_add" class="primary">+ Fenster</button><button id="q_sort">Nach Bereich sortieren</button><button id="q_fold" type="button" hidden>Bereiche zuklappen</button><span class="muted" style="font-size:.82rem">Zeile anklicken, um unten Band, Saum und Zugaben einzustellen.</span></div>
       <datalist id="stoffList"></datalist><datalist id="bereichList"></datalist>
     </div>
     <div class="detail-h"><span class="lbl">Details</span> <b id="detailName"></b></div>
@@ -560,7 +587,8 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
         <div class="card sec sec-masse">
           <div class="card-h"><span class="stepno">1</span><h2>Maße</h2><span class="sum" id="sum1"></span></div>
           <div class="fields f2">
-            <div class="f"><label for="p_schiene">Deckbreite</label><div class="unit" data-u="cm"><input id="p_schiene" class="big" type="number" step="0.5" data-p="schiene"></div></div>
+            <div class="f"><label for="p_schiene">Deckbreite</label><div class="unit" data-u="cm"><input id="p_schiene" class="big" type="number" step="0.5" data-p="schiene"></div>
+              <label class="cacheck"><input type="checkbox" id="p_ca" data-p="ca"> nur ca.-Maß (noch nachmessen)</label></div>
             <div class="f wide hbox">
               <span class="flabel">Höhe gemessen als</span>
               <select id="p_hmode" data-p="hmode" class="seg-src" hidden><option value="fertig">Fertighöhe</option><option value="roh">Raumhöhe ohne Boden u. Schiene</option><option value="ohneBoden">Raumhöhe ohne Boden</option><option value="ohneSchiene">Raumhöhe ohne Schiene</option></select>
@@ -714,7 +742,7 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
   <section data-view="aufmass" style="display:flex;flex-direction:column;gap:12px" hidden>
     <div class="row no-print" style="justify-content:space-between">
       <span class="muted" style="font-size:.9rem">Aufmaß mit Maßen, Skizzen und Fotos – vom Kunden unterschreiben lassen und als PDF weitergeben.</span>
-      <div class="row"><button id="btnSign">Kunde unterschreibt</button><button class="primary" onclick="window.print()">Drucken / PDF</button></div>
+      <div class="row"><button id="btnSign">Kunde unterschreibt</button><button class="primary" onclick="vbDruck()">Drucken / PDF</button></div>
     </div>
     <div id="aufmass"></div>
   </section>
@@ -723,7 +751,7 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
   <section data-view="sheet" style="display:flex;flex-direction:column;gap:12px" hidden>
     <div class="row no-print" style="justify-content:space-between">
       <span class="muted" style="font-size:.9rem">Alle Positionen des Auftrags auf einem Zettel.</span>
-      <div class="row"><span class="toast" id="toast" hidden>Kopiert</span><button class="primary" onclick="window.print()">Drucken</button><button id="btnLabels">Montage-Etiketten</button><button id="btnCopy">Als Text kopieren</button></div>
+      <div class="row"><span class="toast" id="toast" hidden>Kopiert</span><button class="primary" onclick="vbDruck()">Drucken</button><button id="btnLabels">Montage-Etiketten</button><button id="btnCopy">Als Text kopieren</button></div>
     </div>
     <textarea id="copyFallback" class="no-print" hidden readonly style="min-height:220px;font-family:var(--mono);font-size:.8rem"></textarea>
     <div id="sheet"></div>
@@ -733,7 +761,7 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
   <section data-view="cut" style="display:flex;flex-direction:column;gap:12px" hidden>
     <div class="row no-print" style="justify-content:space-between">
       <span class="muted" style="font-size:.9rem">Zuerst alles schneiden: alle Fenster nach Stoff sortiert. Teile mit der Pos.-Nummer kennzeichnen und zum Nähzettel legen.</span>
-      <div class="row"><span class="toast" id="cutToast" hidden>Kopiert</span><button class="primary" onclick="window.print()">Drucken</button><button id="btnCopyCut">Als Text kopieren</button></div>
+      <div class="row"><span class="toast" id="cutToast" hidden>Kopiert</span><button class="primary" onclick="vbDruck()">Drucken</button><button id="btnCopyCut">Als Text kopieren</button></div>
     </div>
     <textarea id="copyFallbackCut" class="no-print" hidden readonly style="min-height:220px;font-family:var(--mono);font-size:.8rem"></textarea>
     <div id="cut" style="display:flex;flex-direction:column;gap:12px"></div>
@@ -753,12 +781,16 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
       <h2>Übersicht der Positionen</h2>
       <div class="tblwrap"><table id="posTable"></table></div>
     </div>
+    <div class="card" id="bCard" hidden>
+      <h2>Je Bereich</h2>
+      <div class="tblwrap"><table id="bTable"></table></div>
+    </div>
   </section>
 
   <!-- WERKSTATT -->
   <section data-view="pl" style="display:flex;flex-direction:column;gap:12px" hidden>
     <div class="plbar no-print"><button class="primary" type="button" id="plAdd">+ Plissee</button><span class="muted" id="plSum"></span><span style="flex:1"></span>
-      <button type="button" id="plAbzBtn">Eigene Abzüge …</button><button class="primary" type="button" onclick="window.print()">Bestellung drucken / PDF</button></div>
+      <button type="button" id="plAbzBtn">Eigene Abzüge …</button><button class="primary" type="button" onclick="vbDruck()">Bestellung drucken / PDF</button></div>
     <div class="card no-print" id="plAbzCard" hidden><h2>Eigene Abzüge (gilt für alle Aufträge)</h2>
       <p class="muted" style="margin:0 0 8px;font-size:.88rem">Abzug vom gemessenen Maß je Montageart in cm. Leer oder 0 = Leha zieht ab. Bei „Fertigmaß“ wird nie abgezogen.</p><div class="plabz" id="plAbz"></div></div>
     <div id="plCards" class="no-print" style="display:flex;flex-direction:column;gap:12px"></div>
@@ -816,7 +848,8 @@ select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
     <div class="card">
       <div class="row" style="justify-content:space-between">
         <h2>Gespeicherte Aufträge</h2>
-        <input id="ord_q" placeholder="Suchen: Kunde oder Auftrags-Nr." style="flex:0 1 300px">
+        <div class="seg" role="group" aria-label="Auftragsliste" style="flex:0 1 auto"><button type="button" data-om="aktiv" aria-pressed="true">Aktuelle Aufträge</button><button type="button" data-om="archiv" aria-pressed="false">Archiv</button></div>
+        <input id="ord_q" placeholder="Suchen: Kunde, Auftrags-Nr. oder Datum" style="flex:0 1 300px">
       </div>
       <div class="tblwrap"><table id="ordTable"></table></div>
       <p class="foot" id="ordEmpty" hidden>Noch keine Aufträge gespeichert. Mit „Auftrag speichern“ oben rechts legst du den aktuellen Auftrag hier ab.</p>
@@ -898,6 +931,7 @@ function upsertOrder(){
 }
 let autoT=null;
 function save(){if(typeof vdRemember==='function'&&S.pos[S.sel])vdRemember(S.pos[S.sel]);try{localStorage.setItem(STORE,JSON.stringify(S))}catch(e){}
+  if(window.__vbReady)undoTrack();
   if(S.orderId&&!S.isSample){clearTimeout(autoT);autoT=setTimeout(()=>{upsertOrder();showSaved();if(typeof syncSoon==='function')syncSoon();},600);}
   showSaved();}
 function hasContent(){return !S.isSample&&(S.auftrag.kunde||S.auftrag.nr);}
@@ -1361,6 +1395,61 @@ function schLines(St){const M=schMaterial(St),rows=[];
 function schPlanLines(St){return schMaterial(St).groups.filter(g=>g.bars.length).map(g=>['Leha '+g.R.n+' '+g.farbe+' · Stangen à '+cm(SCH_STANGE),
   g.bars.map((b,j)=>'Stange '+(j+1)+': '+b.p.map(([ln,lab])=>cm(ln)+' ('+lab+')').join(' + ')+' · Rest '+cm(b.rest))]);}
 let schEigSig='';
+/* ---------- Bereiche ---------- */
+const bOf=q=>String(q.bereich||'').trim();
+const bLabel=b=>b||'Ohne Bereich';
+function bGroups(){const g=[];S.pos.forEach((q,i)=>{const b=bOf(q);if(!g.length||g[g.length-1].b!==b)g.push({b,idx:[]});g[g.length-1].idx.push(i);});return g;}
+const bMulti=()=>new Set(S.pos.map(bOf)).size>1;
+const bZu=()=>S.bzu||(S.bzu={});
+function bStats(idx,RS){let n=0,st=0,t=0;for(const i of idx){const q=S.pos[i],r=RS[i];n+=r.stk;st+=r.stoffCm;t+=(r.ware==='bahn'?r.teile:r.schals*r.stk);}return {n,st,t};}
+const bStatTxt=x=>x.n+(x.n===1?' Fenster':' Fenster')+' · '+m(x.st)+' Stoff · '+x.t+' Teile';
+function bSummary(){const RS=calcAll(),map=new Map();S.pos.forEach((q,i)=>{const b=bOf(q);if(!map.has(b))map.set(b,[]);map.get(b).push(i);});
+  return [...map.entries()].map(([b,idx])=>({b,...bStats(idx,RS)}));}
+/* ---------- Zurück (vorige Seite) ---------- */
+const navHist=[];let navLast=null,navSkip=false;
+function navTrack(view){if(navLast===null){navLast=view;try{history.replaceState({vb:1,v:view},'');}catch(e){}return;}
+  if(view===navLast)return;
+  if(navSkip){navSkip=false;}else{navHist.push(navLast);if(navHist.length>40)navHist.shift();try{history.pushState({vb:1,v:view},'');}catch(e){}}
+  navLast=view;const b=document.getElementById('navBack');if(b)b.hidden=!navHist.length;}
+function navBackGo(){if(!navHist.length)return;const v=navHist.pop();navSkip=true;S.view=v;save();render();window.scrollTo({top:0});document.getElementById('navBack').hidden=!navHist.length;}
+document.getElementById('navBack').onclick=()=>{if(!navHist.length)return;try{history.back();}catch(e){navBackGo();}};
+addEventListener('popstate',()=>{if(navHist.length)navBackGo();});
+/* ---------- Rückgängig ---------- */
+const undoStack=[];let undoLast=null,undoKey=null,undoT=0,undoBusy=false;
+const undoSnap=()=>JSON.stringify({a:S.auftrag,p:S.pos});
+function undoTrack(){if(undoBusy)return;const key=(S.orderId||'neu')+'|'+(S.isSample?1:0),cur=undoSnap();
+  if(key!==undoKey){undoKey=key;undoStack.length=0;undoLast=cur;undoT=0;undoBtn();return;}
+  if(cur===undoLast)return;const now=Date.now();
+  if(now-undoT>1500){undoStack.push(JSON.stringify({s:undoLast,sel:S.sel}));if(undoStack.length>60)undoStack.shift();}
+  undoLast=cur;undoT=now;undoBtn();}
+function undoBtn(){const b=document.getElementById('btnUndo');if(b)b.disabled=!undoStack.length;}
+let uToastT;function uToast(t){let el=document.getElementById('uToast');if(!el){el=document.createElement('div');el.id='uToast';el.className='utoast no-print';el.setAttribute('role','status');document.body.appendChild(el);}
+  el.textContent=t;el.hidden=false;clearTimeout(uToastT);uToastT=setTimeout(()=>el.hidden=true,2200);}
+function undoGo(){if(!undoStack.length)return;const e=JSON.parse(undoStack.pop()),st=JSON.parse(e.s);undoBusy=true;
+  S.auftrag=st.a;S.pos=st.p;if(!S.pos.length)S.pos=[newPos()];S.sel=Math.min(Math.max(0,e.sel|0),S.pos.length-1);
+  undoLast=undoSnap();undoT=0;quickSig='';if(typeof plSig!=='undefined')plSig='';
+  save();fillForm();render();undoBusy=false;undoBtn();uToast('↶ Letzte Änderung zurückgenommen'+(undoStack.length?' – noch '+undoStack.length+' Schritt'+(undoStack.length===1?'':'e'):''));}
+document.getElementById('btnUndo').onclick=undoGo;
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&e.key.toLowerCase()==='z'){const t=e.target;
+  if(t&&(t.matches('input,textarea,select')||t.isContentEditable))return;e.preventDefault();undoGo();}});
+/* ---------- Drucken (iPad-App: PDF über Teilen-Menü) ---------- */
+function vbDruck(){const v=S.view||'calc',A=S.auftrag;
+  if(!window.VBDruck){window.print();return;}
+  const sec=document.querySelector('section[data-view="'+v+'"]:not(.card)')||document.querySelector('[data-view="'+v+'"]');
+  const nm={aufmass:'Aufmass',sheet:'Naehzettel',cut:'Zuschnittliste',pl:'Plissee-Bestellung',mat:'Materialliste'}[v]||'Druck';
+  const safe=t=>String(t||'').replace(/[^0-9A-Za-zÄÖÜäöüß_-]+/g,'_').replace(/^_+|_+$/g,'');
+  VBDruck.print({root:sec,name:[nm,safe(A.kunde),safe(A.nr)].filter(Boolean).join('_')}).catch(()=>{});}
+window.__vbReady=true;undoTrack();
+/* ---------- Baustellen-Ansicht (je Gerät) ---------- */
+const BAU_VIEWS=['calc','aufmass','orders'];
+function bauOn(){try{return localStorage.getItem('vb-baustelle')==='1';}catch(e){return false;}}
+function applyBau(){const on=bauOn();document.body.classList.toggle('baustelle',on);const b=document.getElementById('btnBau');
+  b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');b.textContent=on?'🏗 Baustelle an':'🏗 Baustelle';
+  if(on&&!BAU_VIEWS.includes(S.view||'calc'))S.view='calc';}
+function setBau(on){try{localStorage.setItem('vb-baustelle',on?'1':'0');}catch(e){}applyBau();save();render();window.scrollTo({top:0});}
+document.getElementById('btnBau').onclick=()=>setBau(!bauOn());
+document.getElementById('bauOff').onclick=()=>setBau(false);
+applyBau();
 /* ---------- Ansicht je Gerät ---------- */
 function zoomAuto(){const w=Math.min(screen.width||innerWidth,innerWidth),W=innerWidth;
   return W>=2300?1.15:1;}
@@ -1608,20 +1697,30 @@ function renderQuick(all){
   const sig=S.pos.length+'|'+S.sel;
   const active=document.activeElement&&tb.contains(document.activeElement);
   if(active&&sig===quickSig){ // nur Ergebnisse aktualisieren, Eingabe nicht stören
-    all.forEach(({q,r},i)=>{const row=tb.querySelector('tr[data-i="'+i+'"]'); if(!row)return;
+    all.forEach(({q,r},i)=>{const row=tb.querySelector('tr[data-i="'+i+'"]'); if(!row)return;row.classList.toggle('ca',!!q.ca);{const c=row.querySelector('[data-ca]');if(c)c.checked=!!q.ca;}
       row.querySelector('.qm').textContent=m(r.stoffCm);row.querySelector('.qf').textContent=qFh(q,r);row.querySelector('.qb').textContent=qBahn(q,r);{const c=row.querySelector('.qh'),nh=qHalb(q,r);if(!c.contains(document.activeElement)&&c.dataset.h!==nh){c.innerHTML=nh;c.dataset.h=nh;}}row.querySelector('.qt2').textContent=qTeile(q,r); row.querySelector('.qk').textContent=r.B?r.B.n:r.H.label+' 1:'+fmt(num(q.faktor),1);});
+    if(bMulti()){const RS=all.map(x=>x.r);bGroups().forEach((g,gi)=>{const el=tb.querySelector('[data-gs="'+gi+'"]');if(el)el.textContent=bStatTxt(bStats(g.idx,RS));});}
     tb.querySelector('#q_sum').textContent=m(all.reduce((a,{r})=>a+r.stoffCm,0));tb.querySelector('#q_teile').textContent=all.reduce((a,{q,r})=>a+(r.ware==='bahn'?r.teile:r.schals*r.stk),0); return;
   }
   quickSig=sig;
-  let h='<thead><tr><th>#</th><th>Bereich</th><th>Raum / Fenster</th><th class="n">Stk</th><th class="n">Deckbreite</th><th>Höhe gemessen als</th><th class="n">Maß</th><th class="n">Fertighöhe</th><th>Anz. Bahnen</th><th class="n">Bahnen/Schal</th><th>Halbe Bahn</th><th>Band / Kopf</th><th class="n">Köpfchen</th><th class="n">Teile</th><th>Stoff</th><th class="n">Stoff m</th><th></th></tr></thead><tbody>';
+  let h='<thead><tr><th>#</th><th>Bereich</th><th>Raum / Fenster</th><th class="n">Stk</th><th class="n">Deckbreite</th><th>Höhe gemessen als</th><th class="n">Maß</th><th title="nur ca.-Maß">ca.</th><th class="n">Fertighöhe</th><th>Anz. Bahnen</th><th class="n">Bahnen/Schal</th><th>Halbe Bahn</th><th>Band / Kopf</th><th class="n">Köpfchen</th><th class="n">Teile</th><th>Stoff</th><th class="n">Stoff m</th><th></th></tr></thead><tbody>';
+  const multi=bMulti(),groups=multi?bGroups():[],first={},RSq=all.map(x=>x.r),zu=bZu();
+  groups.forEach((g,gi)=>first[g.idx[0]]=[g,gi]);
+  document.getElementById('q_fold').hidden=!multi;
+  if(multi){const anyOpen=groups.some(g=>!zu[g.b]);document.getElementById('q_fold').textContent=anyOpen?'Bereiche zuklappen':'Bereiche aufklappen';}
   all.forEach(({q,r},i)=>{
-    h+='<tr data-i="'+i+'" class="'+(i===S.sel?'on':'')+'"><td class="qn" title="Details bearbeiten">'+(i+1)+'</td>'+
+    if(first[i]){const [g,gi]=first[i],closed=!!zu[g.b];
+      h+='<tr class="grp" data-grp="'+esc(g.b)+'"><td colspan="18"><button type="button" class="link grpt" data-tog="'+esc(g.b)+'" aria-expanded="'+(!closed)+'">'+(closed?'▸ ':'▾ ')+esc(bLabel(g.b))+'</button>'+
+        '<span class="gs" data-gs="'+gi+'">'+esc(bStatTxt(bStats(g.idx,RSq)))+'</span><button type="button" class="link" data-gadd="'+g.idx[g.idx.length-1]+'">+ Fenster in '+esc(bLabel(g.b))+'</button></td></tr>';}
+    const hid=multi&&zu[bOf(q)];
+    h+='<tr data-i="'+i+'" class="'+(i===S.sel?'on':'')+(q.ca?' ca':'')+'"'+(hid?' hidden':'')+'><td class="qn" title="Details bearbeiten">'+(i+1)+'</td>'+
       '<td><input data-q="bereich" list="bereichList" value="'+esc(q.bereich||'')+'" style="width:76px" aria-label="Bereich"></td>'+
       '<td><input data-q="name" value="'+esc(q.name)+'" aria-label="Raum / Fenster Zeile '+(i+1)+'"></td>'+
       '<td><input data-q="stk" type="number" min="1" step="1" value="'+esc(q.stk)+'" style="width:58px" aria-label="Stückzahl"></td>'+
       '<td><input data-q="schiene" type="number" step="0.5" value="'+esc(q.schiene)+'" aria-label="Deckbreite"></td>'+
       '<td><select data-q="hmode" aria-label="Höhe gemessen als">'+Object.entries(HMODES_SHORT).map(([k,l])=>'<option value="'+k+'"'+((q.hmode||'fertig')===k?' selected':'')+'>'+l+'</option>').join('')+'</select></td>'+
       '<td><input data-q="hmess" type="number" step="0.5" value="'+esc(hmessVal(q))+'" aria-label="Höhe Maß"></td>'+
+      '<td class="qca"><input type="checkbox" data-ca="'+i+'"'+(q.ca?' checked':'')+' title="nur ca.-Maß – Häkchen weg, sobald das echte Maß eingetragen ist" aria-label="nur ca.-Maß"></td>'+
       '<td class="qf'+((q.hmode||'fertig')!=='fertig'?' calc':'')+'">'+qFh(q,r)+'</td>'+
       '<td><select data-q="schals" aria-label="Anzahl Bahnen">'+[1,2,3,4,5,6,7,8,9,10].map(n=>'<option value="'+n+'"'+(+q.schals===n?' selected':'')+'>'+String(n)+'</option>').join('')+'</select></td>'+
       '<td class="qr qb">'+qBahn(q,r)+'</td><td class="qh">'+qHalb(q,r)+'</td>'+
@@ -1630,9 +1729,12 @@ function renderQuick(all){
       '<td class="qr qt2">'+qTeile(q,r)+'</td>'+'<td><input data-q="stoff" list="stoffList" value="'+esc(q.stoff)+'" placeholder="Stoff" aria-label="Stoff"></td>'+'<td class="qr qm">'+m(r.stoffCm)+'</td>'+
       '<td><button class="link danger" data-del="'+i+'" aria-label="Zeile löschen">✕</button></td></tr>';
   });
-  h+='</tbody><tfoot><tr><td></td><td colspan="12">Auftrag gesamt</td><td class="qr" id="q_teile">'+all.reduce((a,{q,r})=>a+(r.ware==='bahn'?r.teile:r.schals*r.stk),0)+'</td><td></td><td class="qr" id="q_sum">'+m(all.reduce((a,{r})=>a+r.stoffCm,0))+'</td><td></td></tr></tfoot>';
+  h+='</tbody><tfoot><tr><td></td><td colspan="13">Auftrag gesamt</td><td class="qr" id="q_teile">'+all.reduce((a,{q,r})=>a+(r.ware==='bahn'?r.teile:r.schals*r.stk),0)+'</td><td></td><td class="qr" id="q_sum">'+m(all.reduce((a,{r})=>a+r.stoffCm,0))+'</td><td></td></tr></tfoot>';
   tb.innerHTML=h;
-  tb.querySelectorAll('tbody tr').forEach(row=>{
+  tb.querySelectorAll('[data-ca]').forEach(c=>c.onchange=()=>{const i=+c.dataset.ca;S.pos[i].ca=c.checked;c.closest('tr').classList.toggle('ca',c.checked);save();if(S.sel===i)fillForm();render();});
+  tb.querySelectorAll('[data-tog]').forEach(b=>b.onclick=()=>{const z=bZu(),k=b.dataset.tog;if(z[k])delete z[k];else z[k]=1;quickSig='';save();render();});
+  tb.querySelectorAll('[data-gadd]').forEach(b=>b.onclick=()=>{const z=bZu();delete z[bOf(S.pos[+b.dataset.gadd])];quickSig='';addLike(+b.dataset.gadd);});
+  tb.querySelectorAll('tbody tr[data-i]').forEach(row=>{
     const i=+row.dataset.i;
     const select=()=>{if(S.sel!==i){S.sel=i;save();fillForm();render();}};
     row.querySelectorAll('[data-q]').forEach(inp=>{
@@ -1651,9 +1753,10 @@ function renderQuick(all){
     row.querySelector('[data-del]').onclick=()=>{if(S.pos.length===1){S.pos[0]=newPos();}else{S.pos.splice(i,1);S.sel=Math.min(S.sel,S.pos.length-1);}quickSig='';save();fillForm();render();};
   });
 }
-document.getElementById('quick').addEventListener('change',e=>{const t=e.target;if(!t.matches('select[data-hs]'))return;
+document.getElementById('quick').addEventListener('change',e=>{const t=e.target;if(t.matches('input[data-q="bereich"]')){quickSig='';setTimeout(()=>render(),0);return;}if(!t.matches('select[data-hs]'))return;
   const i=+t.closest('tr').dataset.i;S.pos[i].halbSeite=t.value;save();if(S.sel===i)fillForm();render();});
 document.getElementById('q_add').onclick=()=>addLike(S.pos.length-1);
+document.getElementById('q_fold').onclick=()=>{const z=bZu(),gs=bGroups(),anyOpen=gs.some(g=>!z[g.b]);gs.forEach(g=>{if(anyOpen)z[g.b]=1;else delete z[g.b];});quickSig='';save();render();};
 document.getElementById('q_sort').onclick=()=>{const c=cur();S.pos.sort((a,b)=>{const x=bereichKey(a.bereich),y=bereichKey(b.bereich);return x[0]-y[0]||x[1]-y[1]||(x[2]<y[2]?-1:x[2]>y[2]?1:0);});S.sel=S.pos.indexOf(c);quickSig='';save();fillForm();render();};
 document.getElementById('p_stoff').addEventListener('change',()=>{applyStoffByName(cur());save();fillForm();render();});
 document.getElementById('p_stoff').setAttribute('list','stoffList');
@@ -1734,6 +1837,7 @@ function render(){
   const A=S.auftrag, RS=calcAll(), all=S.pos.map((q,i)=>({q,r:RS[i]}));
   // Ansicht
   const view=S.view||'calc';
+  if(window.__vbReady)navTrack(view);
   document.querySelectorAll('[data-view]').forEach(s=>s.hidden=s.dataset.view!==view);
   document.querySelectorAll('.view').forEach(b=>b.setAttribute('aria-selected',b.dataset.go===view));
   // Auftragszeile
@@ -1766,7 +1870,7 @@ function render(){
   [1,2,3,4,5,6,7,8,9,10].forEach(n=>{const el=document.getElementById('picw'+n);if(el){el.textContent=num(p.schiene)?'je '+Math.round((num(p.schiene)+num(p.ueberlapp)*(n-1))/n+num(p.rueck))+' cm':'';}});
   document.getElementById('r_sketch').innerHTML=sketch(p,r);
   const H2=HEADS[p.kopfart]||HEADS.wellen;
-  document.getElementById('sum1').textContent=Math.round(num(p.schiene))+' × '+Math.round(r.hoeheFertig)+' cm · '+(r.schals+(r.schals===1?' Schal':' Schals'))+(r.stk>1?' · '+r.stk+'×':'');
+  document.getElementById('sum1').textContent=(p.ca?'ca. ':'')+Math.round(num(p.schiene))+' × '+Math.round(r.hoeheFertig)+' cm · '+(r.schals+(r.schals===1?' Schal':' Schals'))+(r.stk>1?' · '+r.stk+'×':'');
   document.getElementById('sum2').textContent=(r.B?r.B.n.split(' ')[0]:H2.label.split(' (')[0])+' 1 : '+fmt(num(p.faktor),1)+(num(p.koepfchen)?' · Köpfchen '+cm(num(p.koepfchen)):'');
   document.getElementById('sum3').textContent=(r.gedreht?'Höhenware GEDREHT ':p.ware==='bahn'?'gebahnt ':'Höhenware ')+Math.round(num(p.stoffbreite))+' cm'+(num(p.rapport)?' · R '+cm(num(p.rapport)):'');
   document.getElementById('moreSum1').textContent=(num(p.ueberlapp)||num(p.rueck))?'· '+cm(num(p.ueberlapp))+' / '+cm(num(p.rueck)):'· keine';
@@ -1788,7 +1892,7 @@ function render(){
   if(r.oesen)L.push(['Ösen',(r.oesen*r.schals*r.stk)+' Stk']);
   if(r.blei)L.push(['Bleiband',m(r.blei)]);
   document.getElementById('r_list').innerHTML=L.map(x=>x[0]==='grp'?'<div class="grp">'+x[1]+'</div>':'<div class="rl"><span>'+esc(x[0])+'</span><span>'+esc(x[1])+'</span></div>').join('');
-  document.getElementById('r_warns').innerHTML=r.warns.length?r.warns.map(t=>'<div class="warn">'+esc(t)+'</div>').join(''):'<div class="okmsg">✓ Berechnung ohne Auffälligkeiten</div>';
+  document.getElementById('r_warns').innerHTML=(p.ca?'<div class="warn" style="border-color:#d62828;background:#ffcf33;color:#3a2600;font-weight:700">⚠ Nur ca.-Maß – vor dem Zuschnitt nachmessen und dann das Häkchen „ca.“ entfernen.</div>':'')+(r.warns.length?r.warns.map(t=>'<div class="warn">'+esc(t)+'</div>').join(''):(p.ca?'':'<div class="okmsg">✓ Berechnung ohne Auffälligkeiten</div>'));
 
   // Materialliste
   const stoffe={}, bands={}; const gls={}; let oes=0, blei=0, kost=0;
@@ -1808,13 +1912,19 @@ function render(){
   let pt='<tr><th>Pos.</th><th>Raum / Fenster</th><th>Kopf</th><th class="n">Raffung</th><th class="n">Deckbreite</th><th class="n">Höhe</th><th class="n">Stk</th><th class="n">Stoff</th></tr>';
   all.forEach(({q,r},i)=>pt+='<tr><td>'+(i+1)+'</td><td>'+esc(posTitle(q))+'</td><td>'+esc(r.B?'Bandex '+r.B.n:r.H.label)+'</td><td class="n">1 : '+fmt(num(q.faktor),2)+'</td><td class="n">'+cm(num(q.schiene))+'</td><td class="n">'+cm(r.hoeheFertig)+'</td><td class="n">'+(r.stk*r.schals)+'</td><td class="n">'+m(r.stoffCm)+'</td></tr>');
   document.getElementById('posTable').innerHTML=pt;
+  {const bs=bSummary(),multi=bs.length>1;document.getElementById('bCard').hidden=!multi;
+    if(multi)document.getElementById('bTable').innerHTML='<tr><th>Bereich</th><th class="n">Fenster</th><th class="n">Teile</th><th class="n">Stoff</th></tr>'+
+      bs.map(x=>'<tr><td>'+esc(bLabel(x.b))+'</td><td class="n">'+x.n+'</td><td class="n">'+x.t+'</td><td class="n">'+m(x.st)+'</td></tr>').join('')+
+      '<tr class="sum"><td>Gesamt</td><td class="n">'+bs.reduce((a,x)=>a+x.n,0)+'</td><td class="n">'+bs.reduce((a,x)=>a+x.t,0)+'</td><td class="n">'+m(bs.reduce((a,x)=>a+x.st,0))+'</td></tr>';}
 
   // Nähzettel
   let h='<article class="sheet"><div class="ruler" aria-hidden="true"></div><div class="sheet-head"><div class="hl">'+(logoSrc()?'<img class="sheet-logo" src="'+logoSrc()+'" alt="Logo">':'')+'<div><div class="lbl">'+esc(A.betrieb||'Werkstatt')+'</div><div class="t">Nähzettel</div></div></div>'+
     '<div class="meta"><span>Kunde</span><b>'+esc(A.kunde||'—')+'</b><span>Auftrag</span><b>'+esc(A.nr||'—')+'</b><span>Datum</span><span>'+dDE(A.datum)+'</span><span>Fertig bis</span><b>'+dDE(A.termin)+'</b>'+(A.montage?'<span>Montage am</span><b>'+dDE(A.montage)+'</b>':'')+(A.naeher?'<span>Näherei</span><span>'+esc(A.naeher)+'</span>':'')+'</div></div>';
+  const multiN=bMulti();
   all.forEach(({q,r},i)=>{
     const P=posLines(q,r);
-    h+='<section class="pos"><div class="pos-h"><span class="no">Pos. '+(i+1)+'</span><span class="nm">'+esc(posTitle(q))+'</span><span class="qty">'+(r.stk>1?r.stk+' Fenster × ':'')+r.schals+(r.schals===1?' Schal':' Schals')+' = '+(r.stk*r.schals)+' Stk</span><span class="qrc" title="Für das Montage-Etikett scannen">'+etikettQr(A,i,q,r)+'</span></div>'+
+    if(multiN&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">Bereich: '+esc(bLabel(bOf(q)))+'</div>';
+    h+='<section class="pos"><div class="pos-h"><span class="no">Pos. '+(i+1)+'</span><span class="nm">'+esc(posTitle(q))+(q.ca?'<span class="cabadge">CA.-MASS – NICHT ZUSCHNEIDEN</span>':'')+'</span><span class="qty">'+(r.stk>1?r.stk+' Fenster × ':'')+r.schals+(r.schals===1?' Schal':' Schals')+' = '+(r.stk*r.schals)+' Stk</span><span class="qrc" title="Für das Montage-Etikett scannen">'+etikettQr(A,i,q,r)+'</span></div>'+
       (r.gedreht?'<div class="drehline">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden (Bahnbreite '+cm(num(q.stoffbreite))+')</div>':'')+
       '<div class="stoffline"><span class="muted">Stoff:</span> <b>'+esc(q.stoff||'—')+'</b> · '+wareText(q,r)+cm(num(q.stoffbreite))+(num(q.rapport)?' · Rapport '+cm(num(q.rapport)):'')+'</div>'+
       '<div class="blocks"><div class="blk"><h3>Fertigmaß</h3>'+kvHTML(P.fertig)+'</div><div class="blk"><h3>Zuschnitt</h3>'+kvHTML(P.zuschnitt)+'</div><div class="blk"><h3>Nähen</h3>'+kvHTML(P.naehen)+'</div><div class="blk"><h3>Material</h3>'+(()=>{const pf=picFor(q);let f='<div class="sheetpics"><figure class="sheetpic">'+picHTML(pf)+'<figcaption>'+esc(pf.name)+'</figcaption></figure>';if(r.GL&&glPhoto(r.GL))f+='<figure class="sheetpic">'+glPic(r.GL)+'<figcaption>'+esc(glLabel(r.GL))+'</figcaption></figure>';return f+'</div>';})()+kvHTML(P.material)+'</div></div>'+
@@ -1878,12 +1988,12 @@ function renderCut(){
     h+='<div class="cgrp"><div class="cgrp-h"><div><div class="s">'+esc(g.stoff)+'</div><div class="small">'+esc(info)+'</div></div><div class="sum">'+sum+'</div></div>'+(g.gedreht?'<div class="drehline" style="margin:0;border-radius:0;border-width:0 0 2px">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden</div>':'')+'<div class="tblwrap"><table class="cut">';
     if(g.ware==='bahn'){
       h+='<tr><th>Erledigt</th><th>Pos. / Nähzettel</th><th class="n">Bahnen</th><th class="n">Schnittlänge</th><th>Halbieren</th><th class="n">Teile</th><th>je Schal</th><th class="n">Stoff gesamt</th></tr>';
-      g.rows.forEach(r=>{h+='<tr class="'+(r.done?'done':'')+'"><td class="cutchk"><label><input type="checkbox" data-cut="'+r.i+'"'+(r.done?' checked':'')+'> geschnitten</label><label><input type="checkbox" data-naeh="'+r.i+'"'+(r.genaeht?' checked':'')+'> genäht</label></td><td><span class="tag">Pos. '+(r.i+1)+'</span> '+esc(r.name)+'</td><td class="n">'+r.bahnen+'</td><td class="n">'+cm(r.schnitt)+'</td><td>'+
+      g.rows.forEach(r=>{h+='<tr class="'+(r.done?'done':'')+'"><td class="cutchk"><label><input type="checkbox" data-cut="'+r.i+'"'+(r.done?' checked':'')+'> geschnitten</label><label><input type="checkbox" data-naeh="'+r.i+'"'+(r.genaeht?' checked':'')+'> genäht</label></td><td><span class="tag">Pos. '+(r.i+1)+'</span> '+esc(r.name)+(S.pos[r.i]&&S.pos[r.i].ca?'<span class="cabadge">CA.-MASS</span>':'')+'</td><td class="n">'+r.bahnen+'</td><td class="n">'+cm(r.schnitt)+'</td><td>'+
         (()=>{const rt=restText(r),hv=r.halbieren?'<span class="half">'+r.halbieren+(r.halbieren>1?' Bahnen':' Bahn')+' → '+r.halbe+' halbe</span>':'';
           return (hv+(rt?(rt.includes('♻')?'<div><span class="restchip">'+esc(rt)+'</span></div>':'<div class="small">'+esc(rt)+'</div>'):''))||'–';})()+'</td><td class="n">'+r.teile+'</td><td>'+esc(r.jeSchal)+(r.halbSeite?'<div class="small">halbe Bahn '+esc(r.halbSeite)+'</div>':'')+'</td><td class="n"><b>'+m(r.stoffCm)+'</b></td></tr>';});
     } else {
       h+='<tr><th>Erledigt</th><th>Pos. / Nähzettel</th><th class="n">Zuschnitte</th><th class="n">Breite</th><th class="n">Höhe</th><th class="n">Stoff gesamt</th></tr>';
-      g.rows.forEach(r=>{h+='<tr class="'+(r.done?'done':'')+'"><td class="cutchk"><label><input type="checkbox" data-cut="'+r.i+'"'+(r.done?' checked':'')+'> geschnitten</label><label><input type="checkbox" data-naeh="'+r.i+'"'+(r.genaeht?' checked':'')+'> genäht</label></td><td><span class="tag">Pos. '+(r.i+1)+'</span> '+esc(r.name)+'</td><td class="n">'+r.zuschnitte+'</td><td class="n">'+cm(r.breite)+'</td><td class="n">'+cm(r.schnitt)+'</td><td class="n"><b>'+m(r.stoffCm)+'</b></td></tr>';});
+      g.rows.forEach(r=>{h+='<tr class="'+(r.done?'done':'')+'"><td class="cutchk"><label><input type="checkbox" data-cut="'+r.i+'"'+(r.done?' checked':'')+'> geschnitten</label><label><input type="checkbox" data-naeh="'+r.i+'"'+(r.genaeht?' checked':'')+'> genäht</label></td><td><span class="tag">Pos. '+(r.i+1)+'</span> '+esc(r.name)+(S.pos[r.i]&&S.pos[r.i].ca?'<span class="cabadge">CA.-MASS</span>':'')+'</td><td class="n">'+r.zuschnitte+'</td><td class="n">'+cm(r.breite)+'</td><td class="n">'+cm(r.schnitt)+'</td><td class="n"><b>'+m(r.stoffCm)+'</b></td></tr>';});
     }
     h+='</table></div></div>';
   });
@@ -1940,20 +2050,39 @@ function openOrder(id){
   S.auftrag=clone(o.auftrag);S.pos=clone(o.pos);S.sel=0;S.orderId=o.id;S.isSample=false;S.view='calc';
   quickSig='';save();fillForm();render();window.scrollTo({top:0});
 }
+let ordMode='aktiv';
+document.querySelectorAll('[data-om]').forEach(b=>b.onclick=()=>{ordMode=b.dataset.om;ordDel='';renderOrders();});
+function setArchiv(id,on){if(S.orderId===id)upsertOrder();const l=loadOrders(),o=l.find(x=>x.id===id);if(!o)return;
+  if(on)o.auftrag.archiv=toIso(new Date());else delete o.auftrag.archiv;o.savedAt=Date.now();storeOrders(l);
+  if(S.orderId===id){if(on)S.auftrag.archiv=o.auftrag.archiv;else delete S.auftrag.archiv;}
+  save();render();if(typeof syncSoon==='function')syncSoon();
+  if(typeof uToast==='function')uToast(on?'„'+(o.auftrag.kunde||'Auftrag')+'“ ist im Archiv':'„'+(o.auftrag.kunde||'Auftrag')+'“ ist wieder bei den aktuellen Aufträgen');}
+const kundeKey=s=>String(s||'').trim().toLowerCase().replace(/ä/g,'a').replace(/ö/g,'o').replace(/ü/g,'u').replace(/ß/g,'ss');
 function renderOrders(){
-  const l=loadOrders(), q=ordQ.trim().toLowerCase();
-  const list=l.filter(o=>!q||((o.auftrag.kunde||'')+' '+(o.auftrag.nr||'')).toLowerCase().includes(q)).sort((a,b)=>b.savedAt-a.savedAt);
-  document.getElementById('ordEmpty').hidden=l.length>0;
-  document.getElementById('v_orders').textContent='Gespeicherte Aufträge ('+l.length+')';
+  const all=loadOrders(), q=ordQ.trim().toLowerCase(), arch=ordMode==='archiv';
+  const nArch=all.filter(o=>o.auftrag&&o.auftrag.archiv).length,l=all.filter(o=>!!(o.auftrag&&o.auftrag.archiv)===arch);
+  document.querySelectorAll('[data-om]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.om===ordMode);b.textContent=b.dataset.om==='archiv'?'Archiv ('+nArch+')':'Aktuelle Aufträge ('+(all.length-nArch)+')';});
+  let list=l.filter(o=>!q||((o.auftrag.kunde||'')+' '+(o.auftrag.nr||'')+' '+dDE(o.auftrag.datum)).toLowerCase().includes(q));
+  if(arch)list.sort((a,b)=>kundeKey(a.auftrag.kunde)<kundeKey(b.auftrag.kunde)?-1:kundeKey(a.auftrag.kunde)>kundeKey(b.auftrag.kunde)?1:
+    ((toIso(b.auftrag.datum)||'')<(toIso(a.auftrag.datum)||'')?-1:(toIso(b.auftrag.datum)||'')>(toIso(a.auftrag.datum)||'')?1:b.savedAt-a.savedAt));
+  else list.sort((a,b)=>b.savedAt-a.savedAt);
+  document.getElementById('ordEmpty').hidden=all.length>0;
+  document.getElementById('v_orders').textContent='Gespeicherte Aufträge ('+(all.length-nArch)+')';
   const t=document.getElementById('ordTable');
-  if(!l.length){t.innerHTML='';return;}
+  if(!all.length){t.innerHTML='';return;}
+  if(!list.length){t.className='ord';t.innerHTML='<tr><td class="muted">'+(arch?'Das Archiv ist leer. Fertige Aufträge mit „Ins Archiv“ hierher verschieben.':'Keine aktuellen Aufträge.')+'</td></tr>';return;}
   t.className='ord';
-  t.innerHTML='<tr><th>Kunde</th><th>Auftrag</th><th>Fertig bis</th><th class="n">Fenster</th><th class="n">Stoff</th><th>Gespeichert</th><th>Status</th><th></th></tr>'+
+  let lastK=null;
+  t.innerHTML='<tr><th>Kunde</th><th>Auftrag</th><th>'+(arch?'Datum':'Fertig bis')+'</th><th class="n">Fenster</th><th class="n">Stoff</th><th>'+(arch?'Archiviert':'Gespeichert')+'</th><th>Status</th><th></th></tr>'+
     list.map(o=>{let st=0;try{st=calcAll({pos:o.pos}).reduce((a,r)=>a+r.stoffCm,0);}catch(e){}
+      let grp='';if(arch){const k=kundeKey(o.auftrag.kunde);if(k!==lastK){lastK=k;const n=list.filter(x=>kundeKey(x.auftrag.kunde)===k).length;
+        grp='<tr class="ogrp"><td colspan="8"><b>'+esc(o.auftrag.kunde||'—')+'</b> <span class="muted">· '+n+(n===1?' Auftrag':' Aufträge')+'</span></td></tr>';}}
       const d=new Date(o.savedAt);
-      return '<tr class="'+(o.id===S.orderId?'on':'')+'"><td><b>'+esc(o.auftrag.kunde||'—')+'</b></td><td>'+esc(o.auftrag.nr||'—')+'</td><td>'+dDE(o.auftrag.termin)+'</td><td class="n">'+o.pos.length+'</td><td class="n">'+m(st)+'</td><td>'+d.toLocaleDateString('de-DE')+' '+d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})+'</td><td><span class="stchip st-'+statusOf(o.auftrag)+'">'+STATUS_LABEL[statusOf(o.auftrag)]+'</span></td><td style="white-space:nowrap;text-align:right">'+
+      return grp+'<tr class="'+(o.id===S.orderId?'on':'')+'"><td>'+(arch?'':'<b>'+esc(o.auftrag.kunde||'—')+'</b>')+'</td><td>'+esc(o.auftrag.nr||'—')+'</td><td>'+(arch?dDE(o.auftrag.datum):dDE(o.auftrag.termin))+'</td><td class="n">'+o.pos.length+'</td><td class="n">'+m(st)+'</td><td>'+(arch?dDE(o.auftrag.archiv):d.toLocaleDateString('de-DE')+' '+d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}))+'</td><td><span class="stchip st-'+statusOf(o.auftrag)+'">'+STATUS_LABEL[statusOf(o.auftrag)]+'</span></td><td style="white-space:nowrap;text-align:right">'+
       (ordDel===o.id?'<span style="font-size:.85rem">Wirklich löschen?</span> <button class="danger" data-odelyes="'+o.id+'">Ja</button> <button data-odelno>Nein</button>'
-        :(o.id===S.orderId?'<span class="muted" style="font-size:.85rem">geöffnet</span> ':'<button class="primary" data-oopen="'+o.id+'">Öffnen</button> ')+'<button class="link danger" data-odel="'+o.id+'">Löschen</button>')+'</td></tr>';}).join('');
+        :(o.id===S.orderId?'<span class="muted" style="font-size:.85rem">geöffnet</span> ':'<button class="primary" data-oopen="'+o.id+'">Öffnen</button> ')+
+          (arch?'<button data-oarch="'+o.id+'" data-on="0">Zurückholen</button> ':'<button data-oarch="'+o.id+'" data-on="1">Ins Archiv</button> ')+'<button class="link danger" data-odel="'+o.id+'">Löschen</button>')+'</td></tr>';}).join('');
+  t.querySelectorAll('[data-oarch]').forEach(b=>b.onclick=()=>setArchiv(b.dataset.oarch,b.dataset.on==='1'));
   t.querySelectorAll('[data-oopen]').forEach(b=>b.onclick=()=>openOrder(b.dataset.oopen));
   t.querySelectorAll('[data-odel]').forEach(b=>b.onclick=()=>{ordDel=b.dataset.odel;renderOrders();});
   t.querySelectorAll('[data-odelno]').forEach(b=>b.onclick=()=>{ordDel='';renderOrders();});
@@ -2494,7 +2623,8 @@ document.getElementById('btnSign').onclick=()=>{const A=S.auftrag;drawPad({title
 function renderAufmass(){const A=S.auftrag,RS=calcAll(),el=document.getElementById('aufmass');
   let h='<article class="am"><div class="sheet-head"><div class="hl">'+(logoSrc()?'<img class="sheet-logo" src="'+logoSrc()+'" alt="Logo">':'')+'<div><div class="lbl">'+esc(A.betrieb||'Raumausstattung')+'</div><div class="t">Aufmaß</div></div></div>'+
     '<div class="meta"><span>Kunde</span><b>'+esc(A.kunde||'—')+'</b>'+(A.kundeAdresse?'<span>Adresse</span><span>'+esc(A.kundeAdresse)+'</span>':'')+'<span>Auftrag</span><b>'+esc(A.nr||'—')+'</b><span>Datum</span><span>'+dDE(A.datum)+'</span>'+(A.montage?'<span>Montage am</span><b>'+dDE(A.montage)+'</b>':'')+'</div></div>';
-  S.pos.forEach((q,i)=>{const r=RS[i];const kv=[['Deckbreite',cm(num(q.schiene))],
+  const multiA=bMulti();
+  S.pos.forEach((q,i)=>{const r=RS[i];if(multiA&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">Bereich: '+esc(bLabel(bOf(q)))+'</div>';const kv=[['Deckbreite',cm(num(q.schiene))],
       [(q.hmode||'fertig')==='fertig'?'Fertighöhe':'Höhe gemessen',(q.hmode||'fertig')==='fertig'?cm(r.hoeheFertig):cm(num(q.hmass))+' ('+HMODES_SHORT[q.hmode]+')'],
       ...((q.hmode||'fertig')!=='fertig'?[['Fertighöhe',cm(r.hoeheFertig)]]:[]),
       ['Aufteilung',r.schals+(r.schals===1?' Schal':' Schals')+(r.stk>1?' · '+r.stk+' Stück':'')],
@@ -2502,7 +2632,7 @@ function renderAufmass(){const A=S.auftrag,RS=calcAll(),el=document.getElementBy
       ...(q.mnotiz?[['Untergrund',q.mnotiz]]:[]),
       ...(schKurz(q)?[['Schiene',schKurz(q)]]:[]),
       ['Stoff',(q.stoff||'—')],['Kopf',r.bandName||r.kopfLabel||''],...(r.gleiter?[['Gleiter',r.glName]]:[]),...(q.bem?[['Bemerkung',q.bem]]:[])];
-    h+='<section class="am-pos"><h3>Pos. '+(i+1)+' · '+esc(posTitle(q))+'</h3><div class="am-grid"><div class="am-kv">'+kv.map(([k,v])=>'<span>'+esc(k)+'</span><b>'+esc(v)+'</b>').join('')+'</div>'+
+    h+='<section class="am-pos"><h3>Pos. '+(i+1)+' · '+esc(posTitle(q))+(q.ca?'<span class="cabadge">ca.-Maß</span>':'')+'</h3><div class="am-grid"><div class="am-kv">'+kv.map(([k,v])=>'<span>'+esc(k)+'</span><b>'+esc(v)+'</b>').join('')+'</div>'+
       '<div>'+(hasSk(q.skizze)?'<div class="am-sk">'+strokesSvg(q.skizze,null,massTexte(q))+'</div>':'')+'</div></div>'+
       ((q.fotos||[]).length?'<div class="am-fotos">'+q.fotos.map(id=>'<figure class="mf"><img data-foto="'+esc(id)+'" alt="Foto"><figcaption>'+esc(fotoLeiste(q,i))+'</figcaption></figure>').join('')+'</div>':'')+'</section>';});
   if((A.plissee||[]).length)h+='<section class="am-pos"><h3>Plissees</h3><div class="am-kv">'+A.plissee.map((p,i)=>'<span>'+esc(plTitle(p,i))+'</span><b>'+(plStk(p)>1?plStk(p)+' × ':'')+esc(plLabel(PL_TYPEN,p.typ).split(' (')[0]+' · gemessen '+cm(num(p.b))+' × '+cm(num(p.h))+' ('+plLabel(PL_MESSART,p.messart)+') · '+plLabel(PL_MONTAGE,p.montage)+' · '+(p.stoff||'Stoff offen'))+'</b>').join('')+'</div></section>';
@@ -2518,7 +2648,8 @@ const GLM_SERVICE='02a6c0d0-0451-4000-b000-fb3210111989', GLM_CHAR='02a6c0d1-045
 const GLM_AUTOSYNC=new Uint8Array([0xC0,0x55,0x02,0x01,0x00,0x1A]);
 let laser={dev:null,ch:null,target:null,last:null,raw:''};
 function laserBar(html,keep){let b=document.getElementById('laserBar');if(!b){b=document.createElement('div');b.id='laserBar';b.className='laserbar no-print';document.body.appendChild(b);}
-  b.innerHTML=html;b.hidden=false;clearTimeout(laserBar.t);if(!keep)laserBar.t=setTimeout(()=>{b.hidden=true;},4500);}
+  b.innerHTML=html;b.hidden=false;clearTimeout(laserBar.t);laserBar.t=setTimeout(()=>{b.hidden=true;},keep?9000:4000);
+  b.onclick=e=>{if(!e.target.closest('button'))b.hidden=true;};}
 function laserUi(){const b=document.getElementById('btnLaser');const on=!!(laser.dev&&laser.dev.gatt&&laser.dev.gatt.connected);
   b.classList.toggle('on',on);b.textContent=on?'📏 Laser verbunden':'📏 Laser verbinden';}
 document.addEventListener('focusin',e=>{const el=e.target;if(el instanceof HTMLInputElement&&el.type==='number'){
@@ -2581,7 +2712,7 @@ function shopCard(o,today){const A=o.auftrag,st=statusOf(A),i=STATUS_KEYS.indexO
     (i<4?'<button class="link" data-smv="'+esc(o.id)+'" data-d="1">'+STATUS_LABEL[STATUS_KEYS[i+1]]+' ▶</button>':'')+'</div></div>';}
 function renderShop(){
   document.querySelectorAll('[data-sm]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sm===shopMode));
-  const orders=loadOrders().filter(o=>o&&o.auftrag&&Array.isArray(o.pos)),today=dayStart(new Date());
+  const orders=loadOrders().filter(o=>o&&o.auftrag&&Array.isArray(o.pos)&&!o.auftrag.archiv),today=dayStart(new Date());
   const offen=orders.filter(o=>statusOf(o.auftrag)!=='montiert'),late=offen.filter(o=>shopLate(o,today));
   const info=document.getElementById('shopInfo');info.textContent=offen.length+' offene Aufträge'+(late.length?' · '+late.length+' überfällig':'');info.style.color=late.length?'var(--warn)':'';
   const el=document.getElementById('shop');

@@ -229,3 +229,67 @@ Ansicht je Gerät
   Seite nutzt die volle Breite – mehr auf einen Blick.
 - Kleinere Ansicht (z. B. 90 %) = mehr Platz, größere (125 %) = besser
   mit dem Finger zu bedienen.
+
+Baustellen-Ansicht
+------------------
+- Oben "Baustelle" antippen: Es bleiben nur "Berechnen" mit Maße, Aufmaß
+  vor Ort und Schiene (dazu Ergebnis, Aufmaßblatt und Gespeicherte
+  Aufträge zum Öffnen anderer Kunden). Nähzettel, Zuschnitt, Material,
+  Plissee, Werkstatt, Vendoc sowie "Kopf & Saum" und "Stoff" sind
+  ausgeblendet. Ein oranger Balken zeigt, dass die Ansicht aktiv ist.
+- "Alle Bereiche zeigen" oder erneut "Baustelle" schaltet zurück.
+- Wird je Gerät gemerkt. Es gehen keine Daten verloren – ausgeblendete
+  Werte bleiben gespeichert und werden weiter berechnet.
+
+Bereiche (z. B. Hotel)
+----------------------
+- Ein Auftrag (z. B. Kunde "Hotel Winzer") wird nach dem Feld "Bereich"
+  gegliedert (Lobby, 1. OG, Restaurant …). Sobald es mehr als einen
+  Bereich gibt, zeigt die Fenster-Tabelle eine Überschrift je Bereich mit
+  Anzahl Fenster, Stoff und Teilen.
+- Überschrift antippen = Bereich zu-/aufklappen; "Bereiche zuklappen"
+  klappt alle auf einmal. "+ Fenster in …" legt ein Fenster direkt in
+  diesem Bereich an. "Nach Bereich sortieren" bringt alles in Reihenfolge.
+- Nähzettel und Aufmaßblatt haben Bereichs-Überschriften, die
+  Materialliste eine Übersicht "Je Bereich".
+
+Zurück und Rückgängig
+---------------------
+- "← Zurück" springt zur vorher geöffneten Seite (auch die Wisch-Geste
+  bzw. die Browser-Zurück-Taste funktioniert in der Web-App).
+- "↶ Rückgängig" (oder Strg+Z außerhalb eines Eingabefelds) nimmt die
+  letzte Änderung zurück, z. B. ein versehentlich gelöschtes Fenster.
+  Bis zu 60 Schritte je Auftrag. Gelöschte Fotos kommen nicht zurück.
+
+Drucken in der iPad-App
+-----------------------
+- Apple erlaubt in der Home-Bildschirm-App (und in Bluefy) kein direktes
+  Drucken. Dort erstellt "Drucken" ein PDF; dann "Drucken / Teilen"
+  antippen und im Teilen-Menü "Drucken" oder "In Dateien sichern" wählen.
+  Gilt auch für die Montage-Etiketten.
+- Dafür wird einmalig Internet gebraucht (PDF-Baustein wird geladen).
+- In Safari, Edge oder Chrome druckt die App wie bisher direkt.
+
+Archiv
+------
+- Unter "Gespeicherte Aufträge" gibt es zwei Listen: "Aktuelle Aufträge"
+  und "Archiv". Mit "Ins Archiv" wandert ein fertiger Auftrag ins Archiv,
+  mit "Zurückholen" wieder zurück.
+- Das Archiv ist nach Kunden (A–Z) gruppiert, innerhalb eines Kunden nach
+  Auftragsdatum (neueste zuerst). Suche nach Kunde, Auftrags-Nr. oder Datum.
+- Archivierte Aufträge erscheinen nicht mehr in der Werkstatt-Übersicht,
+  können aber jederzeit geöffnet werden. Das Archiv wird abgeglichen.
+
+Laser-Meldungen verschwinden nach ein paar Sekunden von selbst
+(Antippen schließt sie sofort).
+
+ca.-Maß
+-------
+- Hat man nur ein ungefähres Maß, in der Fenster-Tabelle das Häkchen
+  "ca." setzen (oder bei Maße "nur ca.-Maß (noch nachmessen)").
+- Die Zeile wird kräftig gelb mit roter Nummer markiert, rechts erscheint
+  der Hinweis "Nur ca.-Maß – vor dem Zuschnitt nachmessen".
+- Auf Nähzettel ("CA.-MASS – NICHT ZUSCHNEIDEN"), Zuschnittliste und
+  Aufmaßblatt steht ein roter Hinweis.
+- Ist das echte Maß da: Maß eintragen und das Häkchen "ca." entfernen –
+  die Zeile erscheint wieder normal.

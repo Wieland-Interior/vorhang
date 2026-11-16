@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="pdfdruck.js" defer></script>
 <title>Montage-Etiketten</title>
 <style>
 :root{--ink:#1b2331;--muted:#5d6879;--line:#d6dce6;--paper:#f3f5f8;--surface:#fff;--indigo:#2d4a8a;--accent:#c2560f}
@@ -174,7 +175,9 @@ function render(){
   document.getElementById('hint').textContent=n+(n===1?' Etikett':' Etiketten')+' · Beim Drucken im Druckdialog das Papierformat „'+sz[1]+'“ und „Ohne Rand“ bzw. Skalierung 100 % wählen.';}
 sizeSel.onchange=()=>{store('size',sizeSel.value);render();};
 document.getElementById('perSchal').onchange=e=>{store('perSchal',e.target.checked?'1':'0');render();};
-document.getElementById('print').onclick=()=>window.print();
+document.getElementById('print').onclick=()=>{if(!window.VBDruck||!VBDruck.needsPdf()){window.print();return;}
+  const sz=SIZES.find(x=>x[0]===sizeSel.value)||SIZES[0],sh=document.getElementById('sheet');
+  VBDruck.print(sz[0]==='a4'?{root:sh,name:'Montage-Etiketten',pageW:210,pageH:297,margin:0,widthPx:794,avoid:'.lbl'}:{root:sh,pages:'.lbl',pageW:sz[2],pageH:sz[3],name:'Montage-Etiketten'}).catch(()=>{});};
 window.addEventListener('hashchange',()=>location.reload());
 render();
 </script>
