@@ -363,7 +363,12 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .sheet-head .t{color:var(--c1)}
 .pos:nth-of-type(odd){background:var(--surface)}
 .pos-h{background:var(--paper);margin:-14px -16px 0;padding:10px 16px;border-bottom:1px solid var(--line)}
-.stoffline{background:var(--c5s);border-left:4px solid var(--c5);border-radius:4px;padding:6px 10px}
+.stoffline{background:var(--c5s);border-left:4px solid var(--c5);border-radius:4px;padding:6px 10px;display:flex;align-items:center;gap:10px}
+.stoffimg{width:84px;height:60px;object-fit:cover;border-radius:4px;border:1px solid var(--c5);flex:0 0 auto;background:var(--paper)}
+.cgrp-h .stoffimg{width:76px;height:54px;align-self:center}
+.sbrow{display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
+.sbrow .sbthumb{width:64px;height:46px;border-radius:4px;border:1px solid var(--line);background:var(--paper) center/cover no-repeat;display:grid;place-items:center;color:var(--muted);font-size:1.2rem;cursor:pointer}
+@media print{.stoffimg{width:22mm;height:16mm}.cgrp-h .stoffimg{width:20mm;height:14mm}}
 .blk{border:0;border-top:4px solid var(--c1);background:var(--c1s);border-radius:5px;padding:9px 11px}
 .blk h3{color:var(--c1);font-size:.76rem}
 .blocks .blk.b2{border-top-color:var(--c2);background:var(--c2s)}
@@ -733,7 +738,7 @@ html.vb-pdf .vb-pdfstage .cgrp-h .sum{font-size:.85rem}
         <div class="card sec sec-stoff">
           <div class="card-h"><span class="stepno">3</span><h2>Stoff</h2><span class="sum" id="sum3"></span></div>
           <div class="fields f3">
-            <div class="f wide"><label for="p_stoff">Artikel / Farbe</label><input id="p_stoff" data-p="stoff" autocomplete="off"><div class="vdrow"><span class="vdinfo" id="stoffInfo"></span><button class="link" type="button" id="btnVdArt">Vendoc-Artikel …</button></div></div>
+            <div class="f wide"><label for="p_stoff">Artikel / Farbe</label><input id="p_stoff" data-p="stoff" autocomplete="off"><div class="vdrow"><span class="vdinfo" id="stoffInfo"></span><button class="link" type="button" id="btnVdArt">Vendoc-Artikel …</button></div><div class="sbrow" id="sbRow"></div></div>
             <div class="f wide"><span class="flabel">Warenart</span><select id="p_ware" data-p="ware" class="seg-src" hidden><option value="hoehe">Höhenware</option><option value="bahn">Gebahnt</option></select></div>
             <div class="f"><label for="p_stoffbreite" id="lbl_stoffbreite">Stoffbreite</label><div class="unit" data-u="cm"><input id="p_stoffbreite" type="number" step="1" data-p="stoffbreite"></div></div>
             <div class="f"><label for="p_rapport">Rapport</label><div class="unit" data-u="cm"><input id="p_rapport" type="number" step="0.5" min="0" data-p="rapport"></div><span class="hint">0 = ohne</span></div>
@@ -1006,6 +1011,21 @@ const bahnFmt=n=>fmt(n,1).replace(',0','');
 /* ---------- Bereich & Höhe aus dem Aufmaß ---------- */
 const BEREICHE=['KG','EG','OG','OG2','OG3','OG4','OG5','DG','Spitzboden','Außen'];
 const posTitle=q=>[(q.bereich||'').trim(),(q.raum||'').trim()].filter(Boolean).map(x=>x+' · ').join('')+(q.name||'Fenster');
+function stoffBild(q){if(q.stoffBild)return q.stoffBild;const k=String(q.stoff||'').trim().toLowerCase();if(!k)return '';
+  const o=S.pos.find(x=>x.stoffBild&&String(x.stoff||'').trim().toLowerCase()===k);return o?o.stoffBild:'';}
+let sbSig='';
+function renderStoffBild(force){const el=document.getElementById('sbRow');if(!el)return;const p=cur(),fid=stoffBild(p),sig=fid+'|'+(p.stoffBild||'')+'|'+S.sel;
+  if(sig===sbSig&&!force)return;sbSig=sig;
+  const info=fid&&!p.stoffBild?'Bild vom gleichen Stoff einer anderen Position':fid?'gilt für alle Positionen mit diesem Stoff':'Foto vom Stoffmuster für Nähzettel und Zuschnittliste';
+  el.innerHTML='<span class="sbthumb" '+(fid?'data-foto="'+esc(fid)+'"':'')+' title="Stoffbild">'+(fid?'<span>…</span>':'🖼')+'</span>'+
+    '<label class="photo-btn">'+(fid?'Stoffbild ändern':'📷 Stoffbild hinzufügen')+'<input type="file" accept="image/*" id="sb_file" hidden></label>'+
+    (p.stoffBild?'<button type="button" class="link" id="sb_del">entfernen</button>':'')+'<span class="small muted">'+info+'</span>';
+  fillFotoImgs(el);
+  const th=el.querySelector('.sbthumb');if(fid)th.onclick=()=>fotoBig(fid);
+  el.querySelector('#sb_file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const uri=await resizeToJpeg(f,1000),id=newId('f');await FDB.put(id,uri);
+      const p2=cur(),k=String(p2.stoff||'').trim().toLowerCase();S.pos.forEach(q=>{if(q===p2||(k&&String(q.stoff||'').trim().toLowerCase()===k))q.stoffBild=id;});
+      S.isSample=false;save();renderStoffBild(true);render();if(typeof syncSoon==='function')syncSoon();}catch(err){alertBox('Dieses Bild konnte nicht gelesen werden.');}};
+  const d=el.querySelector('#sb_del');if(d)d.onclick=()=>{const id=cur().stoffBild;S.pos.forEach(q=>{if(q.stoffBild===id)delete q.stoffBild;});S.isSample=false;save();renderStoffBild(true);render();};}
 const raumKey=r=>String(r||'').trim().toLowerCase().replace(/\d+/g,d=>d.padStart(6,'0'));
 function raumValues(b){b=String(b||'').trim();const same=new Set(),other=new Set();S.pos.forEach(q=>{const r=String(q.raum||'').trim();if(r)((String(q.bereich||'').trim()===b)?same:other).add(r);});
   const cmp=(x,y)=>{x=raumKey(x);y=raumKey(y);return x<y?-1:x>y?1:0;};return [...new Set([...[...same].sort(cmp),...[...other].sort(cmp)])];}
@@ -1147,6 +1167,7 @@ function fillForm(){
   if(typeof renderAufmassCard==='function')renderAufmassCard();
   if(typeof renderSchCard==='function')renderSchCard();
   if(typeof vdInfos==='function')vdInfos();
+  if(typeof renderStoffBild==='function')renderStoffBild();
 }
 function syncVis(){
   const p=cur();
@@ -1767,7 +1788,8 @@ function stoffFields(q){return {ware:q.ware,stoffbreite:q.stoffbreite,rapport:q.
 function applyStoffByName(p){ // gleicher Stoffname wie in anderer Position → Stoffdaten übernehmen
   vdStoffCheck(p);
   const o=S.pos.find(q=>q!==p&&q.stoff&&q.stoff===p.stoff); if(o){Object.assign(p,stoffFields(o));
-    if(o.stoffArt){p.stoffArt=o.stoffArt;p.stoffArtBez=o.stoffArtBez;}else{delete p.stoffArt;delete p.stoffArtBez;}}
+    if(o.stoffArt){p.stoffArt=o.stoffArt;p.stoffArtBez=o.stoffArtBez;}else{delete p.stoffArt;delete p.stoffArtBez;}
+    if(o.stoffBild)p.stoffBild=o.stoffBild;}
 }
 function addLike(i){ // neue Position wie Position i, nur Name neu
   const base=S.pos[i]||cur(); const c=JSON.parse(JSON.stringify(base)); c.name='Fenster '+(S.pos.length+1); c.bem=''; c.geschnitten=false; c.genaeht=false; c.fotos=[]; c.skizze=null;
@@ -1935,7 +1957,7 @@ const toIso=s=>{const d=toDate(s);return d?d.getFullYear()+'-'+String(d.getMonth
 const dDE=s=>{if(!s)return '—';const d=toDate(s);return d?String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear():esc(s);};
 
 /* ---------- Ausgabe ---------- */
-function render(){
+function render(){if(typeof renderStoffBild==='function')try{renderStoffBild();}catch(e){}
   const A=S.auftrag, RS=calcAll(), all=S.pos.map((q,i)=>({q,r:RS[i]}));
   // Ansicht
   const view=S.view||'calc';
@@ -2031,13 +2053,13 @@ function render(){
     if(multiN&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">'+esc(bLabel(bOf(q)))+'</div>';
     h+='<section class="pos"><div class="pos-h"><span class="no">Pos. '+(i+1)+'</span><span class="nm">'+esc(posTitle(q))+(q.ca?'<span class="cabadge">CA.-MASS – NICHT ZUSCHNEIDEN</span>':'')+'</span><span class="qty">'+(r.stk>1?r.stk+' Fenster × ':'')+r.schals+(r.schals===1?' Schal':' Schals')+' = '+(r.stk*r.schals)+' Stk</span><span class="kd">'+[S.auftrag.kunde,S.auftrag.nr].map(x=>String(x||'').trim()).filter(Boolean).map(esc).join('<br>')+'</span><span class="qrc" title="Für das Montage-Etikett scannen">'+etikettQr(A,i,q,r)+'</span></div>'+
       (r.gedreht?'<div class="drehline">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden (Bahnbreite '+cm(num(q.stoffbreite))+')</div>':'')+
-      '<div class="stoffline"><span class="muted">Stoff:</span> <b>'+esc(q.stoff||'—')+'</b> · '+wareText(q,r)+cm(num(q.stoffbreite))+(num(q.rapport)?' · Rapport '+cm(num(q.rapport)):'')+'</div>'+
+      '<div class="stoffline">'+(stoffBild(q)?'<img class="stoffimg" data-foto="'+esc(stoffBild(q))+'" alt="Stoff">':'')+'<span><span class="muted">Stoff:</span> <b>'+esc(q.stoff||'—')+'</b> · '+wareText(q,r)+cm(num(q.stoffbreite))+(num(q.rapport)?' · Rapport '+cm(num(q.rapport)):'')+'</span></div>'+
       '<div class="blocks"><div class="bcol"><div class="blk b1"><h3>Fertigmaß</h3>'+kvHTML(P.fertig)+'</div><div class="blk b3"><h3>Nähen</h3>'+kvHTML(P.naehen)+'</div><div class="blk b4"><h3>Material</h3>'+(()=>{const pf=picFor(q);let f='<div class="sheetpics"><figure class="sheetpic">'+picHTML(pf)+'<figcaption>'+esc(pf.name)+'</figcaption></figure>';if(r.GL&&glPhoto(r.GL))f+='<figure class="sheetpic">'+glPic(r.GL)+'<figcaption>'+esc(glLabel(r.GL))+'</figcaption></figure>';return f+'</div>';})()+kvHTML(P.material)+'</div></div>'+
       '<div class="bcol"><div class="blk b2"><h3>Zuschnitt</h3>'+kvHTML(P.zuschnitt)+(()=>{const sk=sketch(q,r);return sk?'<div class="cutsk">'+sk+'</div>':'';})()+'</div></div></div>'+
       (r.rapNote?'<div class="note">'+esc(r.rapNote)+'</div>':'')+(q.bem?'<div class="note">'+esc(q.bem)+'</div>':'')+'</section>';
   });
   h+='<div class="sign"><div>Zugeschnitten</div><div>Genäht</div><div>Kontrolliert</div></div></article>';
-  document.getElementById('sheet').innerHTML=h;
+  document.getElementById('sheet').innerHTML=h;fillFotoImgs(document.getElementById('sheet'));
 }
 
 function sheetText(){
@@ -2101,7 +2123,8 @@ function renderCut(){{const o=document.getElementById('cutOrder');if(o)o.value=c
   groups.forEach(g=>{
     const info=gruppeText(g)+' '+cm(g.sb)+(g.rap?' · Rapport '+cm(g.rap):'');
     const sum=g.ware==='bahn'?(g.bahnen+' Bahnen schneiden → '+g.teile+' Teile<br>'+m(g.stoffCm)+' Stoff'+(g.sparBahnen?'<br><span class="spar">♻ '+g.sparBahnen+(g.sparBahnen===1?' Bahn':' Bahnen')+' weniger durch Reste (−'+m(g.sparCm)+')</span>':'')):(g.zuschnitte+' Zuschnitte<br>'+m(g.stoffCm)+' Stoff');
-    h+='<div class="cgrp"><div class="cgrp-h"><div><div class="s">'+esc(g.stoff)+'</div><div class="small">'+esc(info)+'</div></div><div class="sum">'+sum+'</div></div>'+(g.gedreht?'<div class="drehline" style="margin:0;border-radius:0;border-width:0 0 2px">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden</div>':'')+
+    const gsb=(g.rows.map(rw=>stoffBild(S.pos[rw.i])).find(Boolean))||'';
+    h+='<div class="cgrp"><div class="cgrp-h">'+(gsb?'<img class="stoffimg" data-foto="'+esc(gsb)+'" alt="Stoff">':'')+'<div style="flex:1 1 auto"><div class="s">'+esc(g.stoff)+'</div><div class="small">'+esc(info)+'</div></div><div class="sum">'+sum+'</div></div>'+(g.gedreht?'<div class="drehline" style="margin:0;border-radius:0;border-width:0 0 2px">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden</div>':'')+
       (g.resteTxt?'<div class="small" style="padding:6px 12px;border-bottom:1px solid var(--line)"><b>Übrige Reste</b> (für andere Aufträge aufheben): '+esc(g.resteTxt)+'</div>':'')+'<div class="tblwrap"><table class="cut">';
     if(g.ware==='bahn'){
       h+='<tr><th>Erledigt</th><th>Pos. / Nähzettel</th><th class="n">Bahnen</th><th class="n">Schnittlänge</th><th>Halbieren / Streifen</th><th class="n">Teile</th><th>je Schal</th><th class="n">Stoff gesamt</th></tr>';
@@ -2115,7 +2138,7 @@ function renderCut(){{const o=document.getElementById('cutOrder');if(o)o.value=c
     h+='</table></div></div>';
   });
   h+='<p class="foot">Jedes Teil mit der Pos.-Nummer kennzeichnen und zum Nähzettel dieser Pos. legen.</p>';
-  const el=document.getElementById('cut'); el.innerHTML=h;
+  const el=document.getElementById('cut'); el.innerHTML=h; fillFotoImgs(el);
   el.querySelectorAll('[data-cut]').forEach(c=>c.onchange=()=>{S.pos[+c.dataset.cut].geschnitten=c.checked;S.isSample=false;S.auftrag.status=autoStatus(S.auftrag,S.pos);save();fillForm();renderCut();});
   el.querySelectorAll('[data-naeh]').forEach(c=>c.onchange=()=>{S.pos[+c.dataset.naeh].genaeht=c.checked;S.isSample=false;S.auftrag.status=autoStatus(S.auftrag,S.pos);save();fillForm();renderCut();});
 }

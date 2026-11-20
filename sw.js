@@ -1,5 +1,5 @@
 // Offline-Speicher der Vorhangberechnung
-const CACHE = 'vorhangberechnung-v55';
+const CACHE = 'vorhangberechnung-v56';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './favicon.png', './etikett.html', './pdfdruck.js'];
 self.addEventListener('install', e => {
   // cache:'reload' – immer frisch vom Server holen, nicht aus dem Browser-Zwischenspeicher (sonst bleibt nach einem Update die alte Fassung)

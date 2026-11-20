@@ -375,3 +375,11 @@ Behoben: Nähzettel und Aufmaßblatt fingen bei langen Positionen erst auf Seite
 Nähzettel-Ausdruck: Jede Position beginnt auf einer eigenen Seite. Im Kopf jeder Position stehen klein Kunde und Auftragsnummer, damit einzelne Blätter zuzuordnen sind.
 Nähzettel: Im Block "Nähen" steht der Kopf (z. B. "Faltenband (Dreierfalte)" oder "BOOGIE 1:1.85 F1 · 50 mm") in einer Zeile.
 Nähzettel: Die Fertighöhe ist gelb (Signalfarbe) hinterlegt – im Programm und im Ausdruck. Für Farbe im Druckdialog "Hintergrundgrafiken" einschalten.
+
+
+NEU: STOFFBILD
+Unter "Artikel / Farbe" gibt es "Stoffbild hinzufügen": ein Foto vom Stoffmuster (z. B. vom Musterbuch abfotografiert).
+Das Bild gilt automatisch für alle Positionen mit dem gleichen Stoffnamen und erscheint
+  - auf dem Nähzettel in der Stoff-Zeile jeder Position,
+  - in der Zuschnittliste im Kopf des Stoffblocks.
+Das Bild wird wie die Aufmaß-Fotos mit den anderen Geräten abgeglichen.
