@@ -293,3 +293,85 @@ ca.-Maß
   Aufmaßblatt steht ein roter Hinweis.
 - Ist das echte Maß da: Maß eintragen und das Häkchen "ca." entfernen –
   die Zeile erscheint wieder normal.
+
+Höhe "Raumhöhe Schiene bis Boden"
+---------------------------------
+- Neue Messart bei "Höhe gemessen als": "Raumhöhe Schiene bis Boden" = von der
+  Unterkante Schiene bis zum fertigen Boden gemessen.
+- Fertighöhe = gemessenes Maß − Luft zum Boden (keine weiteren Abzüge).
+
+Auswahllisten (Dropdown)
+------------------------
+- Die aufklappenden Listen sind größer: größere Schrift, mehr Abstand
+  zwischen den Einträgen, breiter und mit größerem Pfeil – besser mit dem
+  Finger zu treffen. Gilt auch für die Vorschläge beim Vendoc-Import.
+
+Ausdrucke
+---------
+- Nähzettel, Zuschnittliste, Aufmaßblatt und Plissee-Bestellung werden
+  mit etwa 15 % größerer Schrift gedruckt – besser lesbar.
+
+Android (Handy oder Tablet)
+---------------------------
+- Die Web-App läuft auch auf Android – gleiche Adresse wie am iPad.
+- In Google Chrome öffnen, oben rechts "⋮" -> "App installieren" (oder
+  "Zum Startbildschirm hinzufügen"). Dann wie eine App starten.
+- Einmal für den Abgleich anmelden – alle Aufträge sind da.
+- Bosch-Laser: funktioniert direkt in Chrome (ohne Zusatz-Browser).
+  Beim ersten Verbinden fragt Android nach der Berechtigung "Geräte in der
+  Nähe" bzw. Standort – erlauben.
+- Drucken: Druckknopf -> Android-Druckdialog (Drucker oder "Als PDF
+  speichern").
+
+Gedrehte Höhenware: Streifen in genauer Breite
+----------------------------------------------
+- Muss Höhenware gedreht werden (Schnittlänge größer als die Stoffhöhe),
+  rechnet das Programm nicht mehr mit halben oder ganzen Bahnen, sondern:
+  je Schal ganze Bahnen + 1 Streifen in genau der benötigten Breite
+  (inkl. Seitensäume und Nahtzugabe – "Nahtzugabe je Naht" bei Stoff).
+- Mehrere Streifen werden gemeinsam aus einer Bahn geschnitten.
+- Reste werden an andere Positionen mit gleichem Stoff (und gleicher oder
+  kürzerer Schnittlänge) weitergegeben – markiert mit ♻ "Rest-Streifen an
+  Pos. … geben" bzw. "Streifen von Pos. … nehmen". Der Zuschnittplan zeigt
+  je Bahn, welche Streifen herauskommen und welcher Rest bleibt.
+
+
+ZUSCHNITTLISTE: ÜBRIGE RESTE
+Bei gedrehter Höhenware steht unter "STOFF DREHEN" jetzt eine Zeile "Übrige Reste":
+welche Streifen nach dem Zuschneiden übrig bleiben (Breite und Länge), damit man sie
+beschriften und für andere Aufträge aufheben kann. Reste unter 10 cm werden nicht aufgeführt.
+Die Zeilen der Zuschnittliste sind jetzt oben bündig und abwechselnd hinterlegt.
+
+
+ZUSCHNITTLISTE: REIHENFOLGE UND DRUCK
+Oben in der Zuschnittliste gibt es jetzt "Reihenfolge":
+  - Positionen der Reihe nach (Standard): Pos. 1, 2, 3 ... in der angelegten Reihenfolge.
+    Wechselt der Stoff, beginnt ein neuer Block mit Stoffkopf.
+  - nach Stoff zusammengefasst: wie bisher, alle Fenster eines Stoffes in einem Block.
+Die Einstellung wird auf dem jeweiligen Gerät gemerkt.
+Behoben: Lange Zuschnittlisten fingen beim Drucken erst auf Seite 2 an. Der Druck beginnt jetzt auf Seite 1.
+
+Zuschnittliste-Ausdruck: Rahmen nutzt jetzt die ganze Seitenbreite, alle Spalten passen hinein (nichts wird rechts abgeschnitten).
+Nähzettel: Die Bezeichnungen (z. B. "Genähte Teile gesamt") stehen jetzt in einer Zeile, wenn der Platz reicht.
+Nähzettel: "Raumhöhe gemessen" und "Abzüge" stehen jetzt unten im Block Fertigmaß, grau und mit dem Hinweis "nur zur Info – genäht wird nach der Fertighöhe", damit sie nicht mit der Fertighöhe verwechselt werden.
+Nähzettel: Unter "Zuschnitt" steht bei gedrehter Höhenware eine eigene Zeile "Rest", z. B. "3 × 35 cm breit (350 cm lang)" – was von dieser Position übrig bleibt.
+Nähzettel: Zeile "Rest" gekürzt auf z. B. "3 × 35 cm" und steht immer in einer Zeile (Länge = Schnittlänge der Bahn).
+
+
+NEU: FELD "RAUM" (Bereich › Raum › Fenster)
+Jede Position hat jetzt drei Angaben:
+  Bereich        z. B. EG
+  Raum           z. B. Zimmer 1
+  Fenster / Lage z. B. Tür rechts, Tür links, Fenster rechts, Fenster links
+Die Liste wird nach Bereich und Raum gegliedert (Überschrift "EG › Zimmer 1"), ebenso Nähzettel und Aufmaßblatt.
+"Nach Bereich sortieren" sortiert nach Bereich und dann nach Raum (Zimmer 2 vor Zimmer 10).
+Beim Raum werden die schon benutzten Räume zur Auswahl angeboten; "+ Fenster in EG › Zimmer 1" legt
+eine neue Position im selben Raum an. Etiketten zeigen "EG · Zimmer 1" und die Lage.
+Alte Aufträge ohne Raum bleiben unverändert.
+Updates: Nach dem Hochladen einer neuen Fassung lädt die App beim nächsten Öffnen die neuen Dateien direkt vom Server und startet sich einmal von selbst neu – vorher konnte noch die alte Fassung (z. B. alte Etiketten) angezeigt werden.
+Nähzettel: Im Block "Zuschnitt" steht jetzt die Zuschnitt-Skizze je Schal (Breite, Höhe, Nähte, Kopf und Saum) wie in der Berechnung.
+Nähzettel: Links untereinander Fertigmaß, Nähen und Material – rechts der Zuschnitt mit Skizze. Spart Platz auf dem Ausdruck.
+Behoben: Nähzettel und Aufmaßblatt fingen bei langen Positionen erst auf Seite 2 an (Seite 1 nur Überschrift). Lange Positionen laufen jetzt über die Seiten weiter.
+Nähzettel-Ausdruck: Jede Position beginnt auf einer eigenen Seite. Im Kopf jeder Position stehen klein Kunde und Auftragsnummer, damit einzelne Blätter zuzuordnen sind.
+Nähzettel: Im Block "Nähen" steht der Kopf (z. B. "Faltenband (Dreierfalte)" oder "BOOGIE 1:1.85 F1 · 50 mm") in einer Zeile.
+Nähzettel: Die Fertighöhe ist gelb (Signalfarbe) hinterlegt – im Programm und im Ausdruck. Für Farbe im Druckdialog "Hintergrundgrafiken" einschalten.

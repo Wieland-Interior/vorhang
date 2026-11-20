@@ -315,7 +315,8 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .fotobig{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px}
 .fotobig img{max-width:100%;max-height:80vh;border-radius:6px}
 .am{background:var(--surface);color:var(--ink);border:1px solid var(--ink);border-radius:4px;overflow:hidden}
-.am-pos{padding:10px 16px;border-top:1px solid var(--line);break-inside:avoid;page-break-inside:avoid}
+.am-pos{padding:10px 16px;border-top:1px solid var(--line)}
+.am-pos>*{break-inside:avoid;page-break-inside:avoid}
 .am-pos h3{margin:0 0 6px;font-size:1.05rem}
 .am-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 @media (max-width:640px){.am-grid{grid-template-columns:1fr}}
@@ -332,19 +333,24 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .am-sign .sg{border-bottom:1px solid var(--ink);min-height:60px;display:flex;align-items:flex-end}
 .am-sign .sg svg{height:70px;width:auto;max-width:100%}
 .am-sign small{color:var(--muted)}
-.pos{padding:14px 16px;border-bottom:1px dashed var(--line);display:flex;flex-direction:column;gap:10px;break-inside:avoid}
+.pos{padding:14px 16px;border-bottom:1px dashed var(--line);display:flex;flex-direction:column;gap:10px}
 .pos:last-of-type{border-bottom:0}
 .pos-h{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.pos-h .kd{margin-left:auto;font-size:.8rem;line-height:1.25;color:var(--muted);text-align:right;white-space:nowrap}
+.pos-h .kd+.qrc{margin-left:0}
 .pos-h .qrc{margin-left:auto;line-height:0}.pos-h .qrc svg{width:24mm;height:24mm;max-width:120px;max-height:120px}
 .pos-h .no{font-family:var(--mono);font-weight:600;color:var(--surface);background:var(--thread);border-radius:3px;padding:1px 6px;font-size:.82rem}
 .pos-h .nm{font-family:var(--display);font-weight:600;font-size:1.08rem}
 .pos-h .qty{font-family:var(--mono);font-size:.85rem;color:var(--muted)}
 .stoffline{font-size:.9rem}
-.blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media (max-width:560px){.blocks{grid-template-columns:minmax(0,1fr)}}
+.blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+.bcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.cutsk{margin-top:6px;border-top:1px dashed var(--line);padding-top:4px}
+.cutsk svg{display:block;width:100%;max-width:320px;height:auto}
+@media (max-width:560px){.blocks{grid-template-columns:minmax(0,1fr)}.bcol{display:contents}.blk.b1{order:1}.blk.b2{order:2}.blk.b3{order:3}.blk.b4{order:4}}
 .blk{border:1px solid var(--line);border-radius:4px;padding:8px 10px;min-width:0}
 .blk h3{margin:0 0 4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--indigo)}
-.kv{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;font-size:.88rem}
+.kv{display:grid;grid-template-columns:fit-content(62%) minmax(0,1fr);gap:3px 10px;font-size:.88rem}
 .kv span:nth-child(even){font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
 .note{font-size:.88rem;border-left:3px solid var(--thread);padding:2px 0 2px 8px}
 .sign{display:flex;flex-wrap:wrap;gap:16px;padding:14px 16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
@@ -360,13 +366,22 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .stoffline{background:var(--c5s);border-left:4px solid var(--c5);border-radius:4px;padding:6px 10px}
 .blk{border:0;border-top:4px solid var(--c1);background:var(--c1s);border-radius:5px;padding:9px 11px}
 .blk h3{color:var(--c1);font-size:.76rem}
-.blocks .blk:nth-child(2){border-top-color:var(--c2);background:var(--c2s)}
-.blocks .blk:nth-child(2) h3{color:var(--c2)}
-.blocks .blk:nth-child(3){border-top-color:var(--c3);background:var(--c3s)}
-.blocks .blk:nth-child(3) h3{color:var(--c3)}
-.blocks .blk:nth-child(4){border-top-color:var(--c4);background:var(--c4s)}
-.blocks .blk:nth-child(4) h3{color:var(--c4)}
+.blocks .blk.b2{border-top-color:var(--c2);background:var(--c2s)}
+.blocks .blk.b2 h3{color:var(--c2)}
+.blocks .blk.b3{border-top-color:var(--c3);background:var(--c3s)}
+.blocks .blk.b3 h3{color:var(--c3)}
+.blocks .blk.b4{border-top-color:var(--c4);background:var(--c4s)}
+.blocks .blk.b4 h3{color:var(--c4)}
 .blk .kv span:nth-child(odd){color:var(--ink);opacity:.85}
+.kv span.kvinfo{font-size:.8em;color:var(--muted)!important;font-weight:400;opacity:1}
+.kv span.kvsep{border-top:1px dashed var(--line);padding-top:4px;margin-top:4px}
+.kv span.kvnw{white-space:nowrap}
+.kv span.kvwide{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;font-weight:400!important;text-align:left!important;font-family:inherit!important}
+.kv span.kvwide>span{color:var(--ink);opacity:.85}
+.kv span.kvwide b{white-space:nowrap;font-family:var(--mono);font-weight:700}
+.kv span.kvsig{background:#ffe14a;border:1.5px solid #d4a800;border-radius:4px;padding:3px 7px;margin:2px -7px;font-size:1.05em;color:#1b2331;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.kv span.kvsig>span,.kv span.kvsig b{color:#1b2331!important;opacity:1!important;font-weight:700}
+.kv span.kvnote{grid-column:1/-1;font-style:italic;text-align:left!important;font-family:inherit!important}
 .blk .bpic{background:var(--surface)}
 .note{background:var(--warn-soft);border-left-color:var(--thread);border-radius:0 4px 4px 0;padding:6px 10px}
 .sign{background:var(--paper)}
@@ -457,7 +472,8 @@ td.qf.calc{color:var(--indigo)}
 /* Zuschnittliste */
 .cuthead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:flex-end;border-bottom:3px solid var(--c1);padding-bottom:8px}
 .cuthead .t{font-family:var(--display);font-weight:700;font-size:1.4rem;color:var(--c1)}
-.cgrp{border:1px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--surface);break-inside:avoid;page-break-inside:avoid}
+.cgrp{border:1px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--surface)}
+.cgrp tr{break-inside:avoid;page-break-inside:avoid}.cgrp-h{break-after:avoid;page-break-after:avoid}
 .cgrp-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;background:var(--c5s);border-bottom:3px solid var(--c5);padding:9px 14px}
 .cgrp-h .s{font-family:var(--display);font-weight:700;font-size:1.1rem}
 .cgrp-h .sum{font-family:var(--mono);font-weight:600;text-align:right}
@@ -479,6 +495,14 @@ table.cut input[type=checkbox]{width:22px;height:22px}
 @media (min-width:1800px){.wrap{max-width:1840px}.main{grid-template-columns:minmax(0,1fr) 420px}}
 @media (min-width:2300px){.wrap{max-width:2200px}.fields,.fields.f3{grid-template-columns:repeat(5,minmax(0,1fr))}}
 select.zoomsel{width:auto;padding:6px 8px;font-size:.85rem}
+html.vb-pdf .vb-pdfstage>*{zoom:1.15}
+/* Auswahllisten größer – besser mit dem Finger zu bedienen */
+select{min-height:44px;font-size:1rem;padding-top:9px;padding-bottom:9px;cursor:pointer}
+table.qt select{min-height:42px;padding-top:8px;padding-bottom:8px}
+select.zoomsel{min-height:40px}
+select option{font-size:1.05rem;padding:8px}
+.vdpop{max-height:440px;min-width:320px}
+.vdpop button{padding:14px 14px;font-size:1.02rem}
 /* Zurück / Rückgängig / Bereiche */
 .view.back{color:var(--indigo)}.view.back[hidden]{display:none}
 #btnUndo:disabled{opacity:.45}
@@ -501,12 +525,41 @@ table.qt tr.grp .gs{color:var(--muted);margin:0 10px}
 body.baustelle .baubar{display:flex}
 body.baustelle #v_sheet,body.baustelle #v_cut,body.baustelle #v_mat,body.baustelle #v_pl,body.baustelle #v_shop,body.baustelle #v_vendoc,
 body.baustelle [data-view=calc] .sec-kopf,body.baustelle [data-view=calc] .sec-stoff,body.baustelle .resultcol [data-go="sheet"]{display:none!important}
-@page{size:A4;margin:12mm}
+html.vb-pdf .vb-pdfstage table.cut{font-size:.86rem}
+html.vb-pdf .vb-pdfstage table.cut th{letter-spacing:.02em;padding:4px 5px;vertical-align:bottom}
+html.vb-pdf .vb-pdfstage table.cut td{padding:5px 5px}
+html.vb-pdf .vb-pdfstage table.cut td.cutchk label{display:flex;align-items:center;gap:3px;font-size:.72rem;white-space:nowrap}
+html.vb-pdf .vb-pdfstage table.cut input[type=checkbox]{width:13px;height:13px;margin:0}
+html.vb-pdf .vb-pdfstage table.cut td:not(.n) *:not(.tag){white-space:normal!important}
+html.vb-pdf .vb-pdfstage table.cut td:nth-child(7){min-width:19mm}
+html.vb-pdf .vb-pdfstage table.cut td:nth-child(5){min-width:31mm}
+html.vb-pdf .vb-pdfstage table.cut td:nth-child(2){min-width:0}
+html.vb-pdf .vb-pdfstage .cgrp-h .sum{font-size:.85rem}
+@page{size:A4;margin:8mm 7mm}
 @media print{
   body{background:#fff;padding:0;font-size:11px}.no-print{display:none!important}
-  .wrap{max-width:none}
+  .wrap{max-width:none;zoom:1.15!important}
   .sheet,.cgrp{border-color:#000}
-  .pos{break-inside:avoid;page-break-inside:avoid}
+  .pos{break-inside:auto;page-break-inside:auto}
+  .pos>*:not(.blocks){break-inside:avoid;page-break-inside:avoid}
+  .blk,.cutsk,.sheetpic,.am-pos figure{break-inside:avoid;page-break-inside:avoid}
+  .blk.b2{break-inside:auto;page-break-inside:auto}
+  /* Nähzettel: jede Position auf eine eigene Seite */
+  #sheet .pos-h{flex-wrap:nowrap}#sheet .pos-h .nm{min-width:0}#sheet .pos-h .no,#sheet .pos-h .qty{white-space:nowrap}
+  #sheet .pos~.pos{break-before:page;page-break-before:always}
+  #sheet .bhead+.pos{break-before:auto;page-break-before:auto}
+  #sheet .pos~.bhead{break-before:page;page-break-before:always}  /* langer Zuschnitt-Block darf umbrechen, sonst bleibt Seite 1 leer */
+  .pos-h{break-after:avoid;page-break-after:avoid}
+  table.cut{font-size:.86rem}
+  table.cut th{letter-spacing:.02em;padding:4px 5px;vertical-align:bottom}
+  table.cut td{padding:5px 5px}
+  table.cut td.cutchk label{display:flex;align-items:center;gap:3px;font-size:.72rem;white-space:nowrap}
+  table.cut input[type=checkbox]{width:13px;height:13px;margin:0}
+  table.cut td:not(.n) *:not(.tag){white-space:normal!important}
+  table.cut td:nth-child(7){min-width:19mm}
+  table.cut td:nth-child(5){min-width:31mm}
+  table.cut td:nth-child(2){min-width:0}
+  .cgrp-h .sum{font-size:.85rem}
   .sheet,.cgrp,.cuthead,.blk,.stoffline,.note,.sign,.sheet-head,.pos-h,.cgrp-h,.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
@@ -572,7 +625,7 @@ body.baustelle [data-view=calc] .sec-kopf,body.baustelle [data-view=calc] .sec-s
       </div>
       <div class="tblwrap"><table class="qt" id="quick"></table></div>
       <div class="row"><button id="q_add" class="primary">+ Fenster</button><button id="q_sort">Nach Bereich sortieren</button><button id="q_fold" type="button" hidden>Bereiche zuklappen</button><span class="muted" style="font-size:.82rem">Zeile anklicken, um unten Band, Saum und Zugaben einzustellen.</span></div>
-      <datalist id="stoffList"></datalist><datalist id="bereichList"></datalist>
+      <datalist id="stoffList"></datalist><datalist id="bereichList"></datalist><datalist id="raumList"></datalist>
     </div>
     <div class="detail-h"><span class="lbl">Details</span> <b id="detailName"></b></div>
 
@@ -580,7 +633,8 @@ body.baustelle [data-view=calc] .sec-kopf,body.baustelle [data-view=calc] .sec-s
       <div class="steps">
         <div class="namebar">
           <div class="f" style="flex:0 1 130px"><label for="p_bereich">Bereich</label><input id="p_bereich" class="big" data-p="bereich" list="bereichList" placeholder="EG, OG …"></div>
-          <div class="f" style="flex:1 1 260px"><label for="p_name">Raum / Fenster</label><input id="p_name" class="big" data-p="name"></div>
+          <div class="f" style="flex:0 1 170px"><label for="p_raum">Raum</label><input id="p_raum" class="big" data-p="raum" list="raumList" placeholder="Zimmer 1 …" autocomplete="off"></div>
+          <div class="f" style="flex:1 1 220px"><label for="p_name">Fenster / Lage</label><input id="p_name" class="big" data-p="name" placeholder="Tür rechts, Fenster links …"></div>
           <div class="row" style="align-self:flex-end"><button class="link" id="btnCopyPos">Duplizieren</button><button class="link danger" id="btnDel">Löschen</button></div>
         </div>
 
@@ -591,7 +645,7 @@ body.baustelle [data-view=calc] .sec-kopf,body.baustelle [data-view=calc] .sec-s
               <label class="cacheck"><input type="checkbox" id="p_ca" data-p="ca"> nur ca.-Maß (noch nachmessen)</label></div>
             <div class="f wide hbox">
               <span class="flabel">Höhe gemessen als</span>
-              <select id="p_hmode" data-p="hmode" class="seg-src" hidden><option value="fertig">Fertighöhe</option><option value="roh">Raumhöhe ohne Boden u. Schiene</option><option value="ohneBoden">Raumhöhe ohne Boden</option><option value="ohneSchiene">Raumhöhe ohne Schiene</option></select>
+              <select id="p_hmode" data-p="hmode" class="seg-src" hidden><option value="fertig">Fertighöhe</option><option value="roh">Raumhöhe ohne Boden u. Schiene</option><option value="ohneBoden">Raumhöhe ohne Boden</option><option value="ohneSchiene">Raumhöhe ohne Schiene</option><option value="schieneBoden">Raumhöhe Schiene bis Boden</option></select>
               <div class="hfields">
                 <div class="f" id="f_hoehe"><label for="p_hoehe">Fertighöhe</label><div class="unit" data-u="cm"><input id="p_hoehe" class="big" type="number" step="0.5" data-p="hoehe"></div><span class="hint">Gleiter bis Saumkante</span></div>
                 <div class="f" id="f_hmass"><label for="p_hmass">Gemessenes Maß</label><div class="unit" data-u="cm"><input id="p_hmass" class="big" type="number" step="0.5" data-p="hmass"></div><span class="hint" id="hmassHint"></span></div>
@@ -760,8 +814,8 @@ body.baustelle [data-view=calc] .sec-kopf,body.baustelle [data-view=calc] .sec-s
   <!-- ZUSCHNITTLISTE -->
   <section data-view="cut" style="display:flex;flex-direction:column;gap:12px" hidden>
     <div class="row no-print" style="justify-content:space-between">
-      <span class="muted" style="font-size:.9rem">Zuerst alles schneiden: alle Fenster nach Stoff sortiert. Teile mit der Pos.-Nummer kennzeichnen und zum Nähzettel legen.</span>
-      <div class="row"><span class="toast" id="cutToast" hidden>Kopiert</span><button class="primary" onclick="vbDruck()">Drucken</button><button id="btnCopyCut">Als Text kopieren</button></div>
+      <span class="muted" style="font-size:.9rem">Zuerst alles schneiden. Teile mit der Pos.-Nummer kennzeichnen und zum Nähzettel legen.</span>
+      <div class="row"><label class="muted" style="font-size:.9rem">Reihenfolge <select id="cutOrder" onchange="setCutOrder(this.value)" style="width:auto"><option value="pos">Positionen der Reihe nach</option><option value="stoff">nach Stoff zusammengefasst</option></select></label><span class="toast" id="cutToast" hidden>Kopiert</span><button class="primary" onclick="vbDruck()">Drucken</button><button id="btnCopyCut">Als Text kopieren</button></div>
     </div>
     <textarea id="copyFallbackCut" class="no-print" hidden readonly style="min-height:220px;font-family:var(--mono);font-size:.8rem"></textarea>
     <div id="cut" style="display:flex;flex-direction:column;gap:12px"></div>
@@ -902,7 +956,7 @@ const today=new Date().toISOString().slice(0,10);
 function newPos(name){return {name:name||'Neues Fenster',schiene:200,hoehe:250,schals:2,stk:1,ueberlapp:0,rueck:0,
   kopfart:'wellen',faktor:2.2,kopf:10,saumart:'doppelt',saum:10,seite:2.5,schrumpf:0,
   stoff:'',ware:'hoehe',stoffbreite:300,rapport:0,naht:2,preis:0,halb:true,halbSeite:'aussen',koepfchen:0,gleiter:'',bem:'',
-  hmode:'fertig',hmass:'',boden:1.5,schieneAbz:3,luft:1,geschnitten:false,genaeht:false,bereich:'',montageart:'',abstand:'',mnotiz:'',fotos:[],skizze:null,
+  hmode:'fertig',hmass:'',boden:1.5,schieneAbz:3,luft:1,geschnitten:false,genaeht:false,bereich:'',raum:'',montageart:'',abstand:'',mnotiz:'',fotos:[],skizze:null,
   schTyp:'',schL:'',schW2W:false,schLauf:'',schLief:'stange',schFarbe:'',schUeb:''};}
 function sample(){
   const a=newPos('Wohnzimmer – Terrassentür');
@@ -951,11 +1005,14 @@ const bahnFmt=n=>fmt(n,1).replace(',0','');
 
 /* ---------- Bereich & Höhe aus dem Aufmaß ---------- */
 const BEREICHE=['KG','EG','OG','OG2','OG3','OG4','OG5','DG','Spitzboden','Außen'];
-const posTitle=q=>{const b=(q.bereich||'').trim();return (b?b+' · ':'')+(q.name||'Fenster');};
+const posTitle=q=>[(q.bereich||'').trim(),(q.raum||'').trim()].filter(Boolean).map(x=>x+' · ').join('')+(q.name||'Fenster');
+const raumKey=r=>String(r||'').trim().toLowerCase().replace(/\d+/g,d=>d.padStart(6,'0'));
+function raumValues(b){b=String(b||'').trim();const same=new Set(),other=new Set();S.pos.forEach(q=>{const r=String(q.raum||'').trim();if(r)((String(q.bereich||'').trim()===b)?same:other).add(r);});
+  const cmp=(x,y)=>{x=raumKey(x);y=raumKey(y);return x<y?-1:x>y?1:0;};return [...new Set([...[...same].sort(cmp),...[...other].sort(cmp)])];}
 const bereichKey=b=>{b=(b||'').trim();const i=BEREICHE.indexOf(b);return i>=0?[0,i,'']:[b?1:2,0,b.toLowerCase()];};
-const HMODES={fertig:'Fertighöhe',roh:'Raumhöhe ohne Boden u. Schiene',ohneBoden:'Raumhöhe ohne Boden',ohneSchiene:'Raumhöhe ohne Schiene'};
-const HMODES_SHORT={fertig:'Fertighöhe',roh:'ohne Boden+Schiene',ohneBoden:'ohne Boden',ohneSchiene:'ohne Schiene'};
-const HMODE_HINT={fertig:'Gleiter bis Saumkante',roh:'Rohboden bis Decke',ohneBoden:'Rohboden bis Gleiter',ohneSchiene:'Boden bis Decke'};
+const HMODES={fertig:'Fertighöhe',roh:'Raumhöhe ohne Boden u. Schiene',ohneBoden:'Raumhöhe ohne Boden',ohneSchiene:'Raumhöhe ohne Schiene',schieneBoden:'Raumhöhe Schiene bis Boden'};
+const HMODES_SHORT={fertig:'Fertighöhe',roh:'ohne Boden+Schiene',ohneBoden:'ohne Boden',ohneSchiene:'ohne Schiene',schieneBoden:'Schiene bis Boden'};
+const HMODE_HINT={fertig:'Gleiter bis Saumkante',roh:'Rohboden bis Decke',ohneBoden:'Rohboden bis Gleiter',ohneSchiene:'Boden bis Decke',schieneBoden:'Unterkante Schiene bis fertiger Boden'};
 function hoeheAbzuege(p,mode){mode=mode||p.hmode||'fertig';if(mode==='fertig')return [];const a=[];
   if(mode==='roh'||mode==='ohneBoden')a.push(['Bodenhöhe',num(p.boden)]);
   if(mode==='roh'||mode==='ohneSchiene')a.push(['Schienenhöhe',num(p.schieneAbz)]);
@@ -988,8 +1045,22 @@ function calc(p){
   const gedreht=p.ware==='hoehe'&&sb>0&&schnitt>sb, ware=gedreht?'bahn':p.ware;
   r.ware=ware;r.gedreht=gedreht;
   r.drehNote=gedreht?'STOFF DREHEN: Schnittlänge '+cm(schnitt)+' ist größer als die Stoffhöhe '+cm(sb)+'. Höhenware quer verarbeiten – gerechnet als Bahnen mit '+cm(sb)+' Breite.':'';
-  if(gedreht) w.push('Höhenware wird gedreht: Schnittlänge '+cm(schnitt)+' ist größer als die Stoffhöhe '+cm(sb)+'. Gerechnet als Bahnen mit '+cm(sb)+' Breite.');
-  if(ware==='bahn'){
+  r.streifen=0;
+  if(gedreht){
+    /* Höhenware gedreht: ganze Bahnen + 1 Streifen in genauer Breite je Schal (keine halben Bahnen) */
+    if(rap>0) schnitt=Math.ceil(schnitt/rap-1e-9)*rap;
+    let pz=1;while(pz<60&&pz*sb<zuB+(pz-1)*naht-1e-9)pz++;
+    let full=pz-1,st=Math.ceil(zuB+(pz-1)*naht-full*sb-1e-9);
+    if(st>=sb-0.5){full=pz;st=0;}
+    const anz=schals*stk,jeBahn=st?Math.floor((sb+1e-9)/st):0,stBahnen=st?Math.ceil(anz/jeBahn-1e-9):0;
+    const bahnenGes=full*anz+stBahnen,nutz=full*sb+st-(pz-1)*naht;
+    Object.assign(r,{schnitt,bahnenJe:full+(sb?st/sb:0),bahnenGes,stoffCm:up10(bahnenGes*schnitt+(rap>0?rap:0)),nutz,
+      faktorReal:fertigB?(nutz-2*seiteZug)/fertigB:0,ganzeJe:full,halbeJe:0,ganze:full*anz,halbe:0,teileJe:full+(st?1:0),
+      teile:(full+(st?1:0))*anz,halbieren:0,restHalb:0,streifen:st,stN:st?anz:0,stJeBahn:jeBahn,stBahnen,stEigen:stBahnen,stPlan:[],stAn:[],stVon:[],naehteJe:pz-1,naht});
+    if(st){r.stReste=[];for(let k=0;k<stBahnen;k++)r.stReste.push([k<stBahnen-1?sb-jeBahn*st:sb-(anz-(stBahnen-1)*jeBahn)*st,schnitt]);const rest=sb*stBahnen-st*anz;r.stPlan=[stBahnen+(stBahnen===1?' Bahn':' Bahnen')+' → '+anz+' Streifen à '+cm(st)+(rest>=1?' · Rest '+cm(rest)+' breit':'')];}
+    w.push(st?'Höhenware wird gedreht: Schnittlänge '+cm(schnitt)+' ist größer als die Stoffhöhe '+cm(sb)+'. Je Schal '+full+' ganze '+(full===1?'Bahn':'Bahnen')+' + 1 Streifen '+cm(st)+' breit (genaues Maß).'
+      :'Höhenware wird gedreht: Schnittlänge '+cm(schnitt)+' ist größer als die Stoffhöhe '+cm(sb)+'. Je Schal '+full+' ganze '+(full===1?'Bahn':'Bahnen')+'.');
+  } else if(ware==='bahn'){
     if(rap>0) schnitt=Math.ceil(schnitt/rap-1e-9)*rap;
     const step=p.halb?0.5:1; let n=step;
     if(sb>0){ while(n<60){const seams=Math.ceil(n)-1; if(n*sb>=zuB+seams*naht-1e-9)break; n+=step;} }
@@ -1037,8 +1108,29 @@ function calcAll(st){st=st||S;const rs=st.pos.map(q=>calc(q));rs.forEach(r=>{r.r
       const alt=n.stoffCm;n.stoffCm=up10(n.bahnenGes*n.schnitt+(rap>0?rap:0));n.restSpar=alt-n.stoffCm;n.kosten=num(q.preis)*n.stoffCm/100;
       [[g,'Übrige halbe Bahn an Pos. '+(b+1)+' geben (gleicher Stoff).'],[n,'Halbe Bahn aus dem Rest von Pos. '+(a+1)+' nehmen – 1 Bahn weniger schneiden.']]
         .forEach(([r_,t])=>{r_.warns=r_.warns.filter(x=>!x.startsWith('Eine halbe Bahn bleibt übrig'));r_.warns.push(t);});}}
+  streifenVerteilen(st,rs);
   return rs;}
-function restText(row){if(row.restAn!=null)return '♻ 1 halbe an Pos. '+(row.restAn+1)+' geben';if(row.restVon!=null)return '♻ 1 halbe von Pos. '+(row.restVon+1)+' nehmen';
+/* gedrehte Höhenware: Streifen aller Positionen mit gleichem Stoff gemeinsam aus Bahnen schneiden */
+function streifenVerteilen(st,rs){const grp=new Map();
+  st.pos.forEach((q,i)=>{const r=rs[i];if(r.gedreht&&r.streifen&&r.schnitt>0){const k=[(q.stoff||'').trim().toLowerCase(),num(q.stoffbreite),num(q.rapport),r.gedreht].join('|');if(!grp.has(k))grp.set(k,[]);grp.get(k).push(i);}});
+  for(const idx of grp.values()){const sb=num(st.pos[idx[0]].stoffbreite),teile=[];
+    idx.forEach(i=>{for(let k=0;k<rs[i].stN;k++)teile.push([rs[i].schnitt,rs[i].streifen,i]);});
+    teile.sort((a,b)=>(b[0]-a[0])||(b[1]-a[1])||(a[2]-b[2]));
+    const bins=[];
+    for(const [L,w,i] of teile){const b=bins.find(b=>b.rem>=w-1e-9);if(b){b.items.push([w,i]);b.rem-=w;}else bins.push({owner:i,items:[[w,i]],rem:sb-w});}
+    if(idx.length<2||bins.length>=idx.reduce((a,i)=>a+rs[i].stEigen,0))continue;
+    idx.forEach(i=>{const r=rs[i],q=st.pos[i],own=bins.filter(b=>b.owner===i),rap=num(q.rapport),alt=r.stoffCm;
+      r.stBahnen=own.length;r.bahnenGes=r.ganze+own.length;r.stoffCm=up10(r.bahnenGes*r.schnitt+(rap>0?rap:0));r.kosten=num(q.preis)*r.stoffCm/100;
+      if(alt>r.stoffCm)r.restSpar=alt-r.stoffCm;
+      r.stReste=own.map(b=>[b.rem,r.schnitt]);
+      r.stPlan=own.map(b=>'1 Bahn → '+b.items.map(([w,j])=>cm(w)+(j===i?'':' (Pos. '+(j+1)+')')).join(' + ')+(b.rem>=1?' · Rest '+cm(b.rem)+' breit':''));
+      own.forEach(b=>b.items.forEach(([w,j])=>{if(j!==i){if(!r.stAn.includes(j))r.stAn.push(j);if(!rs[j].stVon.includes(i))rs[j].stVon.push(i);}}));});
+    idx.forEach(i=>{const r=rs[i];
+      if(r.stVon.length){const we=r.stEigen-r.stBahnen;r.warns.push('♻ Streifen aus dem Rest von Pos. '+r.stVon.map(j=>j+1).join(', ')+' nehmen'+(we>0?' – '+we+(we===1?' Bahn':' Bahnen')+' weniger schneiden':'')+'.');}
+      if(r.stAn.length)r.warns.push('♻ Rest-Streifen an Pos. '+r.stAn.map(j=>j+1).join(', ')+' geben (gleicher Stoff).');});}}
+function restText(row){if(row.stAn&&row.stAn.length)return '♻ Rest-Streifen an Pos. '+row.stAn.map(j=>j+1).join(', ')+' geben';
+  if(row.stVon&&row.stVon.length)return '♻ Streifen von Pos. '+row.stVon.map(j=>j+1).join(', ')+' nehmen';
+  if(row.restAn!=null)return '♻ 1 halbe an Pos. '+(row.restAn+1)+' geben';if(row.restVon!=null)return '♻ 1 halbe von Pos. '+(row.restVon+1)+' nehmen';
   return row.rest?'1 halbe bleibt übrig':'';}
 
 /* ---------- Formular ---------- */
@@ -1137,7 +1229,7 @@ function sketch(p,r){
     for(let i=1;i<Math.ceil(n);i++){const d=(i*sb-(i-0.5)*nh)*s, sx=hl?x+pw-d:x+d; g+='<line class="sk-seam" x1="'+sx+'" y1="'+y+'" x2="'+sx+'" y2="'+(y+ph)+'"/>';}
     if(r.halbeJe){const hw=(sb/2)*s, hx=hl?x+hw/2:x+pw-hw/2; g+='<text class="sk-t" x="'+hx+'" y="'+(y+ph/2+4)+'" text-anchor="middle">½</text>';}}
   const by=y+ph+14; g+='<line class="sk-dim" x1="'+x+'" y1="'+by+'" x2="'+(x+pw)+'" y2="'+by+'"/><line class="sk-dim" x1="'+x+'" y1="'+(by-4)+'" x2="'+x+'" y2="'+(by+4)+'"/><line class="sk-dim" x1="'+(x+pw)+'" y1="'+(by-4)+'" x2="'+(x+pw)+'" y2="'+(by+4)+'"/>';
-  g+='<text class="sk-t" x="'+(x+pw/2)+'" y="'+(by+14)+'" text-anchor="middle">'+cm(w)+(bahn?' · '+bahnFmt(r.bahnenJe)+' Bahn'+(r.bahnenJe>1?'en':''):'')+'</text>';
+  g+='<text class="sk-t" x="'+(x+pw/2)+'" y="'+(by+14)+'" text-anchor="middle">'+cm(w)+(bahn?' · '+(r.streifen?(r.ganzeJe?r.ganzeJe+(r.ganzeJe===1?' Bahn':' Bahnen')+' + ':'')+'Streifen '+cm(r.streifen):bahnFmt(r.bahnenJe)+' Bahn'+(r.bahnenJe>1?'en':'')):'')+'</text>';
   const rx=x+pw+10; g+='<line class="sk-dim" x1="'+rx+'" y1="'+y+'" x2="'+rx+'" y2="'+(y+ph)+'"/><line class="sk-dim" x1="'+(rx-4)+'" y1="'+y+'" x2="'+(rx+4)+'" y2="'+y+'"/><line class="sk-dim" x1="'+(rx-4)+'" y1="'+(y+ph)+'" x2="'+(rx+4)+'" y2="'+(y+ph)+'"/>';
   g+='<text class="sk-t" x="'+(rx+6)+'" y="'+(y+ph/2+4)+'">'+cm(h)+'</text>';
   g+='<text class="sk-s" x="'+(x+4)+'" y="'+(y+kz+10)+'">Kopf '+cm(r.kopf)+(r.koepf?' + Köpfchen 2 × '+cm(r.koepf):'')+'</text><text class="sk-s" x="'+(x+4)+'" y="'+(y+ph-sz-4)+'">Saum '+cm(r.saumZug)+'</text>';
@@ -1396,14 +1488,14 @@ function schPlanLines(St){return schMaterial(St).groups.filter(g=>g.bars.length)
   g.bars.map((b,j)=>'Stange '+(j+1)+': '+b.p.map(([ln,lab])=>cm(ln)+' ('+lab+')').join(' + ')+' · Rest '+cm(b.rest))]);}
 let schEigSig='';
 /* ---------- Bereiche ---------- */
-const bOf=q=>String(q.bereich||'').trim();
+const bOf=q=>[String(q.bereich||'').trim(),String(q.raum||'').trim()].filter(Boolean).join(' › ');
 const bLabel=b=>b||'Ohne Bereich';
 function bGroups(){const g=[];S.pos.forEach((q,i)=>{const b=bOf(q);if(!g.length||g[g.length-1].b!==b)g.push({b,idx:[]});g[g.length-1].idx.push(i);});return g;}
 const bMulti=()=>new Set(S.pos.map(bOf)).size>1;
 const bZu=()=>S.bzu||(S.bzu={});
 function bStats(idx,RS){let n=0,st=0,t=0;for(const i of idx){const q=S.pos[i],r=RS[i];n+=r.stk;st+=r.stoffCm;t+=(r.ware==='bahn'?r.teile:r.schals*r.stk);}return {n,st,t};}
 const bStatTxt=x=>x.n+(x.n===1?' Fenster':' Fenster')+' · '+m(x.st)+' Stoff · '+x.t+' Teile';
-function bSummary(){const RS=calcAll(),map=new Map();S.pos.forEach((q,i)=>{const b=bOf(q);if(!map.has(b))map.set(b,[]);map.get(b).push(i);});
+function bSummary(){const RS=calcAll(),map=new Map();S.pos.forEach((q,i)=>{const b=String(q.bereich||'').trim();if(!map.has(b))map.set(b,[]);map.get(b).push(i);});
   return [...map.entries()].map(([b,idx])=>({b,...bStats(idx,RS)}));}
 /* ---------- Zurück (vorige Seite) ---------- */
 const navHist=[];let navLast=null,navSkip=false;
@@ -1438,7 +1530,8 @@ function vbDruck(){const v=S.view||'calc',A=S.auftrag;
   const sec=document.querySelector('section[data-view="'+v+'"]:not(.card)')||document.querySelector('[data-view="'+v+'"]');
   const nm={aufmass:'Aufmass',sheet:'Naehzettel',cut:'Zuschnittliste',pl:'Plissee-Bestellung',mat:'Materialliste'}[v]||'Druck';
   const safe=t=>String(t||'').replace(/[^0-9A-Za-zÄÖÜäöüß_-]+/g,'_').replace(/^_+|_+$/g,'');
-  VBDruck.print({root:sec,name:[nm,safe(A.kunde),safe(A.nr)].filter(Boolean).join('_')}).catch(()=>{});}
+  VBDruck.print({root:sec,name:[nm,safe(A.kunde),safe(A.nr)].filter(Boolean).join('_'),
+    breakBefore:v==='sheet'?'.pos~.pos:not(.bhead+.pos),.pos~.bhead':null}).catch(()=>{});}
 window.__vbReady=true;undoTrack();
 /* ---------- Baustellen-Ansicht (je Gerät) ---------- */
 const BAU_VIEWS=['calc','aufmass','orders'];
@@ -1684,7 +1777,7 @@ function addLike(i){ // neue Position wie Position i, nur Name neu
 let quickSig='';
 const hmessVal=q=>(q.hmode||'fertig')==='fertig'?q.hoehe:q.hmass;
 const qFh=(q,r)=>r.hoeheFertig>0?cm(r.hoeheFertig):'–';
-const qBahn=(q,r)=>r.ware==='bahn'?bahnFmt(r.bahnenJe):'–';
+const qBahn=(q,r)=>r.ware==='bahn'?(r.streifen?r.ganzeJe+' + '+cm(r.streifen):bahnFmt(r.bahnenJe)):'–';
 const qHalb=(q,r)=>{ if(!(r.ware==='bahn'&&r.halbeJe))return '<span class="muted">–</span>';
   const opts=r.schals===1?[['links','links'],['rechts','rechts']]:[['aussen','links u. rechts'],['innen','Mitte'],['links','alle links'],['rechts','alle rechts']];
   let v=q.halbSeite||'aussen'; if(r.schals===1&&(v==='aussen'||v==='innen'))v='links';
@@ -1693,6 +1786,7 @@ const qTeile=(q,r)=>r.ware==='bahn'?String(r.teile):String(r.schals*r.stk);
 function renderQuick(all){
   const tb=document.getElementById('quick');
   document.getElementById('bereichList').innerHTML=[...new Set(BEREICHE.concat(S.pos.map(q=>(q.bereich||'').trim()).filter(Boolean)))].map(x=>'<option value="'+esc(x)+'">').join('');
+  document.getElementById('raumList').innerHTML=raumValues(cur().bereich).map(x=>'<option value="'+esc(x)+'">').join('');
   const dl=document.getElementById('stoffList'); dl.innerHTML=[...new Set(S.pos.map(q=>q.stoff).filter(Boolean))].map(x=>'<option value="'+esc(x)+'">').join('');
   const sig=S.pos.length+'|'+S.sel;
   const active=document.activeElement&&tb.contains(document.activeElement);
@@ -1703,19 +1797,20 @@ function renderQuick(all){
     tb.querySelector('#q_sum').textContent=m(all.reduce((a,{r})=>a+r.stoffCm,0));tb.querySelector('#q_teile').textContent=all.reduce((a,{q,r})=>a+(r.ware==='bahn'?r.teile:r.schals*r.stk),0); return;
   }
   quickSig=sig;
-  let h='<thead><tr><th>#</th><th>Bereich</th><th>Raum / Fenster</th><th class="n">Stk</th><th class="n">Deckbreite</th><th>Höhe gemessen als</th><th class="n">Maß</th><th title="nur ca.-Maß">ca.</th><th class="n">Fertighöhe</th><th>Anz. Bahnen</th><th class="n">Bahnen/Schal</th><th>Halbe Bahn</th><th>Band / Kopf</th><th class="n">Köpfchen</th><th class="n">Teile</th><th>Stoff</th><th class="n">Stoff m</th><th></th></tr></thead><tbody>';
+  let h='<thead><tr><th>#</th><th>Bereich</th><th>Raum</th><th>Fenster / Lage</th><th class="n">Stk</th><th class="n">Deckbreite</th><th>Höhe gemessen als</th><th class="n">Maß</th><th title="nur ca.-Maß">ca.</th><th class="n">Fertighöhe</th><th>Anz. Bahnen</th><th class="n">Bahnen/Schal</th><th>Halbe Bahn</th><th>Band / Kopf</th><th class="n">Köpfchen</th><th class="n">Teile</th><th>Stoff</th><th class="n">Stoff m</th><th></th></tr></thead><tbody>';
   const multi=bMulti(),groups=multi?bGroups():[],first={},RSq=all.map(x=>x.r),zu=bZu();
   groups.forEach((g,gi)=>first[g.idx[0]]=[g,gi]);
   document.getElementById('q_fold').hidden=!multi;
   if(multi){const anyOpen=groups.some(g=>!zu[g.b]);document.getElementById('q_fold').textContent=anyOpen?'Bereiche zuklappen':'Bereiche aufklappen';}
   all.forEach(({q,r},i)=>{
     if(first[i]){const [g,gi]=first[i],closed=!!zu[g.b];
-      h+='<tr class="grp" data-grp="'+esc(g.b)+'"><td colspan="18"><button type="button" class="link grpt" data-tog="'+esc(g.b)+'" aria-expanded="'+(!closed)+'">'+(closed?'▸ ':'▾ ')+esc(bLabel(g.b))+'</button>'+
+      h+='<tr class="grp" data-grp="'+esc(g.b)+'"><td colspan="19"><button type="button" class="link grpt" data-tog="'+esc(g.b)+'" aria-expanded="'+(!closed)+'">'+(closed?'▸ ':'▾ ')+esc(bLabel(g.b))+'</button>'+
         '<span class="gs" data-gs="'+gi+'">'+esc(bStatTxt(bStats(g.idx,RSq)))+'</span><button type="button" class="link" data-gadd="'+g.idx[g.idx.length-1]+'">+ Fenster in '+esc(bLabel(g.b))+'</button></td></tr>';}
     const hid=multi&&zu[bOf(q)];
     h+='<tr data-i="'+i+'" class="'+(i===S.sel?'on':'')+(q.ca?' ca':'')+'"'+(hid?' hidden':'')+'><td class="qn" title="Details bearbeiten">'+(i+1)+'</td>'+
       '<td><input data-q="bereich" list="bereichList" value="'+esc(q.bereich||'')+'" style="width:76px" aria-label="Bereich"></td>'+
-      '<td><input data-q="name" value="'+esc(q.name)+'" aria-label="Raum / Fenster Zeile '+(i+1)+'"></td>'+
+      '<td><input data-q="raum" list="raumList" value="'+esc(q.raum||'')+'" style="width:110px" aria-label="Raum" autocomplete="off"></td>'+
+      '<td><input data-q="name" value="'+esc(q.name)+'" aria-label="Fenster / Lage Zeile '+(i+1)+'"></td>'+
       '<td><input data-q="stk" type="number" min="1" step="1" value="'+esc(q.stk)+'" style="width:58px" aria-label="Stückzahl"></td>'+
       '<td><input data-q="schiene" type="number" step="0.5" value="'+esc(q.schiene)+'" aria-label="Deckbreite"></td>'+
       '<td><select data-q="hmode" aria-label="Höhe gemessen als">'+Object.entries(HMODES_SHORT).map(([k,l])=>'<option value="'+k+'"'+((q.hmode||'fertig')===k?' selected':'')+'>'+l+'</option>').join('')+'</select></td>'+
@@ -1753,11 +1848,11 @@ function renderQuick(all){
     row.querySelector('[data-del]').onclick=()=>{if(S.pos.length===1){S.pos[0]=newPos();}else{S.pos.splice(i,1);S.sel=Math.min(S.sel,S.pos.length-1);}quickSig='';save();fillForm();render();};
   });
 }
-document.getElementById('quick').addEventListener('change',e=>{const t=e.target;if(t.matches('input[data-q="bereich"]')){quickSig='';setTimeout(()=>render(),0);return;}if(!t.matches('select[data-hs]'))return;
+document.getElementById('quick').addEventListener('change',e=>{const t=e.target;if(t.matches('input[data-q="bereich"],input[data-q="raum"]')){quickSig='';setTimeout(()=>render(),0);return;}if(!t.matches('select[data-hs]'))return;
   const i=+t.closest('tr').dataset.i;S.pos[i].halbSeite=t.value;save();if(S.sel===i)fillForm();render();});
 document.getElementById('q_add').onclick=()=>addLike(S.pos.length-1);
 document.getElementById('q_fold').onclick=()=>{const z=bZu(),gs=bGroups(),anyOpen=gs.some(g=>!z[g.b]);gs.forEach(g=>{if(anyOpen)z[g.b]=1;else delete z[g.b];});quickSig='';save();render();};
-document.getElementById('q_sort').onclick=()=>{const c=cur();S.pos.sort((a,b)=>{const x=bereichKey(a.bereich),y=bereichKey(b.bereich);return x[0]-y[0]||x[1]-y[1]||(x[2]<y[2]?-1:x[2]>y[2]?1:0);});S.sel=S.pos.indexOf(c);quickSig='';save();fillForm();render();};
+document.getElementById('q_sort').onclick=()=>{const c=cur();S.pos.sort((a,b)=>{const x=bereichKey(a.bereich),y=bereichKey(b.bereich),u=raumKey(a.raum),v=raumKey(b.raum);return x[0]-y[0]||x[1]-y[1]||(x[2]<y[2]?-1:x[2]>y[2]?1:0)||(u<v?-1:u>v?1:0);});S.sel=S.pos.indexOf(c);quickSig='';save();fillForm();render();};
 document.getElementById('p_stoff').addEventListener('change',()=>{applyStoffByName(cur());save();fillForm();render();});
 document.getElementById('p_stoff').setAttribute('list','stoffList');
 
@@ -1801,14 +1896,19 @@ document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=
 
 /* ---------- Texte ---------- */
 const saumText=p=>p.saumart==='blei'?'Rollsaum mit Bleiband':(p.saumart==='doppelt'?'Doppelsaum ':'Einfacher Saum ')+cm(num(p.saum));
+function posRestTxt(r){const cnt=new Map();(r.stReste||[]).forEach(([w])=>{if(w>=0.5){const k=Math.round(w*10)/10;cnt.set(k,(cnt.get(k)||0)+1);}});
+  if(!cnt.size)return '';return [...cnt.entries()].sort((a,b)=>b[0]-a[0]).map(([w,n])=>n+' × '+cm(w)).join(' · ');}
 function posLines(p,r){
   const L={};
   L.fertig=[['Deckbreite',cm(num(p.schiene))],['Aufteilung',r.schals+(r.schals===1?' Schal':' Schals')],['Fertigbreite je Schal',cm(r.fertigB)],['Fertighöhe',cm(r.hoeheFertig)]];
-  if((p.hmode||'fertig')!=='fertig'){L.fertig.push(['Raumhöhe gemessen',cm(num(p.hmass))+' · '+HMODES_SHORT[p.hmode]]);L.fertig.push(['Abzüge',hoeheAbzuege(p).map(([k,v])=>k+' '+cm(v)).join(' + ')]);}
   if(num(p.ueberlapp)&&r.schals>1)L.fertig.push(['Überlappung je Stoß',cm(num(p.ueberlapp))]);
   if(num(p.rueck))L.fertig.push(['Rückführung je Schal',cm(num(p.rueck))]);
+  if((p.hmode||'fertig')!=='fertig'){L.fertig.push(['Raumhöhe gemessen',cm(num(p.hmass))+' · '+HMODES_SHORT[p.hmode]]);L.fertig.push(['Abzüge',hoeheAbzuege(p).map(([k,v])=>k+' '+cm(v)).join(' + ')]);}
   if(r.ware==='bahn'){
-    L.zuschnitt=(r.gedreht?[['Stoff drehen','JA – Höhenware quer, als Bahnen']]:[]).concat([['Bahnen je Schal',bahnFmt(r.bahnenJe)+(r.halbeJe?' ('+r.ganzeJe+' ganze + 1 halbe)':'')],['Bahnen schneiden',String(r.bahnenGes)+' × '+cm(r.schnitt)]]);
+    L.zuschnitt=(r.gedreht?[['Stoff drehen','JA – Höhenware quer, als Bahnen']]:[]).concat(r.streifen?
+      [['Je Schal',r.ganzeJe?(r.ganzeJe+' ganze '+(r.ganzeJe===1?'Bahn':'Bahnen')+' + 1 Streifen '+cm(r.streifen)+' breit'):'1 Streifen '+cm(r.streifen)+' breit'],['Bahnen schneiden',String(r.bahnenGes)+' × '+cm(r.schnitt)],['Streifen',r.stN+' × '+cm(r.streifen)+' breit'],['Nahtzugabe',r.naehteJe+' × '+cm(r.naht)+' (enthalten)']]
+        .concat(r.stPlan.map(t=>['↳ Zuschnitt',t])).concat(r.stVon.length?[['Streifen aus Rest','♻ von Pos. '+r.stVon.map(j=>j+1).join(', ')+' nehmen']]:[]).concat(posRestTxt(r)?[['Rest',posRestTxt(r)]]:[])
+      :[['Bahnen je Schal',bahnFmt(r.bahnenJe)+(r.halbeJe?' ('+r.ganzeJe+' ganze + 1 halbe)':'')],['Bahnen schneiden',String(r.bahnenGes)+' × '+cm(r.schnitt)]]);
     if(r.halbe&&r.halbieren)L.zuschnitt.push(['davon halbieren',r.halbieren+' Bahn'+(r.halbieren>1?'en':'')+' → '+(r.halbieren*2)+' halbe']);
     if(r.restVon!=null)L.zuschnitt.push(['Halbe Bahn aus Rest','♻ von Pos. '+(r.restVon+1)+' nehmen']);
     if(r.restAn!=null)L.zuschnitt.push(['Übrige halbe Bahn','♻ an Pos. '+(r.restAn+1)+' geben']);else if(r.restHalb)L.zuschnitt.push(['Übrige halbe Bahn','bleibt übrig']);
@@ -1817,7 +1917,7 @@ function posLines(p,r){
   } else {
     L.zuschnitt=[['Zuschnitte',String(r.schals*r.stk)+' Stk'],['Breite je Zuschnitt',cm(r.zuschnittJe)],['Höhe je Zuschnitt',cm(r.schnitt)],['Stoff gesamt (laufend)',m(r.stoffCm)]];
   }
-  L.naehen=[['Kopf',r.kopfLabel],['Raffung','1 : '+fmt(num(p.faktor),2)],['Band raffen auf',cm(r.fertigB)],['Zugabe Kopf',cm(r.kopf)],...(r.koepf?[['Köpfchenhöhe',cm(r.koepf)+' (Zugabe '+cm(2*r.koepf)+')']]:[]),['Seitensaum doppelt',cm(num(p.seite))],['Saum unten',saumText(p)]];
+  L.naehen=[['Kopf',r.kopfLabel.startsWith('Bandex ')?r.kopfLabel.slice(7):r.kopfLabel],['Raffung','1 : '+fmt(num(p.faktor),2)],['Band raffen auf',cm(r.fertigB)],['Zugabe Kopf',cm(r.kopf)],...(r.koepf?[['Köpfchenhöhe',cm(r.koepf)+' (Zugabe '+cm(2*r.koepf)+')']]:[]),['Seitensaum doppelt',cm(num(p.seite))],['Saum unten',saumText(p)]];
   if(r.oesen)L.naehen.push(['Ösen je Schal',r.oesen+' Stk · ca. '+cm(Math.round(r.oesAbst*2)/2)]);
   if(r.schlaufen)L.naehen.push(['Schlaufen je Schal',r.schlaufen+' Stk']);
   L.material=[[r.bandName,m(r.bandLen)]];
@@ -1826,7 +1926,9 @@ function posLines(p,r){
   if(r.blei)L.material.push(['Bleiband',m(r.blei)]);
   return L;
 }
-const kvHTML=a=>'<div class="kv">'+a.map(([k,v])=>'<span>'+esc(k)+'</span><span>'+esc(v)+'</span>').join('')+'</div>';
+const KV_INFO=new Set(['Raumhöhe gemessen','Abzüge']);
+const KV_NOWRAP=new Set(['Rest']);
+const kvHTML=a=>'<div class="kv">'+a.map(([k,v],i)=>{const inf=KV_INFO.has(k),first=inf&&(!i||!KV_INFO.has(a[i-1][0])),c=inf?' class="kvinfo"':(KV_NOWRAP.has(k)?' class="kvnw"':'');return (first?'<span class="kvinfo kvsep kvnote">nur zur Info – genäht wird nach der Fertighöhe</span><span hidden></span>':'')+(k==='Kopf'||k==='Fertighöhe'?'<span class="kvwide'+(k==='Fertighöhe'?' kvsig':'')+'"><span>'+esc(k)+'</span><b>'+esc(v)+'</b></span><span hidden></span>':'<span'+c+'>'+esc(k)+'</span><span'+c+'>'+esc(v)+'</span>');}).join('')+'</div>';
 function toDate(s){if(s instanceof Date)return isNaN(s)?null:s;s=String(s||'').trim();let m_=s.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m_)return new Date(+m_[1],+m_[2]-1,+m_[3],12);
   m_=s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2}|\d{4})$/);if(m_){const y=+m_[3]<100?2000+ +m_[3]:+m_[3];return new Date(y,+m_[2]-1,+m_[1],12);}return null;}
 const toIso=s=>{const d=toDate(s);return d?d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'):'';};
@@ -1870,6 +1972,7 @@ function render(){
   [1,2,3,4,5,6,7,8,9,10].forEach(n=>{const el=document.getElementById('picw'+n);if(el){el.textContent=num(p.schiene)?'je '+Math.round((num(p.schiene)+num(p.ueberlapp)*(n-1))/n+num(p.rueck))+' cm':'';}});
   document.getElementById('r_sketch').innerHTML=sketch(p,r);
   const H2=HEADS[p.kopfart]||HEADS.wellen;
+  {const fh=hoeheFertig(p),hr=document.getElementById('hres');if(hr){hr.textContent=num(p.hmass)?cm(fh):'–';hr.classList.toggle('bad',fh<=0);}}
   document.getElementById('sum1').textContent=(p.ca?'ca. ':'')+Math.round(num(p.schiene))+' × '+Math.round(r.hoeheFertig)+' cm · '+(r.schals+(r.schals===1?' Schal':' Schals'))+(r.stk>1?' · '+r.stk+'×':'');
   document.getElementById('sum2').textContent=(r.B?r.B.n.split(' ')[0]:H2.label.split(' (')[0])+' 1 : '+fmt(num(p.faktor),1)+(num(p.koepfchen)?' · Köpfchen '+cm(num(p.koepfchen)):'');
   document.getElementById('sum3').textContent=(r.gedreht?'Höhenware GEDREHT ':p.ware==='bahn'?'gebahnt ':'Höhenware ')+Math.round(num(p.stoffbreite))+' cm'+(num(p.rapport)?' · R '+cm(num(p.rapport)):'');
@@ -1880,7 +1983,9 @@ function render(){
   const L=[];
   L.push(['grp','Zuschnitt']);
   if(r.gedreht)L.push(['Stoff drehen','JA – quer, als Bahnen']);
-  if(r.ware==='bahn'){L.push(['Bahnen je Schal',bahnFmt(r.bahnenJe)]);L.push(['Bahnen schneiden',r.bahnenGes+' Stk']);if(r.halbe){L.push(['davon halbe Bahnen',r.halbe+' Stk']);L.push(['Halbe Bahn annähen',halbSumme(p,r)]);halbText(p,r).forEach(([nm,t])=>L.push([nm,t]));}if(r.restVon!=null)L.push(['♻ Halbe Bahn','von Pos. '+(r.restVon+1)+' (Rest)']);if(r.restAn!=null)L.push(['♻ Übrige halbe','an Pos. '+(r.restAn+1)+' geben']);L.push(['Genähte Teile',r.teile+' Stk']);L.push(['Schnittlänge',cm(r.schnitt)]);}
+  if(r.ware==='bahn'){if(r.streifen){L.push(['Je Schal',r.ganzeJe?(r.ganzeJe+' ganze + Streifen '+cm(r.streifen)):'Streifen '+cm(r.streifen)]);L.push(['Bahnen schneiden',r.bahnenGes+' Stk']);L.push(['Streifen',r.stN+' × '+cm(r.streifen)+' breit']);L.push(['Nahtzugabe',r.naehteJe+' × '+cm(r.naht)+' je Schal (enthalten)']);
+      r.stPlan.forEach(t=>L.push(['↳',t]));if(r.stVon.length)L.push(['♻ Streifen','aus Rest von Pos. '+r.stVon.map(j=>j+1).join(', ')]);if(r.stAn.length)L.push(['♻ Rest-Streifen','an Pos. '+r.stAn.map(j=>j+1).join(', ')+' geben']);}
+    else{L.push(['Bahnen je Schal',bahnFmt(r.bahnenJe)]);L.push(['Bahnen schneiden',r.bahnenGes+' Stk']);}if(r.halbe){L.push(['davon halbe Bahnen',r.halbe+' Stk']);L.push(['Halbe Bahn annähen',halbSumme(p,r)]);halbText(p,r).forEach(([nm,t])=>L.push([nm,t]));}if(r.restVon!=null)L.push(['♻ Halbe Bahn','von Pos. '+(r.restVon+1)+' (Rest)']);if(r.restAn!=null)L.push(['♻ Übrige halbe','an Pos. '+(r.restAn+1)+' geben']);L.push(['Genähte Teile',r.teile+' Stk']);L.push(['Schnittlänge',cm(r.schnitt)]);}
   else{L.push(['Zuschnitte',(r.schals*r.stk)+' Stk']);L.push(['Breite × Höhe',Math.round(r.zuschnittJe)+' × '+Math.round(r.schnitt)+' cm']);}
   L.push(['grp','Fertig']);
   L.push(['Breite je Schal',cm(r.fertigB)]);
@@ -1923,11 +2028,12 @@ function render(){
   const multiN=bMulti();
   all.forEach(({q,r},i)=>{
     const P=posLines(q,r);
-    if(multiN&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">Bereich: '+esc(bLabel(bOf(q)))+'</div>';
-    h+='<section class="pos"><div class="pos-h"><span class="no">Pos. '+(i+1)+'</span><span class="nm">'+esc(posTitle(q))+(q.ca?'<span class="cabadge">CA.-MASS – NICHT ZUSCHNEIDEN</span>':'')+'</span><span class="qty">'+(r.stk>1?r.stk+' Fenster × ':'')+r.schals+(r.schals===1?' Schal':' Schals')+' = '+(r.stk*r.schals)+' Stk</span><span class="qrc" title="Für das Montage-Etikett scannen">'+etikettQr(A,i,q,r)+'</span></div>'+
+    if(multiN&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">'+esc(bLabel(bOf(q)))+'</div>';
+    h+='<section class="pos"><div class="pos-h"><span class="no">Pos. '+(i+1)+'</span><span class="nm">'+esc(posTitle(q))+(q.ca?'<span class="cabadge">CA.-MASS – NICHT ZUSCHNEIDEN</span>':'')+'</span><span class="qty">'+(r.stk>1?r.stk+' Fenster × ':'')+r.schals+(r.schals===1?' Schal':' Schals')+' = '+(r.stk*r.schals)+' Stk</span><span class="kd">'+[S.auftrag.kunde,S.auftrag.nr].map(x=>String(x||'').trim()).filter(Boolean).map(esc).join('<br>')+'</span><span class="qrc" title="Für das Montage-Etikett scannen">'+etikettQr(A,i,q,r)+'</span></div>'+
       (r.gedreht?'<div class="drehline">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden (Bahnbreite '+cm(num(q.stoffbreite))+')</div>':'')+
       '<div class="stoffline"><span class="muted">Stoff:</span> <b>'+esc(q.stoff||'—')+'</b> · '+wareText(q,r)+cm(num(q.stoffbreite))+(num(q.rapport)?' · Rapport '+cm(num(q.rapport)):'')+'</div>'+
-      '<div class="blocks"><div class="blk"><h3>Fertigmaß</h3>'+kvHTML(P.fertig)+'</div><div class="blk"><h3>Zuschnitt</h3>'+kvHTML(P.zuschnitt)+'</div><div class="blk"><h3>Nähen</h3>'+kvHTML(P.naehen)+'</div><div class="blk"><h3>Material</h3>'+(()=>{const pf=picFor(q);let f='<div class="sheetpics"><figure class="sheetpic">'+picHTML(pf)+'<figcaption>'+esc(pf.name)+'</figcaption></figure>';if(r.GL&&glPhoto(r.GL))f+='<figure class="sheetpic">'+glPic(r.GL)+'<figcaption>'+esc(glLabel(r.GL))+'</figcaption></figure>';return f+'</div>';})()+kvHTML(P.material)+'</div></div>'+
+      '<div class="blocks"><div class="bcol"><div class="blk b1"><h3>Fertigmaß</h3>'+kvHTML(P.fertig)+'</div><div class="blk b3"><h3>Nähen</h3>'+kvHTML(P.naehen)+'</div><div class="blk b4"><h3>Material</h3>'+(()=>{const pf=picFor(q);let f='<div class="sheetpics"><figure class="sheetpic">'+picHTML(pf)+'<figcaption>'+esc(pf.name)+'</figcaption></figure>';if(r.GL&&glPhoto(r.GL))f+='<figure class="sheetpic">'+glPic(r.GL)+'<figcaption>'+esc(glLabel(r.GL))+'</figcaption></figure>';return f+'</div>';})()+kvHTML(P.material)+'</div></div>'+
+      '<div class="bcol"><div class="blk b2"><h3>Zuschnitt</h3>'+kvHTML(P.zuschnitt)+(()=>{const sk=sketch(q,r);return sk?'<div class="cutsk">'+sk+'</div>':'';})()+'</div></div></div>'+
       (r.rapNote?'<div class="note">'+esc(r.rapNote)+'</div>':'')+(q.bem?'<div class="note">'+esc(q.bem)+'</div>':'')+'</section>';
   });
   h+='<div class="sign"><div>Zugeschnitten</div><div>Genäht</div><div>Kontrolliert</div></div></article>';
@@ -1957,25 +2063,35 @@ document.getElementById('btnCopy').onclick=()=>{
 
 
 /* ---------- Zuschnittliste ---------- */
-function zuschnittGruppen(){
+function cutOrder(){try{return localStorage.getItem('vb-cutorder')==='stoff'?'stoff':'pos';}catch(e){return 'pos';}}
+function setCutOrder(v){try{localStorage.setItem('vb-cutorder',v);}catch(e){}render();}
+function zuschnittGruppen(order){order=order||cutOrder();
   const groups=[];
   const RS=calcAll();S.pos.forEach((q,i)=>{const r=RS[i];
     const key=[(q.stoff||'').trim()||'(ohne Bezeichnung)',r.ware,num(q.stoffbreite),num(q.rapport),r.gedreht].join('|');
-    let g=groups.find(x=>x.key===key);
+    let g=order==='stoff'?groups.find(x=>x.key===key):(groups.length&&groups[groups.length-1].key===key?groups[groups.length-1]:null);
     if(!g){g={key,stoff:(q.stoff||'').trim()||'(ohne Bezeichnung)',ware:r.ware,gedreht:r.gedreht,sb:num(q.stoffbreite),rap:num(q.rapport),rows:[],stoffCm:0,bahnen:0,teile:0,zuschnitte:0,sparCm:0,sparBahnen:0};groups.push(g);}
     const row={i,name:posTitle(q),stoffCm:r.stoffCm,done:!!q.geschnitten,genaeht:!!q.genaeht,schnitt:r.schnitt};
     if(r.ware==='bahn'){const halb=r.halbieren;
       if(r.restVon!=null){g.sparBahnen++;g.sparCm+=r.restSpar||0;}
       Object.assign(row,{bahnen:r.bahnenGes,halbieren:halb,halbe:halb*2,teile:r.teile,restAn:r.restAn,restVon:r.restVon,
-        jeSchal:r.halbeJe?(r.ganzeJe+' ganze + 1 halbe'):(r.ganzeJe+(r.ganzeJe===1?' Bahn':' Bahnen')),halbSeite:r.halbeJe?halbSumme(q,r):'',rest:r.restHalb});
+        jeSchal:r.halbeJe?(r.ganzeJe+' ganze + 1 halbe'):(r.ganzeJe+(r.ganzeJe===1?' Bahn':' Bahnen')),halbSeite:r.halbeJe?halbSumme(q,r):'',rest:r.restHalb,
+        streifen:r.streifen||0,stPlan:r.stPlan||[],stAn:r.stAn||[],stVon:r.stVon||[]});
+      if(r.streifen){g.reste=(g.reste||[]).concat((r.stReste||[]).filter(x=>x[0]>=10));row.jeSchal=r.ganzeJe?(r.ganzeJe+' ganze + Streifen '+cm(r.streifen)):'Streifen '+cm(r.streifen);row.streifenTxt=r.stN+' Streifen à '+cm(r.streifen)+' breit';
+        if(r.stEigen>r.stBahnen){g.sparBahnen+=r.stEigen-r.stBahnen;g.sparCm+=r.restSpar||0;}}
       g.bahnen+=r.bahnenGes;g.teile+=r.teile;}
     else{Object.assign(row,{zuschnitte:r.schals*r.stk,breite:r.zuschnittJe});g.zuschnitte+=r.schals*r.stk;}
     g.stoffCm+=r.stoffCm;g.rows.push(row);});
+  groups.forEach(g=>g.resteTxt=resteTxt(g.reste||[]));
   return groups;
 }
+function resteTxt(reste){const cnt=new Map();
+  reste.forEach(([w,L])=>{const k=(Math.round(w*10)/10)+'|'+L;cnt.set(k,(cnt.get(k)||0)+1);});
+  return [...cnt.entries()].map(([k,n])=>{const [w,L]=k.split('|').map(Number);return [w,L,n];}).sort((a,b)=>(b[0]-a[0])||(b[1]-a[1]))
+    .map(([w,L,n])=>n+' × '+cm(w)+' breit ('+cm(L)+' lang)').join(' · ');}
 function wareText(q,r){return r.gedreht?'Höhenware GEDREHT, Bahnbreite ':(q.ware==='bahn'?'Breite ':'Höhenware ');}
 function gruppeText(g){return g.gedreht?'Höhenware gedreht · Bahnbreite':(g.ware==='bahn'?'gebahnt · Breite':'Höhenware · Höhe');}
-function renderCut(){
+function renderCut(){{const o=document.getElementById('cutOrder');if(o)o.value=cutOrder();}
   const A=S.auftrag, groups=zuschnittGruppen();
   const done=groups.reduce((a,g)=>a+g.rows.filter(r=>r.done).length,0), total=S.pos.length;
   let h='<div class="cuthead"><div class="hl" style="display:flex;align-items:center;gap:14px">'+(logoSrc()?'<img class="sheet-logo" src="'+logoSrc()+'" alt="Logo">':'')+
@@ -1985,11 +2101,12 @@ function renderCut(){
   groups.forEach(g=>{
     const info=gruppeText(g)+' '+cm(g.sb)+(g.rap?' · Rapport '+cm(g.rap):'');
     const sum=g.ware==='bahn'?(g.bahnen+' Bahnen schneiden → '+g.teile+' Teile<br>'+m(g.stoffCm)+' Stoff'+(g.sparBahnen?'<br><span class="spar">♻ '+g.sparBahnen+(g.sparBahnen===1?' Bahn':' Bahnen')+' weniger durch Reste (−'+m(g.sparCm)+')</span>':'')):(g.zuschnitte+' Zuschnitte<br>'+m(g.stoffCm)+' Stoff');
-    h+='<div class="cgrp"><div class="cgrp-h"><div><div class="s">'+esc(g.stoff)+'</div><div class="small">'+esc(info)+'</div></div><div class="sum">'+sum+'</div></div>'+(g.gedreht?'<div class="drehline" style="margin:0;border-radius:0;border-width:0 0 2px">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden</div>':'')+'<div class="tblwrap"><table class="cut">';
+    h+='<div class="cgrp"><div class="cgrp-h"><div><div class="s">'+esc(g.stoff)+'</div><div class="small">'+esc(info)+'</div></div><div class="sum">'+sum+'</div></div>'+(g.gedreht?'<div class="drehline" style="margin:0;border-radius:0;border-width:0 0 2px">⟳ STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden</div>':'')+
+      (g.resteTxt?'<div class="small" style="padding:6px 12px;border-bottom:1px solid var(--line)"><b>Übrige Reste</b> (für andere Aufträge aufheben): '+esc(g.resteTxt)+'</div>':'')+'<div class="tblwrap"><table class="cut">';
     if(g.ware==='bahn'){
-      h+='<tr><th>Erledigt</th><th>Pos. / Nähzettel</th><th class="n">Bahnen</th><th class="n">Schnittlänge</th><th>Halbieren</th><th class="n">Teile</th><th>je Schal</th><th class="n">Stoff gesamt</th></tr>';
+      h+='<tr><th>Erledigt</th><th>Pos. / Nähzettel</th><th class="n">Bahnen</th><th class="n">Schnittlänge</th><th>Halbieren / Streifen</th><th class="n">Teile</th><th>je Schal</th><th class="n">Stoff gesamt</th></tr>';
       g.rows.forEach(r=>{h+='<tr class="'+(r.done?'done':'')+'"><td class="cutchk"><label><input type="checkbox" data-cut="'+r.i+'"'+(r.done?' checked':'')+'> geschnitten</label><label><input type="checkbox" data-naeh="'+r.i+'"'+(r.genaeht?' checked':'')+'> genäht</label></td><td><span class="tag">Pos. '+(r.i+1)+'</span> '+esc(r.name)+(S.pos[r.i]&&S.pos[r.i].ca?'<span class="cabadge">CA.-MASS</span>':'')+'</td><td class="n">'+r.bahnen+'</td><td class="n">'+cm(r.schnitt)+'</td><td>'+
-        (()=>{const rt=restText(r),hv=r.halbieren?'<span class="half">'+r.halbieren+(r.halbieren>1?' Bahnen':' Bahn')+' → '+r.halbe+' halbe</span>':'';
+        (()=>{const rt=restText(r),hv=r.streifenTxt?'<span class="half">'+esc(r.streifenTxt)+'</span>'+r.stPlan.map(t=>'<div class="small">'+esc(t)+'</div>').join(''):(r.halbieren?'<span class="half">'+r.halbieren+(r.halbieren>1?' Bahnen':' Bahn')+' → '+r.halbe+' halbe</span>':'');
           return (hv+(rt?(rt.includes('♻')?'<div><span class="restchip">'+esc(rt)+'</span></div>':'<div class="small">'+esc(rt)+'</div>'):''))||'–';})()+'</td><td class="n">'+r.teile+'</td><td>'+esc(r.jeSchal)+(r.halbSeite?'<div class="small">halbe Bahn '+esc(r.halbSeite)+'</div>':'')+'</td><td class="n"><b>'+m(r.stoffCm)+'</b></td></tr>';});
     } else {
       h+='<tr><th>Erledigt</th><th>Pos. / Nähzettel</th><th class="n">Zuschnitte</th><th class="n">Breite</th><th class="n">Höhe</th><th class="n">Stoff gesamt</th></tr>';
@@ -2007,12 +2124,13 @@ function zuschnittText(){
   zuschnittGruppen().forEach(g=>{
     out.push('','='.repeat(56),'STOFF: '+g.stoff,gruppeText(g).replace(' · ',', ')+' '+cm(g.sb)+(g.rap?', Rapport '+cm(g.rap):'')+'   ·   Stoff gesamt '+m(g.stoffCm));
     if(g.gedreht)out.push('!!! STOFF DREHEN – Höhenware quer verarbeiten, als Bahnen schneiden');
+    if(g.resteTxt)out.push('Übrige Reste: '+g.resteTxt);
     out.push(g.ware==='bahn'?'Gesamt: '+g.bahnen+' Bahnen schneiden → '+g.teile+' Teile':'Gesamt: '+g.zuschnitte+' Zuschnitte');
     if(g.sparBahnen)out.push('♻ Resteverwertung: '+g.sparBahnen+(g.sparBahnen===1?' Bahn':' Bahnen')+' weniger schneiden ('+m(g.sparCm)+' gespart)');
     out.push('-'.repeat(56));
     g.rows.forEach(r=>{const mk=r.done?'[x]':'[ ]';
       if(g.ware==='bahn'){let t=mk+' Pos. '+(r.i+1)+'  '+r.name+': '+r.bahnen+(r.bahnen===1?' Bahn':' Bahnen')+' × '+cm(r.schnitt);
-        if(r.halbieren)t+=', davon '+r.halbieren+' halbieren → '+r.halbe+' halbe';const rt=restText(r);if(rt)t+=' ('+rt+')';
+        if(r.halbieren)t+=', davon '+r.halbieren+' halbieren → '+r.halbe+' halbe';if(r.streifenTxt)t+=', '+r.streifenTxt+(r.stPlan.length?' ['+r.stPlan.join('; ')+']':'');const rt=restText(r);if(rt)t+=' ('+rt+')';
         t+='  = '+r.teile+' Teile (je Schal '+r.jeSchal+(r.halbSeite?', halbe Bahn '+r.halbSeite:'')+')  ·  Stoff '+m(r.stoffCm);out.push(t);}
       else out.push(mk+' Pos. '+(r.i+1)+'  '+r.name+': '+r.zuschnitte+' Zuschnitte '+cm(r.breite)+' × '+cm(r.schnitt)+'  ·  Stoff '+m(r.stoffCm));});
   });
@@ -2496,7 +2614,7 @@ const QR=(()=>{
 
 /* ---------- Montage-Etiketten ---------- */
 const n1=x=>Math.round((+x||0)*10)/10;
-function etikettObj(A,i,q,r){const o={k:A.kunde||'',a:A.nr||'',p:i+1,e:(q.bereich||'').trim(),t:q.name||'Fenster',s:r.schals,q:r.stk,b:n1(r.fertigB),h:n1(r.hoeheFertig),w:n1(num(q.schiene))};
+function etikettObj(A,i,q,r){const o={k:A.kunde||'',a:A.nr||'',p:i+1,e:bOf(q).replace(/ › /g,' · '),t:q.name||'Fenster',s:r.schals,q:r.stk,b:n1(r.fertigB),h:n1(r.hoeheFertig),w:n1(num(q.schiene))};
   if(r.gleiter)o.g=r.glName;if(A.montage)o.m=dDE(A.montage);
   if(q.montageart)o.ma=({decke:'Decke',wand:'Wand',nische:'Nische / Laibung'}[q.montageart]||q.montageart)+(num(q.abstand)?' · Abstand '+String(n1(num(q.abstand))).replace('.',',')+' cm':'');if((q.bem||'').trim())o.r=q.bem.trim().slice(0,60);
   for(const k of Object.keys(o))if(o[k]===''||o[k]==null)delete o[k];return o;}
@@ -2624,7 +2742,7 @@ function renderAufmass(){const A=S.auftrag,RS=calcAll(),el=document.getElementBy
   let h='<article class="am"><div class="sheet-head"><div class="hl">'+(logoSrc()?'<img class="sheet-logo" src="'+logoSrc()+'" alt="Logo">':'')+'<div><div class="lbl">'+esc(A.betrieb||'Raumausstattung')+'</div><div class="t">Aufmaß</div></div></div>'+
     '<div class="meta"><span>Kunde</span><b>'+esc(A.kunde||'—')+'</b>'+(A.kundeAdresse?'<span>Adresse</span><span>'+esc(A.kundeAdresse)+'</span>':'')+'<span>Auftrag</span><b>'+esc(A.nr||'—')+'</b><span>Datum</span><span>'+dDE(A.datum)+'</span>'+(A.montage?'<span>Montage am</span><b>'+dDE(A.montage)+'</b>':'')+'</div></div>';
   const multiA=bMulti();
-  S.pos.forEach((q,i)=>{const r=RS[i];if(multiA&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">Bereich: '+esc(bLabel(bOf(q)))+'</div>';const kv=[['Deckbreite',cm(num(q.schiene))],
+  S.pos.forEach((q,i)=>{const r=RS[i];if(multiA&&(i===0||bOf(q)!==bOf(S.pos[i-1])))h+='<div class="bhead">'+esc(bLabel(bOf(q)))+'</div>';const kv=[['Deckbreite',cm(num(q.schiene))],
       [(q.hmode||'fertig')==='fertig'?'Fertighöhe':'Höhe gemessen',(q.hmode||'fertig')==='fertig'?cm(r.hoeheFertig):cm(num(q.hmass))+' ('+HMODES_SHORT[q.hmode]+')'],
       ...((q.hmode||'fertig')!=='fertig'?[['Fertighöhe',cm(r.hoeheFertig)]]:[]),
       ['Aufteilung',r.schals+(r.schals===1?' Schal':' Schals')+(r.stk>1?' · '+r.stk+' Stück':'')],
@@ -2669,7 +2787,7 @@ function laserNotify(e){const dv=e.target.value,m=laserParse(dv);
   const by=new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength),hex=[...by].map(x=>x.toString(16).padStart(2,'0')).join(' ');
   laser.raw=hex;if(by.length>3&&!(by[0]===0xC0&&by[1]===0x55&&by[2]<0x05))laserBar('Laser-Daten (unbekannt): <code>'+hex+'</code>',true);}
 async function laserConnect(){
-  if(!navigator.bluetooth){laserBar('Dieser Browser kann kein Bluetooth. Am Surface die App in <b>Microsoft Edge</b> öffnen, am iPad im Browser <b>Bluefy</b>.',true);return;}
+  if(!navigator.bluetooth){laserBar('Dieser Browser kann kein Bluetooth. Am Surface die App in <b>Microsoft Edge</b> öffnen, am Android-Gerät in <b>Google Chrome</b>, am iPad im Browser <b>Bluefy</b>.',true);return;}
   if(laser.dev&&laser.dev.gatt.connected){laser.dev.gatt.disconnect();return;}
   try{
     const dev=await navigator.bluetooth.requestDevice({filters:[{namePrefix:'GLM'},{services:[GLM_SERVICE]}],optionalServices:[GLM_SERVICE]});
@@ -2870,7 +2988,10 @@ fillForm();render();applyKbdMode();showSaved();
 </script>
 
 <script>
-if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
+if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
+  /* neue Fassung geladen -> einmal neu laden, damit sie sofort gilt */
+  if(navigator.serviceWorker.controller){let done=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(done)return;done=true;try{if(typeof save==='function')save();}catch(e){}location.reload();});}
+}
 </script>
 </body>
 </html>

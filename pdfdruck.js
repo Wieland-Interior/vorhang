@@ -110,6 +110,12 @@
       var stage = stageFor(o.root, widthPx);
       return waitImages(stage).then(function () {
         var pts = breakPoints(stage, o.avoid || 'section,article,tr,.bhead,.cgrp,.blk,.am-pos,.pos,figure,h2,h3');
+        var forced = [];                                    // feste Seitenwechsel (z. B. jede Position neue Seite)
+        if (o.breakBefore) {
+          var st0 = stage.getBoundingClientRect().top;
+          stage.querySelectorAll(o.breakBefore).forEach(function (e) { var t = e.getBoundingClientRect().top - st0; if (t > 1) forced.push(t); });
+          forced.sort(function (a, b) { return a - b; });
+        }
         return window.html2canvas(stage, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false, windowWidth: widthPx }).then(function (cv) {
           stage.remove();
           var k = cv.width / widthPx;                    // Canvas-Pixel je CSS-Pixel
@@ -118,7 +124,10 @@
           var y = 0, first = true;
           while (y < total - 1) {
             var end = Math.min(total, y + pagePx);
-            if (end < total) {                              // passende Bruchstelle suchen
+            var fb = null;
+            for (var fi = 0; fi < forced.length; fi++) if (forced[fi] > y + 1 && forced[fi] <= end) { fb = forced[fi]; break; }
+            if (fb) end = fb;
+            else if (end < total) {                         // passende Bruchstelle suchen
               var best = null;
               for (var i = 0; i < pts.length; i++) if (pts[i] > y + pagePx * 0.35 && pts[i] <= end) best = pts[i];
               if (best) end = best;

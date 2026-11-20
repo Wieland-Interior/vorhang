@@ -32,8 +32,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.4 system-ui,-
 .lbl.hoch .qrw{flex-direction:row;align-items:flex-end;gap:3mm;margin-top:auto}
 .lbl.hoch .qrw small{max-width:30mm}
 .lbl .pos{font-size:1.35em;font-weight:800;line-height:1.1;min-width:0}
-.lbl .pr{display:flex;align-items:center;gap:2mm}
-.lbl .ber{flex:0 0 auto;border:.7mm solid #000;border-radius:1.2mm;padding:.3mm 2mm .6mm;font-size:1.9em;font-weight:900;line-height:1;text-align:center}
+.lbl .pr{display:flex;flex-direction:column;align-items:flex-start;gap:1mm;margin-top:.6mm}
+.lbl .ber{flex:0 0 auto;max-width:100%;border:.7mm solid #000;border-radius:1.2mm;padding:.3mm 2mm .6mm;font-size:1.9em;font-weight:900;line-height:1.05;text-align:left;overflow-wrap:anywhere}
+.lbl .pr .pos{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .lbl .ber small{display:block;font-size:.3em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4mm}
 .lbl.hoch .ber{font-size:2.3em;border-width:.9mm}
 .lbl .sch{display:inline-block;align-self:flex-start;border:.5mm solid #000;color:#000;font-weight:800;padding:0 1.6mm;border-radius:1mm;font-size:1.1em}
@@ -151,7 +152,7 @@ function labelHtml(o,schal,stueck,sz){
   const sch=(schal!=null?(o.s===2?(schal===0?'◀ links':'rechts ▶'):(o.s>2?'Schal '+(schal+1)+' von '+o.s:'')):'')+(stueck?(schal!=null&&o.s>1?' · ':'')+'Stück '+stueck:'');
   return '<div class="lbl'+(h<45?' klein':'')+(hoch?' hoch':'')+'" style="--w:'+w+'mm;--h:'+h+'mm;--s:'+s+';--q:'+q+'mm"><div class="tx">'+
     '<div class="kd">'+esc(o.k||'—')+'</div>'+(o.a?'<div class="top">Auftrag '+esc(o.a)+'</div>':'')+
-    '<div class="pr">'+(o.e?'<div class="ber"><small>Bereich</small>'+esc(o.e)+'</div>':'')+'<div class="pos">Pos. '+esc(o.p)+(o.t?' · '+esc(o.t):'')+'</div></div>'+
+    '<div class="pr">'+(o.e?'<div class="ber"><small>'+(o.e.indexOf(' · ')>=0?'Bereich · Raum':'Bereich')+'</small>'+esc(o.e)+'</div>':'')+'<div class="pos">Pos. '+esc(o.p)+(o.t?' · '+esc(o.t):'')+'</div></div>'+
     (sch?'<div class="sch">'+esc(sch)+'</div>':'')+
     '<div class="mt">'+(o.w?'<span>Deckbreite</span><b>'+fmt(o.w)+' cm</b>':'')+(o.h?'<span>Fertighöhe</span><b>'+fmt(o.h)+' cm</b>':'')+'</div>'+
     '<div class="anz"><b>'+o.s+(o.s===1?' Schal':' Schals')+'</b>'+(o.b?' <span>je '+fmt(o.b)+' cm breit</span>':'')+(o.q>1?' <b>· '+o.q+' Stück</b>':'')+'</div>'+
