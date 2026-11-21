@@ -320,12 +320,13 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .am-pos h3{margin:0 0 6px;font-size:1.05rem}
 .am-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 @media (max-width:640px){.am-grid{grid-template-columns:1fr}}
-.am-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:.9rem}
+.am-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:.9rem;align-content:start;align-self:start}
 .am-kv span{color:var(--muted)}
 .am-sk{border:1px solid var(--line);border-radius:4px;background:#fff;min-height:60px}
 .am-sk svg{width:100%;height:auto;display:block}
 .am-fotos{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.am-fotos img{display:block;height:48mm;max-width:86mm;object-fit:cover}
+.am-fotos img{display:block;height:48mm;max-width:100%;object-fit:cover}
+.am-grid>div:last-child .am-fotos:first-child{margin-top:0}
 .mf{position:relative;margin:0;border-radius:3px;border:1px solid var(--line);overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .mf figcaption,.fotobig .cap{position:absolute;left:0;right:0;bottom:0;background:rgba(27,35,49,.84);color:#fff;font-size:7.5pt;font-weight:700;line-height:1.25;padding:3px 5px}
 .fotobig .fb{position:relative;max-width:100%}.fotobig .fb img{display:block}.fotobig .cap{font-size:15px;padding:8px 12px;border-radius:0 0 6px 6px}
@@ -366,6 +367,8 @@ tr.sum td{font-weight:700;border-top:2px solid var(--ink)}
 .stoffline{background:var(--c5s);border-left:4px solid var(--c5);border-radius:4px;padding:6px 10px;display:flex;align-items:center;gap:10px}
 .stoffimg{width:84px;height:60px;object-fit:cover;border-radius:4px;border:1px solid var(--c5);flex:0 0 auto;background:var(--paper)}
 .cgrp-h .stoffimg{width:76px;height:54px;align-self:center}
+.fotofehlt{border:2px dashed #c2410c;color:#c2410c;border-radius:4px;padding:8px 10px;font-size:.85rem;max-width:320px}
+.sbrow a.link{color:var(--ink);text-decoration:none;font-weight:600}
 .sbrow{display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
 .sbrow .sbthumb{width:64px;height:46px;border-radius:4px;border:1px solid var(--line);background:var(--paper) center/cover no-repeat;display:grid;place-items:center;color:var(--muted);font-size:1.2rem;cursor:pointer}
 @media print{.stoffimg{width:22mm;height:16mm}.cgrp-h .stoffimg{width:20mm;height:14mm}}
@@ -1014,17 +1017,35 @@ const posTitle=q=>[(q.bereich||'').trim(),(q.raum||'').trim()].filter(Boolean).m
 function stoffBild(q){if(q.stoffBild)return q.stoffBild;const k=String(q.stoff||'').trim().toLowerCase();if(!k)return '';
   const o=S.pos.find(x=>x.stoffBild&&String(x.stoff||'').trim().toLowerCase()===k);return o?o.stoffBild:'';}
 let sbSig='';
-function renderStoffBild(force){const el=document.getElementById('sbRow');if(!el)return;const p=cur(),fid=stoffBild(p),sig=fid+'|'+(p.stoffBild||'')+'|'+S.sel;
+function sbQuery(p){const st=String(p.stoff||'').trim();let lf='';try{const a=(typeof vdArt==='function'&&VD&&p.stoffArt)?vdArt(p.stoffArt):null;lf=String((a&&a.lieferant)||'').trim();}catch(e){}
+  if(lf&&st.toLowerCase().includes(lf.toLowerCase()))lf='';return [lf,st].filter(Boolean).join(' ');}
+function sbSearchUrl(p){return 'https://www.google.com/search?tbm=isch&q='+encodeURIComponent(sbQuery(p));}
+async function sbSetBlob(blob){try{const uri=await resizeToJpeg(blob,1000),id=newId('f');await FDB.put(id,uri);
+    const p2=cur(),k=String(p2.stoff||'').trim().toLowerCase();S.pos.forEach(q=>{if(q===p2||(k&&String(q.stoff||'').trim().toLowerCase()===k))q.stoffBild=id;});
+    S.isSample=false;save();renderStoffBild(true);render();if(typeof syncSoon==='function')syncSoon();}catch(err){alertBox('Dieses Bild konnte nicht übernommen werden.');}}
+/* Strg+V / Einfügen außerhalb eines Eingabefeldes auf der Berechnen-Seite: Bild als Stoffbild */
+document.addEventListener('paste',e=>{const t=e.target;if(t&&(t.matches&&t.matches('input,textarea,select')||t.isContentEditable))return;
+  if((S.view||'calc')!=='calc')return;const f=[...(e.clipboardData&&e.clipboardData.files||[])].find(x=>x.type.startsWith('image/'));if(!f)return;e.preventDefault();sbSetBlob(f);});
+function renderStoffBild(force){const el=document.getElementById('sbRow');if(!el)return;const p=cur(),fid=stoffBild(p),sig=fid+'|'+(p.stoffBild||'')+'|'+S.sel+'|'+sbQuery(p);
   if(sig===sbSig&&!force)return;sbSig=sig;
   const info=fid&&!p.stoffBild?'Bild vom gleichen Stoff einer anderen Position':fid?'gilt für alle Positionen mit diesem Stoff':'Foto vom Stoffmuster für Nähzettel und Zuschnittliste';
   el.innerHTML='<span class="sbthumb" '+(fid?'data-foto="'+esc(fid)+'"':'')+' title="Stoffbild">'+(fid?'<span>…</span>':'🖼')+'</span>'+
     '<label class="photo-btn">'+(fid?'Stoffbild ändern':'📷 Stoffbild hinzufügen')+'<input type="file" accept="image/*" id="sb_file" hidden></label>'+
-    (p.stoffBild?'<button type="button" class="link" id="sb_del">entfernen</button>':'')+'<span class="small muted">'+info+'</span>';
+    (p.stoffBild?'<button type="button" class="link" id="sb_del">entfernen</button>':'')+
+    '<button type="button" class="link" id="sb_paste">📋 Bild einfügen</button>'+
+    '<a class="link" id="sb_search" target="_blank" rel="noopener" href="'+esc(sbSearchUrl(p))+'">🔎 Bild im Internet suchen</a>'+
+    '<span class="small muted" id="sb_info">'+info+'</span>';
   fillFotoImgs(el);
   const th=el.querySelector('.sbthumb');if(fid)th.onclick=()=>fotoBig(fid);
   el.querySelector('#sb_file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const uri=await resizeToJpeg(f,1000),id=newId('f');await FDB.put(id,uri);
       const p2=cur(),k=String(p2.stoff||'').trim().toLowerCase();S.pos.forEach(q=>{if(q===p2||(k&&String(q.stoff||'').trim().toLowerCase()===k))q.stoffBild=id;});
       S.isSample=false;save();renderStoffBild(true);render();if(typeof syncSoon==='function')syncSoon();}catch(err){alertBox('Dieses Bild konnte nicht gelesen werden.');}};
+  el.querySelector('#sb_search').onclick=e=>{if(!sbQuery(cur())){e.preventDefault();alertBox('Bitte zuerst bei „Artikel / Farbe“ den Stoff eintragen (am besten mit Lieferant und Artikelnummer).');return;}
+    document.getElementById('sb_info').textContent='Passendes Bild lange drücken → „Kopieren“ (am PC: Rechtsklick → „Bild kopieren“), dann hier „📋 Bild einfügen“.';};
+  el.querySelector('#sb_paste').onclick=async()=>{let blob=null;
+    try{if(navigator.clipboard&&navigator.clipboard.read){for(const it of await navigator.clipboard.read()){const t=it.types.find(x=>x.startsWith('image/'));if(t){blob=await it.getType(t);break;}}}}catch(e){}
+    if(!blob){alertBox('In der Zwischenablage ist kein Bild (oder das Einfügen wurde nicht erlaubt).\nIm Browser das Bild lange drücken → „Kopieren“ und dann noch einmal „Bild einfügen“ tippen. Alternativ das Bild sichern und über „Stoffbild hinzufügen“ auswählen.');return;}
+    await sbSetBlob(blob);};
   const d=el.querySelector('#sb_del');if(d)d.onclick=()=>{const id=cur().stoffBild;S.pos.forEach(q=>{if(q.stoffBild===id)delete q.stoffBild;});S.isSample=false;save();renderStoffBild(true);render();};}
 const raumKey=r=>String(r||'').trim().toLowerCase().replace(/\d+/g,d=>d.padStart(6,'0'));
 function raumValues(b){b=String(b||'').trim();const same=new Set(),other=new Set();S.pos.forEach(q=>{const r=String(q.raum||'').trim();if(r)((String(q.bereich||'').trim()===b)?same:other).add(r);});
@@ -2726,7 +2747,7 @@ function resizeToJpeg(file,max){return new Promise((res,rej)=>{const rd=new File
   const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.8));};img.src=rd.result;};rd.readAsDataURL(file);});}
 async function fillFotoImgs(root){for(const el of root.querySelectorAll('[data-foto]')){const v=await FDB.get(el.dataset.foto);
   if(el.tagName.toLowerCase()==='image'){if(v)el.setAttribute('href',v);}
-  else if(el.tagName==='IMG'){if(v)el.src=v;else el.alt='Foto noch nicht abgeglichen';}else{if(v){el.style.backgroundImage='url("'+v+'")';const sp=el.querySelector('span');if(sp)sp.remove();}}}}
+  else if(el.tagName==='IMG'){if(v)el.src=v;else if(el.closest('.mf,figure')&&!el.classList.contains('stoffimg')){const d=document.createElement('div');d.className='fotofehlt';d.textContent='📷 Foto ist auf diesem Gerät noch nicht angekommen – bitte anmelden und den Abgleich abwarten, dann neu drucken.';el.replaceWith(d);}else el.alt='Foto noch nicht abgeglichen';}else{if(v){el.style.backgroundImage='url("'+v+'")';const sp=el.querySelector('span');if(sp)sp.remove();}}}}
 let amSig='';
 function renderAufmassCard(force){const p=cur();if(!p)return;const g=document.getElementById('fotoGrid'),sk=document.getElementById('skPrev');
   const ids=p.fotos||[];const sig=S.sel+'|'+ids.join(',')+'|'+JSON.stringify(p.skizze||'')+'|'+p.montageart+'|'+p.abstand+'|'+massTexte(p).join('|');
@@ -2774,8 +2795,8 @@ function renderAufmass(){const A=S.auftrag,RS=calcAll(),el=document.getElementBy
       ...(schKurz(q)?[['Schiene',schKurz(q)]]:[]),
       ['Stoff',(q.stoff||'—')],['Kopf',r.bandName||r.kopfLabel||''],...(r.gleiter?[['Gleiter',r.glName]]:[]),...(q.bem?[['Bemerkung',q.bem]]:[])];
     h+='<section class="am-pos"><h3>Pos. '+(i+1)+' · '+esc(posTitle(q))+(q.ca?'<span class="cabadge">ca.-Maß</span>':'')+'</h3><div class="am-grid"><div class="am-kv">'+kv.map(([k,v])=>'<span>'+esc(k)+'</span><b>'+esc(v)+'</b>').join('')+'</div>'+
-      '<div>'+(hasSk(q.skizze)?'<div class="am-sk">'+strokesSvg(q.skizze,null,massTexte(q))+'</div>':'')+'</div></div>'+
-      ((q.fotos||[]).length?'<div class="am-fotos">'+q.fotos.map(id=>'<figure class="mf"><img data-foto="'+esc(id)+'" alt="Foto"><figcaption>'+esc(fotoLeiste(q,i))+'</figcaption></figure>').join('')+'</div>':'')+'</section>';});
+      '<div>'+(hasSk(q.skizze)?'<div class="am-sk">'+strokesSvg(q.skizze,null,massTexte(q))+'</div>':'')+
+      ((q.fotos||[]).length?'<div class="am-fotos">'+q.fotos.map(id=>'<figure class="mf"><img data-foto="'+esc(id)+'" alt="Foto"><figcaption>'+esc(fotoLeiste(q,i))+'</figcaption></figure>').join('')+'</div>':'')+'</div></div></section>';});
   if((A.plissee||[]).length)h+='<section class="am-pos"><h3>Plissees</h3><div class="am-kv">'+A.plissee.map((p,i)=>'<span>'+esc(plTitle(p,i))+'</span><b>'+(plStk(p)>1?plStk(p)+' × ':'')+esc(plLabel(PL_TYPEN,p.typ).split(' (')[0]+' · gemessen '+cm(num(p.b))+' × '+cm(num(p.h))+' ('+plLabel(PL_MESSART,p.messart)+') · '+plLabel(PL_MONTAGE,p.montage)+' · '+(p.stoff||'Stoff offen'))+'</b>').join('')+'</div></section>';
   const u=A.unterschrift;
   h+='<div class="am-sign"><div><small>Die Maße wurden gemeinsam geprüft und sind so freigegeben.</small><div class="sg">'+(u&&u.s?strokesSvg(u,'#11306b'):'')+'</div>'+

@@ -383,3 +383,8 @@ Das Bild gilt automatisch für alle Positionen mit dem gleichen Stoffnamen und e
   - auf dem Nähzettel in der Stoff-Zeile jeder Position,
   - in der Zuschnittliste im Kopf des Stoffblocks.
 Das Bild wird wie die Aufmaß-Fotos mit den anderen Geräten abgeglichen.
+Aufmaßblatt: Fehlt ein Foto auf dem Gerät, auf dem gedruckt wird (noch nicht abgeglichen), steht an seiner Stelle ein roter Hinweis statt einer Lücke.
+Aufmaßblatt: Skizze und Fotos stehen rechts untereinander, die Angaben links.
+Stoffbild aus dem Internet: "🔎 Bild im Internet suchen" öffnet die Google-Bildersuche mit Lieferant (aus Vendoc) und Artikel.
+Passendes Bild kopieren (PC: Rechtsklick → "Bild kopieren", iPad: lange drücken → "Kopieren") und im Programm "📋 Bild einfügen" tippen
+(am PC geht auch Strg+V auf der Seite Berechnen). Bitte nur Bilder verwenden, die Sie verwenden dürfen.
